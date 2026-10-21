@@ -77,6 +77,13 @@ The public are the messengers. A phone that joins one panel picks up what that p
 - **Cheating:** blocks are sealed and signed by panels, so they cannot be invented; replaying a block earns nothing after the first delivery; and the panel's own clock, not the phone's, stamps the time.
 - **Racing to be first:** that is the point. Blocks sealed at sunset can be delivered from dawn, so the first receipts of the day go to whoever reaches the next panel first in the morning.
 
+**The passport**
+
+- **Each panel has its own mark:** a 5 × 5 pixel square, different for every panel, like a stamp. The same mark is on the panel's wall plate, in the tone's ring of nine, and on its receipts.
+- **The visitor's page is a passport:** nine empty boxes, one per panel. A successful first delivery fills that panel's box with its mark. Nine filled boxes on the same day is a **whole day**, and earns a page of its own.
+- **Each receipt can be saved as an image:** the panel's mark, the date, the block, and the receipt itself encoded in the image (a small code beside the stamp, or in the image file's text fields), so **the picture is the proof**. Saved to the phone's photos, receipts outlive browser storage, and the redeem layer can read them straight from the image. (Some phones' Wi-Fi pop-up windows cannot save files; saving may need a full browser, as with SUNDIAL's downloads.)
+- **Rules for the marks:** nine shapes that are easy to tell apart at a glance and at stamp size; possibly mirror-symmetric, like simple identicons; printable in one colour.
+
 **The redeem layer (separate, not part of this work):** reads receipts from the chain or a visitor's saved file, checks them against the panels' public keys, and pays the symbolic sat by Lightning or ecash wherever there is internet. Its rules on giving away bitcoin in Italy are its own question.
 
 ## Building on SUNDIAL
