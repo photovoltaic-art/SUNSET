@@ -47,6 +47,26 @@ The public are the messengers. A phone that joins one panel picks up what that p
 
 **What it may change:** if people can carry the network, **the radio between panels becomes optional**: an accelerator where links reach, not a requirement. A people-powered GO TO BED could run on hardware close to the SUNDIAL carrier, with the radio added later or only where walls can hear each other.
 
+## Accounting layer: a sat per delivery (later, optional)
+
+An idea to keep apart from the core work: each time a carrier brings a panel a block it did not have, the carrier earns a sat.
+
+**The difficulty:** the panels are offline, so no payment can settle at the moment of delivery. The answer is to **account offline and settle later**, in two steps:
+
+1. **Receipts (offline, no money):** the panel signs a small receipt: *this phone's temporary key delivered block B to panel P at time T.* The phone keeps its receipts in browser storage, like stamps in a pilgrim's passport: one per panel, per new block. This works with no internet and no money, and is worth building even on its own.
+2. **Settlement (online, later, optional):** receipts are redeemed for sats wherever there is internet, through a Lightning or ecash (Cashu) wallet; for example a page on the website, or a partner in town. Alternatively, each panel could hold a small float of pre-minted ecash, loaded on the round, and hand over a token with each receipt; the visitor redeems it later in any Cashu wallet.
+
+**Rules that keep it honest:**
+
+- **Only new blocks count:** a panel pays only for sealed blocks it did not already hold. Blocks are sealed by the panels themselves at bedtime, so visitors cannot manufacture them; walking back and forth between two panels earns nothing after the first trip.
+- **The incentive points the right way:** stale, outlying panels lack the most blocks, so they pay the most. The money rewards exactly the walks that heal the imbalance.
+- **A cap per phone per day**, and a fixed total per day: the most the network can ever pay is the number of new blocks it can absorb.
+- **A small float:** a panel holding ecash is a small wallet on a wall; keep the float symbolic, so losing a box loses little.
+
+**Questions:** who funds the sats (PVA, sponsors, the town)? Does money change why people take part, from play to farming? Should amounts stay symbolic (one sat) so the receipt matters more than the value? The rules on giving away bitcoin from a public artwork in Italy need checking before step 2.
+
+**Order:** receipts first, as part of the work; settlement only after an event has shown how people carry.
+
 ## Building on SUNDIAL
 
 - **Same principles** ([MANIFESTO](../MANIFESTO.md)): the panel powers only itself; offline by nature; the work keeps no one; slow.
