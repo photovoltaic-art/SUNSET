@@ -110,6 +110,20 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 - **Replies.** Every message has an address: its panel, day and place in that day's block, e.g. `7/2027-07-13#4`. Tap a message, tap reply; the reply carries that address and the page shows the original above it, or "not here yet" if no one has carried it this far. Threads cross the town one night per hop.
 - **Reading happens at a panel.** A plain-`http` page cannot install itself for offline use, so the words travel in the phone but are read standing at a wall, in daylight.
 
+## Forgetting
+
+**The network forgets; people may not.** Forgetting is a feature of the work, not a gap in it.
+
+- **Panels** drop every block after 7 days. The chain fades with it: each block holds only the fingerprint of the one before.
+- **Phones:** the page drops blocks older than 3 days each time it opens at a panel.
+- **Receipts and passports** hold no words: a panel, a block ID, a time, a secret.
+- **The redeem layer keeps no words.** The panel's seal covers a fingerprint of the day's messages, not the messages themselves ([format](gtb/FORMAT.md)). So the record of who delivered what stays provable from block headers alone, and the words can go. The test bed checks this: every block and every receipt verified with the words removed.
+- **Panel flash:** the firmware overwrites a block's file before deleting it, so a panel taken off the wall gives up no more than its last 7 days.
+
+**What the work cannot promise, and says so:**
+- **A phone forgets only when the page runs.** A phone that visits once and never returns keeps its last blocks until the browser clears them (Safari after about 7 days without a visit; other browsers may keep them longer).
+- **People can copy.** A screenshot, a saved page, a walker with a script. Nothing in the work keeps anything; it cannot stop a person keeping something.
+
 ## Building on SUNDIAL
 
 - **Same principles** ([MANIFESTO](../MANIFESTO.md)): the panel powers only itself; offline by nature; the work keeps no one; slow.
@@ -131,6 +145,7 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 | 9 | Identity | None (level 0), or a name typed into the message (level 1). Don't trust anything that is written |
 | 10 | Moderation | None. Messages fade after 3 days on phones, 7 on panels |
 | 11 | Replies | A message can reply to another by its address, `panel/day#n` ([format](gtb/FORMAT.md)) |
+| 12 | Forgetting | A feature. All words gone from the network after 7 days at most; the redeem layer keeps block headers only, no words |
 
 ## Technical direction
 
@@ -142,7 +157,7 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 
 ## What the test bed shows (simulated, invented town)
 
-Three scenarios, one week each, nine panels, a quarter of messages replying to earlier ones, six attacks checked ([details](gtb/testbed/README.md)):
+Three scenarios, one week each, nine panels, a quarter of messages replying to earlier ones, six attacks checked, and a check with the words removed ([details](gtb/testbed/README.md)):
 
 | | Busy | Quiet | Sparse |
 | --- | --- | --- | --- |
@@ -151,12 +166,13 @@ Three scenarios, one week each, nine panels, a quarter of messages replying to e
 | Receipts (first deliveries) | 408 | 265 | 163 |
 | Typical delay, bedtime to another panel | 14 h | 21 h | 38 h |
 | Whole days | 3 | 1 | 0 |
-| Largest block | 4.7 KB | 3.3 KB | 2.4 KB |
-| Most a walking phone carried | 89 KB | 30 KB | 19 KB |
+| Largest block | 4.7 KB | 3.4 KB | 2.5 KB |
+| Most a walking phone carried | 91 KB | 32 KB | 20 KB |
 
 - **Sizes are comfortably inside the limits** in every scenario: blocks under 5 KB against a 16 KB limit; a phone carries under 100 KB.
 - **The busy town saturates:** every panel up to date within a day. The 60-message block limit is reached at the centre.
 - **The quiet town shows the imbalance the work is about:** central panels stay partly fresh; outlying panels fall to zero for days, and a single whole round lifts the whole town at once.
+- **Headers alone are enough:** with every word removed, all blocks and receipts still check.
 - **All six attacks fail:** altered message, forged secret, redeeming twice, a fake panel, a stolen panel key whose receipts are not in the chain, and a reply pointing at a message not yet written.
 
 ## Open questions

@@ -3,8 +3,8 @@ visitors served: 405  (walkers who reached a panel already asleep: 2)
 messages written: 426  (replies: 100; refused, block full: 0)
 walkers: 60  whole rounds tried: 1  whole days: 1 ['2027-07-13']
 first deliveries = receipts issued: 265  (max possible 432)
-block size: median 994 B, max 3278 B (limit 16384 B)
-phone storage when walking: median 19743 B, max 29926 B
+block size: median 1068 B, max 3352 B (limit 16384 B)
+phone storage when walking: median 20927 B, max 31530 B
 delay from bedtime to arrival elsewhere: median 20.8 h, 90% 61.5 h
 freshness at bedtime (other panels whose latest block it holds, of 8), by day:
   panel 1 (centre): [0, 7, 3, 4, 5, 3, 5]

@@ -1,6 +1,6 @@
 # GO TO BED — block and receipt format, v0
 
-*Draft, 21 Oct 2026 (revised the same day: replies). Sized for simple, failsafe operation on the SUNDIAL carrier's ESP32 (no PSRAM, ~2 MB of storage).*
+*Draft, 21 Oct 2026 (revised the same day: replies; the seal covers a fingerprint of the words, so they can fade). Sized for simple, failsafe operation on the SUNDIAL carrier's ESP32 (no PSRAM, ~2 MB of storage).*
 
 Plain JSON. Every number below is a limit the panel enforces; anything over a limit is refused, never truncated.
 
@@ -36,9 +36,10 @@ One block per panel per day, sealed at bedtime.
   "prev": "9f2c…",
   "woke": 1784002800,
   "slept": 1784054100,
-  "messages": [ … ],
+  "msgs": "c81a…",
   "deliveries": [ {"block": "7/2027-07-13", "t": 1784006520, "rcpt": "4b1e…"} ],
-  "sig": "…"
+  "sig": "…",
+  "messages": [ … ]
 }
 ```
 
@@ -50,11 +51,16 @@ One block per panel per day, sealed at bedtime.
 | `seq` | 1 for the panel's first block, then +1 per sealed block (days asleep all day make no block) |
 | `prev` | Fingerprint of this panel's previous block (`""` for the first): the chain |
 | `woke`, `slept` | When the panel woke and went to bed (panel clock) |
-| `messages` | That day's messages written at this panel, oldest first |
+| `msgs` | SHA-256 of `messages` (canonical JSON): the words' fingerprint |
 | `deliveries` | The day's first deliveries to this panel: which block arrived, when, and the **fingerprint** of the receipt's secret |
-| `sig` | The panel's Ed25519 signature over the block without `sig` |
+| `sig` | The panel's Ed25519 signature over the **header**: the block without `sig` and without `messages` |
+| `messages` | That day's messages written at this panel, oldest first. Outside the signature, but bound to it by `msgs` |
 
-**Fingerprint** = SHA-256 of the block as canonical JSON (keys sorted, no spaces, UTF-8), including `sig`. Block ID = `panel/day`, e.g. `7/2027-07-13`.
+**Header** = the block without `messages`. The seal covers the header, and the header covers the words through `msgs`, so changing a word is caught either way.
+
+**Fingerprint** of a block = SHA-256 of its header as canonical JSON (keys sorted, no spaces, UTF-8), including `sig`. The chain (`prev`) uses it, so the chain survives when the words are gone. Block ID = `panel/day`, e.g. `7/2027-07-13`.
+
+**Why:** the words can fade while the record stays provable. Panels and phones carry whole blocks; anyone who needs to check receipts later keeps headers only.
 
 **Limits**
 
@@ -90,6 +96,8 @@ Issued to the first phone that delivers a block new to this panel.
 1. The panel signature is valid (panel public keys are published).
 2. SHA-256(`secret`) appears as `rcpt` in a delivery entry of that panel's block for that day, with the same `block`.
 3. It is not on the public spent list.
+
+The redeem layer keeps **block headers only**, never `messages`. Headers are enough for all three checks.
 
 ## Panel keys
 

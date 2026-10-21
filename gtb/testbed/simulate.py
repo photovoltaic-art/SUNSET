@@ -144,7 +144,7 @@ for day in range(a.days):
     for p in PANELS:
         w, s = awake(p, day)
         seq[p] += 1
-        prev = gtb.fp(chain_last[p]) if chain_last[p] else ""
+        prev = gtb.block_fp(chain_last[p]) if chain_last[p] else ""
         b = gtb.seal_block(keys[p], p, date, seq[p], prev, ts(day, w), ts(day, s),
                            messages_today[p], deliveries_today[p])
         chain_last[p] = b

@@ -14,7 +14,7 @@ python3 verify.py out                       # checks every block and receipt, th
 | --- | --- |
 | `gtb.py` | The format: canonical JSON, Ed25519 signing, sealing blocks, issuing receipts, checks |
 | `simulate.py` | Nine panels waking and sleeping at their own times; visitors write messages and some walk on, carrying sealed blocks; first deliveries earn receipts |
-| `verify.py` | Signatures, chains, limits, reply addresses, every receipt against the chain; then six attacks that must fail |
+| `verify.py` | Signatures, chains, limits, reply addresses, every receipt against the chain; the same again with the words removed (headers only); then six attacks that must fail |
 | `out*/` | Generated: blocks, receipts, panel public keys, `summary.txt`, `freshness.png` (not in git) |
 | `results/` | The three runs' summaries and freshness charts |
 

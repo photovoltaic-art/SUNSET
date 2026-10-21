@@ -36,10 +36,19 @@ def sig_ok(pub, obj):
 def block_id(b):
     return f'{b["panel"]}/{b["day"]}'
 
+def header(b):
+    """The block without its words: what the panel signs, and all a redeem layer needs to keep."""
+    return {k: v for k, v in b.items() if k != "messages"}
+
+def block_fp(b):
+    """A block's fingerprint, used for the chain: SHA-256 of the signed header, so it survives the words."""
+    return fp(header(b))
+
 def seal_block(sk, panel, day, seq, prev, woke, slept, messages, deliveries):
     b = dict(v=0, panel=panel, day=day, seq=seq, prev=prev, woke=woke, slept=slept,
-             messages=messages, deliveries=deliveries)
-    sign(sk, b)
+             msgs=fp(messages), deliveries=deliveries)
+    sign(sk, b)                 # the seal covers the header, including the messages' fingerprint
+    b["messages"] = messages    # the words travel beside the header
     if len(canon(b)) > LIMITS["block_bytes"]:
         raise ValueError(f"block {block_id(b)} too big: {len(canon(b))} bytes")
     return b
@@ -61,11 +70,14 @@ def re_ok(m, b, i):
     return d < b["day"] or (d == b["day"] and p == b["panel"] and n <= i)
 
 def check_block(pub, b, prev_block=None):
+    """Works on a full block or on a header alone (words already faded)."""
     errs = []
-    if not sig_ok(pub, b): errs.append("bad signature")
+    if not sig_ok(pub, header(b)): errs.append("bad signature")
     if prev_block is None and b["seq"] == 1 and b["prev"] != "": errs.append("first block has prev")
-    if prev_block is not None and b["prev"] != fp(prev_block): errs.append("chain broken")
+    if prev_block is not None and b["prev"] != block_fp(prev_block): errs.append("chain broken")
     if len(canon(b)) > LIMITS["block_bytes"]: errs.append("too big")
+    if "messages" not in b: return errs
+    if fp(b["messages"]) != b["msgs"]: errs.append("messages altered")
     if len(b["messages"]) > LIMITS["msgs_per_block"]: errs.append("too many messages")
     if any(len(m["text"]) > LIMITS["text_chars"] for m in b["messages"]): errs.append("message too long")
     if any(not (b["woke"] <= m["t"] <= b["slept"]) for m in b["messages"]): errs.append("message outside awake time")
@@ -74,7 +86,7 @@ def check_block(pub, b, prev_block=None):
     return errs
 
 def check_receipt(pubs, r, blocks_by_id, spent):
-    """blocks_by_id: {(panel, day): block}. Returns (ok, reason)."""
+    """blocks_by_id: {(panel, day): block or header}. Headers are enough. Returns (ok, reason)."""
     if not sig_ok(pubs[r["panel"]], r): return False, "bad panel signature"
     h = hashlib.sha256(bytes.fromhex(r["secret"])).hexdigest()
     found = any(d["rcpt"] == h and d["block"] == r["block"]
