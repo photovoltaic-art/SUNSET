@@ -100,7 +100,9 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 
 **Privacy at redemption:** the redeem layer sees a receipt and a payment destination, nothing else.
 
-**The redeem layer (separate, not part of this work):** reads receipts from the chain or a visitor's saved file, checks them against the panels' public keys, and pays the symbolic sat by Lightning or ecash wherever there is internet. Its rules on giving away bitcoin in Italy are its own question.
+**Spending (decided):** stamps can be **spent** at a specialized node, the first being the auction node, where they buy objects. See Specialized nodes.
+
+**The redeem layer (separate, not part of this work, optional):** reads receipts from the chain or a visitor's saved file, checks them against the panels' public keys, and pays the symbolic sat by Lightning or ecash wherever there is internet. Its rules on giving away bitcoin in Italy are its own question.
 
 ## Whisper and shout
 
@@ -170,6 +172,41 @@ The people at the wall become an audience for the delivery. Watching the ticker 
 - **The day's tally at bedtime,** on the goodnight screen: *today at this wall: 14 arrivals, 3 firsts, 2 whispers shouted to the town.* Counts only, never who.
 - **The one caveat, accepted:** with only two people at a wall, an arrival line points at the person who just walked up. That is no more than seeing someone arrive with a letter, and nothing is recorded. Delaying lines at random would hide it but kill the liveness, so the work does not.
 - **Optional, for the box design:** a small light on the wall, powered by the panel, that pulses once when news arrives, so passers-by without a phone see the network working too.
+
+## Specialized nodes
+
+Most panels are ordinary walls: tone, ticker, whispers, shouts, stamps. **One panel can be given a job.** It runs the same network (it seals, carries and stamps like any other) and adds one thing of its own. The first is the auction node; others will follow.
+
+### The auction node
+
+An **auction in presence**: the objects are real, on show near the wall; **the dashboard is the bidding platform**; the currency is **stamps**.
+
+- **The gallery:** photos of the lots, held on this panel only (about 1 MB of flash: 10–20 images), never carried. Each lot has a short ID, e.g. *A*, *B*. The town hears about the auction through shouts.
+- **Bidding in stamps.** Stamps are earned only by being first to deliver, at most 72 a day across the town. You cannot buy the art with money, only with walking: **proof of walk as the currency.**
+- **No redeem, just spend.** At this node a stamp is spent, not exchanged for anything else. Spent stamps go on the node's spent list; the passport shows them as spent.
+- **How a bid works:**
+  1. The bidder's page offers stamps for a lot. The node checks each one (a valid panel signature; recorded in the chain if the node still holds that block; not spent, not already backing a bid).
+  2. The stamps are **held** by the node against the bid. The ticker calls it: *new high bid on lot A: 9 stamps*.
+  3. **Outbid:** the held stamps are released and can back a new bid.
+  4. **Hammer:** at the close (set by the admin, or bedtime: the sun as hammer), the winning stamps are **spent**. The winner's page shows a collection code: the secret behind a fingerprint recorded in the node's block, like a receipt. Show it, take the object.
+- **One spending node per town** keeps it simple: the spent list lives on that panel, so a stamp cannot be spent twice. The node also writes the day's spent fingerprints into its sealed block, so other walls' passports learn which stamps are gone.
+- **Everyone at the wall watches the bidding** in the ticker and the live room. Whispers are the saleroom chatter.
+
+### Event mode (admin, to add)
+
+The auction node needs an admin, unlike an ordinary wall: to load the gallery, set the lots, open and close bidding. **Event mode** borrows SUNDIAL's admin login (challenge-response, no password sent). Outside an event the node goes back to being an ordinary wall, and the gallery is cleared.
+
+### To settle before building
+
+- **Stamps cross an open Wi-Fi.** The page and the panel talk over plain `http` on an open network, so someone nearby with the right tools could capture a stamp's secret as it is issued or spent. At one symbolic sat that hardly mattered; when stamps buy objects it does. Options: a Wi-Fi password printed on the wall plate with the newer encryption (WPA3), which keeps each phone's traffic private even when everyone knows the password, if the ESP32 supports it in this mode; or spend stamps with a one-time code shown on screen instead of sending the secret. To check on the bench.
+- **The format additions:** held and spent stamps, lots, the spent list in the node's block. Format v0 stays as is until the node is built.
+
+### Other specialized nodes (ideas)
+
+- **A vote node:** an in-presence ballot where each vote costs a stamp. Choices made by those who walked.
+- **A swap node:** objects left and taken, the exchange agreed in whispers, stamps as the deposit.
+- **A gallery node:** a wall that shows images, SUNDIAL-style, alongside the chat.
+- **A radio node:** the one panel with a LoRa link, to a neighbouring village's walls.
 
 ## Messages: no identity, no moderation, replies
 
@@ -241,6 +278,9 @@ The work collects nothing about anyone. No accounts, names, keys, phone IDs, log
 | 15 | Promote | Any whisper, anyone's, can be shouted once; it costs the promoter a shout |
 | 16 | Courier | By default: pickup and delivery automatic, announced in a ticker, bag visible, **empty my bag** to opt out |
 | 17 | Arrival | Every delivery is announced live to everyone at the wall; bedtime tally of counts only; an optional arrival light |
+| 18 | Specialized nodes | A panel can be given a job on top of the network. First: the auction node |
+| 19 | Auction | In presence; the dashboard is the bidding platform; local gallery of the lots; event mode with admin (to add) |
+| 20 | Stamps as currency | Bids are paid in stamps: proof of walk as currency. No redeem, just spend |
 
 ## Technical direction
 
@@ -275,7 +315,9 @@ Three scenarios, one week each, nine panels, a quarter of messages replying to e
 1. **Phones in practice:** does browser storage carry blocks between panels, in the Wi-Fi pop-up and in a full browser, on iPhone and Android? (Carry test.)
 2. **Night:** the concept says sleeping is the point. A battery would break principle 3.
 3. **Capacity:** about 10 phones per panel at once.
-4. **The redeem layer:** separate; who runs it, funding, Italian rules.
+4. **Spend or redeem:** stamps are now spent at the auction node. Does the separate sat redeem layer stay as an option, or go?
+5. **Event-mode admin** for specialized nodes: to add, borrowing SUNDIAL's login.
+6. **Open Wi-Fi and stamp secrets:** see the auction node.
 
 ## Tests, in order
 
