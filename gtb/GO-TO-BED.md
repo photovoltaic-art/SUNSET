@@ -102,6 +102,14 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 
 **The redeem layer (separate, not part of this work):** reads receipts from the chain or a visitor's saved file, checks them against the panels' public keys, and pays the symbolic sat by Lightning or ecash wherever there is internet. Its rules on giving away bitcoin in Italy are its own question.
 
+## Messages: no identity, no moderation, replies
+
+- **No identity.** A message has no author, no key and no account. If someone wants a name, they type it into the message, and anyone can type any name. The panel's seal proves only *where and when* a message was written.
+- **Don't trust anything that is written.** That is the stance of the work, not a gap in it.
+- **No moderation.** Nothing is removed or hidden. Words fade instead: gone from phones after 3 days and from every panel after 7.
+- **Replies.** Every message has an address: its panel, day and place in that day's block, e.g. `7/2027-07-13#4`. Tap a message, tap reply; the reply carries that address and the page shows the original above it, or "not here yet" if no one has carried it this far. Threads cross the town one night per hop.
+- **Reading happens at a panel.** A plain-`http` page cannot install itself for offline use, so the words travel in the phone but are read standing at a wall, in daylight.
+
 ## Building on SUNDIAL
 
 - **Same principles** ([MANIFESTO](../MANIFESTO.md)): the panel powers only itself; offline by nature; the work keeps no one; slow.
@@ -120,6 +128,9 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 | 6 | Hardware | **The SUNDIAL carrier and its ESP32 (ELEGOO 30-pin), unchanged.** Format v0 needs no PSRAM, no Nostr relay and no radio: blocks are a few KB, signatures are light work. An ESP32-S3 is only needed if a later version adds a panel-to-panel radio or a large relay |
 | 7 | Relation to SUNDIAL | New firmware; same carrier board and hardware; its own set of PV panels |
 | 8 | Panels | Nine. PVA works are nine panels |
+| 9 | Identity | None (level 0), or a name typed into the message (level 1). Don't trust anything that is written |
+| 10 | Moderation | None. Messages fade after 3 days on phones, 7 on panels |
+| 11 | Replies | A message can reply to another by its address, `panel/day#n` ([format](gtb/FORMAT.md)) |
 
 ## Technical direction
 
@@ -131,7 +142,7 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 
 ## What the test bed shows (simulated, invented town)
 
-Three scenarios, one week each, nine panels, five attacks checked ([details](gtb/testbed/README.md)):
+Three scenarios, one week each, nine panels, a quarter of messages replying to earlier ones, six attacks checked ([details](gtb/testbed/README.md)):
 
 | | Busy | Quiet | Sparse |
 | --- | --- | --- | --- |
@@ -140,13 +151,13 @@ Three scenarios, one week each, nine panels, five attacks checked ([details](gtb
 | Receipts (first deliveries) | 408 | 265 | 163 |
 | Typical delay, bedtime to another panel | 14 h | 21 h | 38 h |
 | Whole days | 3 | 1 | 0 |
-| Largest block | 4.3 KB | 3.2 KB | 2.4 KB |
-| Most a walking phone carried | 83 KB | 29 KB | 18 KB |
+| Largest block | 4.7 KB | 3.3 KB | 2.4 KB |
+| Most a walking phone carried | 89 KB | 30 KB | 19 KB |
 
 - **Sizes are comfortably inside the limits** in every scenario: blocks under 5 KB against a 16 KB limit; a phone carries under 100 KB.
 - **The busy town saturates:** every panel up to date within a day. The 60-message block limit is reached at the centre.
 - **The quiet town shows the imbalance the work is about:** central panels stay partly fresh; outlying panels fall to zero for days, and a single whole round lifts the whole town at once.
-- **All five attacks fail:** altered message, forged secret, redeeming twice, a fake panel, and a stolen panel key whose receipts are not in the chain.
+- **All six attacks fail:** altered message, forged secret, redeeming twice, a fake panel, a stolen panel key whose receipts are not in the chain, and a reply pointing at a message not yet written.
 
 ## Open questions
 

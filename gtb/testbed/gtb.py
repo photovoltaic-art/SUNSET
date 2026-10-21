@@ -1,5 +1,5 @@
 """GO TO BED format v0: blocks, receipts, signatures, checks (see ../FORMAT.md)."""
-import json, hashlib, os
+import json, hashlib, os, re
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey, Ed25519PublicKey
 from cryptography.hazmat.primitives import serialization
 
@@ -49,6 +49,17 @@ def make_receipt(sk, panel, block, t):
     r = sign(sk, dict(v=0, panel=panel, block=block, t=t, secret=secret))
     return r, hashlib.sha256(bytes.fromhex(secret)).hexdigest()
 
+RE = re.compile(r"^([1-9])/(\d{4}-\d{2}-\d{2})#([1-9]\d?)$")   # reply address: panel/day#n (n from 1)
+
+def re_ok(m, b, i):
+    """A reply may point at any earlier message: an earlier day anywhere, or earlier today at this panel.
+    The panel checks the address only, never that it holds the message."""
+    if "re" not in m: return True
+    x = RE.match(m["re"])
+    if not x or int(x[3]) > LIMITS["msgs_per_block"]: return False
+    p, d, n = int(x[1]), x[2], int(x[3])
+    return d < b["day"] or (d == b["day"] and p == b["panel"] and n <= i)
+
 def check_block(pub, b, prev_block=None):
     errs = []
     if not sig_ok(pub, b): errs.append("bad signature")
@@ -58,6 +69,8 @@ def check_block(pub, b, prev_block=None):
     if len(b["messages"]) > LIMITS["msgs_per_block"]: errs.append("too many messages")
     if any(len(m["text"]) > LIMITS["text_chars"] for m in b["messages"]): errs.append("message too long")
     if any(not (b["woke"] <= m["t"] <= b["slept"]) for m in b["messages"]): errs.append("message outside awake time")
+    if any(not re_ok(m, b, i) for i, m in enumerate(b["messages"])): errs.append("bad reply address")
+    if any(set(m) - {"t", "text", "re"} for m in b["messages"]): errs.append("unknown message field")
     return errs
 
 def check_receipt(pubs, r, blocks_by_id, spent):

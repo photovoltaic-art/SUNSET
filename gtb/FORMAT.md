@@ -1,6 +1,6 @@
 # GO TO BED — block and receipt format, v0
 
-*Draft, 21 Oct 2026. Sized for simple, failsafe operation on the SUNDIAL carrier's ESP32 (no PSRAM, ~2 MB of storage).*
+*Draft, 21 Oct 2026 (revised the same day: replies). Sized for simple, failsafe operation on the SUNDIAL carrier's ESP32 (no PSRAM, ~2 MB of storage).*
 
 Plain JSON. Every number below is a limit the panel enforces; anything over a limit is refused, never truncated.
 
@@ -8,11 +8,20 @@ Plain JSON. Every number below is a limit the panel enforces; anything over a li
 
 ```json
 {"t": 1784021220, "text": "the sea is flat today"}
+{"t": 1784023900, "text": "it was flat here too — Maria", "re": "7/2027-07-13#4"}
 ```
 
 - `t`: when the panel received it, by **the panel's clock** (Unix seconds). Phones never set times.
-- `text`: up to **140 characters**, plain text, no markup.
-- No author, no key, no phone identifier. Messages are not signed one by one: the panel's seal on the block covers them.
+- `text`: up to **140 characters**, plain text, no markup. A name, if any, is just part of the text.
+- `re` (optional): the address of the message this one replies to.
+- No author, no key, no phone identifier. Messages are not signed one by one: the panel's seal on the block covers them. **The seal proves where and when a message was written, never who wrote it.** Don't trust anything a message says, including a name.
+
+**Message address** = `panel/day#n`: the block ID, then the message's place in that block's `messages`, counting from 1. Messages are only ever added at the end and anything over a limit is refused, never dropped, so the address a message gets when it is written is final.
+
+**Replies**
+- A reply may point at an earlier day at any panel, or at an earlier message today at this panel. The panel checks the address is well formed and in the past; it does **not** check that it holds the message.
+- The page shows the replied-to message above the reply if the phone or panel holds it; otherwise "reply to 7/2027-07-13#4 — not here yet". It may arrive with a later walker.
+- Replies to replies make threads. One hop between panels takes at least a night.
 
 ## Blocks
 
@@ -54,11 +63,14 @@ One block per panel per day, sealed at bedtime.
 | Messages per block | 60 | A block stays under about 12 KB |
 | Messages per phone per panel per day | 3 | Flood control; counted in RAM, forgotten at night |
 | Message length | 140 characters | An art installation, not a forum |
+| Reply address | up to 18 characters | Adds about 25 bytes to a message; a full block of replies stays under 14 KB |
 | Block size | 16 KB, hard | Refused above this |
 | Days a phone carries | the last 3 days of every panel | At most 27 blocks, about 300 KB in browser storage |
 | Days a panel keeps | the last 7 days of every panel | At most 63 blocks, about 750 KB of flash |
 
 Older blocks fade out of the network. The chain's fingerprints keep it verifiable; the words do not need to last.
+
+**No moderation.** Nothing is removed or hidden. Fading is the only forgetting: after 7 days a message is gone from every panel, and after 3 days from phones.
 
 ## Receipts (bearer stamps)
 
