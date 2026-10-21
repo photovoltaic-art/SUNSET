@@ -35,7 +35,7 @@ Bedtime is part of the tone: as a panel's light fails, its pulse slows and its o
 The public are the messengers. A phone that joins one panel picks up what that panel knows; when its owner joins another panel, the phone hands it on. Walking the town moves the conversation. **The participants are the internet.**
 
 - **Blocks of messages.** Each panel gathers the day's messages into a block and seals it at bedtime, as SUNDIAL seals its dial. Each block carries the fingerprint (hash) of the panel's previous block, so the days form a chain, and a missing or altered day shows.
-- **Messages are signed,** so a carrier can lose a message but cannot forge or alter one.
+- **Blocks are sealed and signed by the panel,** so a carrier can lose a block but cannot forge or alter one. Messages themselves carry no signature and no author.
 - **The clock travels too.** Phones carry the time between panels, as well as messages, so the town keeps time together. Each panel keeps its own clock module and treats carried time as a hint, never an order: one phone can't reset the town.
 - **A slow version of Bitcoin's nodes,** in spirit: copies spread by gossip until every panel holds every block. Unlike Bitcoin there is nothing to agree on and nothing to spend; every message is simply added. Panels only ever merge what they are given.
 - **Proof of walk.** A message crosses town only if someone carries it, or a radio link reaches. The network's speed is the speed of people, and of the sun.
@@ -108,31 +108,61 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 - **Same base hardware where possible:** the SUNDIAL carrier's power path, sun sensor and clock, with lessons from its v1 bench test.
 - **The SUNDIAL carrier already has the hooks:** an AUX output that takes spare panel power through its own converter, a switched 5 V output, and spare SPI/UART/I²C pins. The firmware sheds AUX loads the moment the panel voltage sags, so the board always has priority.
 
-## Technical direction (to test, not decided)
+## Decided (21 Oct 2026)
 
-- **Board:** ESP32, probably an ESP32-S3 with PSRAM for message storage and a larger web client (SUNDIAL v1 uses the original ESP32).
-- **Panel-to-panel radio:** best in class for range at low power, most likely **LoRa** (SX1262 class). Alternative: ESP-NOW long-range mode, if the walls have line of sight. LoRa carries little data, which suits short text.
-- **Comms scaled to the available power:** the board already measures the panel's sunlight every 10 s. The radio's transmit power, duty cycle and how often it relays could follow that reading: more sun, more talk; weak sun, a whisper; no sun, sleep. Higher-power radio stages could run from the AUX output.
-- **Messages:** short text, signed and with an expiry. Nostr's event format (signed, open, with expiry) is a candidate; a minimal Nostr relay already runs on an ESP32-S3 ([wisp-esp32](https://github.com/privkeyio/wisp-esp32)).
-- **Phones:** the panel serves a small chat page over plain `http`; the page and its relay share the panel's address, so the browser can connect without an app. The phone makes a temporary key for the visit: no account, no lasting identity.
+| # | Question | Decision |
+| --- | --- | --- |
+| 1 | How to test | A test bed first: a simulated town that writes real, signed blocks and receipts ([gtb/testbed](gtb/testbed/README.md)), then a one-board phone carry test ([gtb/carry_test](gtb/carry_test/carry_test.ino)) |
+| 2 | Open posting | Fine: it is an art installation. Messages are short (140 characters) and expire |
+| 3 | Flooding | Limits per phone and per block, sized together with 4 |
+| 4 | Sizes | Sized for simple, failsafe operation: [format v0](gtb/FORMAT.md) |
+| 5 | Time | Stamped by the panel's clock only |
+| 6 | Hardware | **The SUNDIAL carrier and its ESP32 (ELEGOO 30-pin), unchanged.** Format v0 needs no PSRAM, no Nostr relay and no radio: blocks are a few KB, signatures are light work. An ESP32-S3 is only needed if a later version adds a panel-to-panel radio or a large relay |
+| 7 | Relation to SUNDIAL | New firmware; same carrier board and hardware; its own set of PV panels |
+| 8 | Panels | Nine. PVA works are nine panels |
+
+## Technical direction
+
+- **Board:** the SUNDIAL carrier, ELEGOO ESP32, new firmware.
+- **The network:** people carry it (proof of walk). Only sealed blocks travel, so a day's words leave a panel after it has slept once: the network's minimum delay is one night.
+- **Radio (later, optional):** a panel-to-panel link where walls can hear each other, most likely LoRa (SX1262 class) on the carrier's spare pins, its power scaled to the sun reading and drawn from AUX. Not needed for the first version.
+- **Format:** plain JSON blocks and bearer receipts, Ed25519 signatures ([FORMAT.md](gtb/FORMAT.md)). Nostr remains a possible later bridge, not a dependency.
+- **Phones:** the panel serves the chat page over plain `http`; no app, no account.
+
+## What the test bed shows (simulated, invented town)
+
+Three scenarios, one week each, nine panels, five attacks checked ([details](gtb/testbed/README.md)):
+
+| | Busy | Quiet | Sparse |
+| --- | --- | --- | --- |
+| Visitors per hour at the central panel | 6 | 1 | 0.3 |
+| Visitors served in the week | 2,442 | 405 | 123 |
+| Receipts (first deliveries) | 408 | 265 | 163 |
+| Typical delay, bedtime to another panel | 14 h | 21 h | 38 h |
+| Whole days | 3 | 1 | 0 |
+| Largest block | 4.3 KB | 3.2 KB | 2.4 KB |
+| Most a walking phone carried | 83 KB | 29 KB | 18 KB |
+
+- **Sizes are comfortably inside the limits** in every scenario: blocks under 5 KB against a 16 KB limit; a phone carries under 100 KB.
+- **The busy town saturates:** every panel up to date within a day. The 60-message block limit is reached at the centre.
+- **The quiet town shows the imbalance the work is about:** central panels stay partly fresh; outlying panels fall to zero for days, and a single whole round lifts the whole town at once.
+- **All five attacks fail:** altered message, forged secret, redeeming twice, a fake panel, and a stolen panel key whose receipts are not in the chain.
 
 ## Open questions
 
-1. **Range:** does a radio link reach between real walls in a town of stone? (Test 2.)
-2. **Night:** is a network that sleeps the point, or a flaw? The concept says it is the point. A battery would break principle 3.
-3. **Open posting in public:** spam, abuse, illegal content, and the operator's responsibility under Italian law. Rate limits, expiry, and perhaps a quiet mode.
-4. **Captive-portal browsers:** limited storage and scripts on some phones; does the chat page work in the Wi-Fi pop-up, or must visitors open a full browser?
-5. **Capacity:** about 10 phones per panel at once.
-6. **How many panels:** SUNDIAL's rule is nine; GO TO BED may need a different number, set by radio range.
+1. **Phones in practice:** does browser storage carry blocks between panels, in the Wi-Fi pop-up and in a full browser, on iPhone and Android? (Carry test.)
+2. **Night:** the concept says sleeping is the point. A battery would break principle 3.
+3. **Capacity:** about 10 phones per panel at once.
+4. **The redeem layer:** separate; who runs it, funding, Italian rules.
 
 ## Tests, in order
 
-1. **Bench:** a relay and a minimal web chat on one ESP32-S3, used from two phones with no internet.
-1b. **Carrying:** two boards on the bench, one phone: write at board A, walk to board B, check the messages arrive. Test the Wi-Fi pop-up and a full browser, on iPhone and Android.
-2. **Two walls:** two boards on two real walls in Bosa; ESP-NOW long range, then LoRa; measure what gets through, and at what panel power.
-3. **Power scaling:** radio power and duty cycle following the sun reading.
-4. Only then: a spec and a carrier variant.
+1. **Test bed** (done, simulated): format, sizes, receipts, attacks.
+2. **Carry test:** one ESP32 playing panel A then panel B; phones on iPhone and Android, Wi-Fi pop-up and full browser.
+3. **Two boards on the bench:** the real firmware, a few phones, a day of light from a bench supply.
+4. **Two walls in Bosa:** two panels, real walkers, one week.
+5. Only then: the full nine, as an event week.
 
 ## Status
 
-On hold while SUNDIAL v1 goes to manufacture. Prior art to study when it resumes: Meshtastic (LoRa mesh, app over Bluetooth), Bitchat (phone-to-phone Bluetooth mesh with Nostr bridging).
+On hold while SUNDIAL v1 goes to manufacture; the test bed is done and the carry test is ready to run. Prior art to study when it resumes: Meshtastic (LoRa mesh, app over Bluetooth), Bitchat (phone-to-phone Bluetooth mesh with Nostr bridging).
