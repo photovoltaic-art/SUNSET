@@ -84,6 +84,34 @@ The public are the messengers. A phone that joins one panel picks up what that p
 - **Each receipt can be saved as an image:** the panel's mark, the date, the block, and the receipt itself encoded in the image (a small code beside the stamp, or in the image file's text fields), so **the picture is the proof**. Saved to the phone's photos, receipts outlive browser storage, and the redeem layer can read them straight from the image. (Some phones' Wi-Fi pop-up windows cannot save files; saving may need a full browser, as with SUNDIAL's downloads.)
 - **Rules for the marks:** nine shapes that are easy to tell apart at a glance and at stamp size; possibly mirror-symmetric, like simple identicons; printable in one colour.
 
+**Security: making sure the sat goes to the right person**
+
+The principle: **a receipt is bound to a key, not to whoever holds the image.** A receipt names the courier's *public* key. Only the holder of the matching *private* key can redeem it. Anyone can see, share or copy a receipt image; it is useless to them.
+
+1. **Two halves of the courier key.**
+   - The **public key** is all a panel ever needs: it writes it into the receipt. The phone's browser keeps only this half.
+   - The **private key** is shown to the visitor once, as a short word phrase to write down or photograph, and is then **deleted from the browser**. It never stays on the panels' local web address, where any fake network pretending to be a panel could read it.
+2. **Redeeming (on the separate, online redeem page, over HTTPS).** The visitor brings their receipts (images or saved file), enters their word phrase, and gives a payment destination (a Lightning invoice or address, or an ecash wallet). Their browser **signs one message: "pay these receipts to this destination"**. The private key stays on their device; only the signature is sent.
+3. **The redeem layer checks, then pays:**
+   - each receipt carries a valid **panel signature** (the panels' public keys are published);
+   - each receipt is **recorded in that panel's sealed block** in the chain, collected on the walking round, so a receipt the chain does not know is refused;
+   - the **courier's signature** matches the key named in the receipts, and covers the exact destination, so no one can intercept the request and change where the sat goes;
+   - each receipt is **unspent**: the redeem layer keeps a public list of redeemed receipts, so each pays once. Since each (block, panel) has only one receipt, the whole town can pay out at most 72 sats a day.
+4. **Then it pays the symbolic sat** to the signed destination.
+
+**What can still go wrong**
+
+| Risk | What happens | Answer |
+| --- | --- | --- |
+| Visitor loses the word phrase | Receipts can't be redeemed | Accepted: symbolic value. The receipts still count in the chain and the passport |
+| Someone photographs a receipt | Nothing: they lack the private key | By design |
+| A fake network posing as a panel | Can't sign real receipts; can't read a private key that isn't in the browser | Private key deleted from the browser after it is shown |
+| A stolen panel box, key extracted | Fake receipts for that panel | Refused unless recorded in a sealed block collected on the round; the panel's key is replaced; daily cap |
+| Redeeming twice | Refused | Public spent list |
+| Someone sees the visitor's phrase | They can redeem that visitor's receipts | As with any key: keep the phrase private |
+
+**Privacy at redemption:** the redeem layer learns a public key and a payment destination, nothing else. With ecash or a fresh Lightning invoice, the visitor can stay pseudonymous.
+
 **The redeem layer (separate, not part of this work):** reads receipts from the chain or a visitor's saved file, checks them against the panels' public keys, and pays the symbolic sat by Lightning or ecash wherever there is internet. Its rules on giving away bitcoin in Italy are its own question.
 
 ## Building on SUNDIAL
