@@ -30,6 +30,20 @@ That is all: live, simple, wordless enough to read in any language. Its job is t
 
 Bedtime is part of the tone: as a panel's light fails, its pulse slows and its own point dims, then the page says goodnight. Messages left after that wait for the morning.
 
+## The participants are the network
+
+The public are the messengers. A phone that joins one panel picks up what that panel knows; when its owner joins another panel, the phone hands it on. Walking the town moves the conversation. **The participants are the internet.**
+
+- **Blocks of messages.** Each panel gathers the day's messages into a block and seals it at bedtime, as SUNDIAL seals its dial. Each block carries the fingerprint (hash) of the panel's previous block, so the days form a chain, and a missing or altered day shows.
+- **Messages are signed,** so a carrier can lose a message but cannot forge or alter one.
+- **The clock travels too.** Phones carry the time between panels, as well as messages, so the town keeps time together. Each panel keeps its own clock module and treats carried time as a hint, never an order: one phone can't reset the town.
+- **A slow version of Bitcoin's nodes,** in spirit: copies spread by gossip until every panel holds every block. Unlike Bitcoin there is nothing to agree on and nothing to spend; every message is simply added. Panels only ever merge what they are given.
+- **Proof of walk.** A message crosses town only if someone carries it, or a radio link reaches. The network's speed is the speed of people, and of the sun.
+
+**How a phone carries it (to test).** All the panels answer at the same local web address, so a web page stored by one panel's visit is readable at the next: the phone's browser storage is the courier's bag, with no app. The catch: some phones' Wi-Fi pop-up windows keep no storage, so carrying may need a full browser. Test this first.
+
+**What it may change:** if people can carry the network, **the radio between panels becomes optional**: an accelerator where links reach, not a requirement. A people-powered GO TO BED could run on hardware close to the SUNDIAL carrier, with the radio added later or only where walls can hear each other.
+
 ## Building on SUNDIAL
 
 - **Same principles** ([MANIFESTO](../MANIFESTO.md)): the panel powers only itself; offline by nature; the work keeps no one; slow.
@@ -56,6 +70,7 @@ Bedtime is part of the tone: as a panel's light fails, its pulse slows and its o
 ## Tests, in order
 
 1. **Bench:** a relay and a minimal web chat on one ESP32-S3, used from two phones with no internet.
+1b. **Carrying:** two boards on the bench, one phone: write at board A, walk to board B, check the messages arrive. Test the Wi-Fi pop-up and a full browser, on iPhone and Android.
 2. **Two walls:** two boards on two real walls in Bosa; ESP-NOW long range, then LoRa; measure what gets through, and at what panel power.
 3. **Power scaling:** radio power and duty cycle following the sun reading.
 4. Only then: a spec and a carrier variant.
