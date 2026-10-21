@@ -17,6 +17,19 @@ It is both a **proof of concept for minimal, unattended comms infrastructure** a
 - **Unattended:** no operator, no server, no backhaul.
 - **No app (aim):** each panel serves the chat as a web page through its own Wi-Fi, the way SUNDIAL serves its dial.
 
+## The tone
+
+Not a record of the day, like SUNDIAL's dial, but a **dial tone you can see**: the first thing on screen when a phone joins a panel's Wi-Fi, answering one question at a glance: *is anyone there?*
+
+- **The tone:** a slow pulse at the centre while the network is awake. No pulse, no network: it has gone to bed.
+- **Here:** small marks round the pulse, one per phone connected to this panel now (up to about 10).
+- **The town:** a ring of nine points, one per panel, lit if that panel is awake and reachable. The ring fills in the morning and empties towards sunset as panels go to bed, each at its own time.
+- **Last voice:** how long ago the last message reached this panel.
+
+That is all: live, simple, wordless enough to read in any language. Its job is to give a **reason to participate**: someone is listening, the town is awake, a message sent now will travel. Below it, the chat.
+
+Bedtime is part of the tone: as a panel's light fails, its pulse slows and its own point dims, then the page says goodnight. Messages left after that wait for the morning.
+
 ## Building on SUNDIAL
 
 - **Same principles** ([MANIFESTO](../MANIFESTO.md)): the panel powers only itself; offline by nature; the work keeps no one; slow.
