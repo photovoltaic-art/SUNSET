@@ -156,6 +156,21 @@ The ticker also shows what **other phones** do at this wall, live and anonymousl
 
 4. **Dusk.** The pulse slows, the ticker says *going to bed*, the live room closes and the page says goodnight. Whispers are gone; shouts are sealed for tomorrow's walkers.
 
+## The arrival
+
+New data brings new interaction. When a walker delivers news, **everyone at the wall sees it at once**:
+
+- the ticker: *someone just brought panel 8's news — 12 new shouts*;
+- panel 8's point on the ring brightens;
+- the new shouts appear in the town feed on every connected phone.
+
+The people at the wall become an audience for the delivery. Watching the ticker is part of taking part: like waiting for the post, the evening paper, or a boat into port. Even someone who never writes sees the network working and sees others carrying, which is the strongest reason to walk: *I could be the one who brings the news.*
+
+- **The wall has a rhythm:** quiet at first light, a burst when the first walker arrives with yesterday's sealed blocks, trickles through the day. The ticker shows the sun's schedule and people's movements together.
+- **The day's tally at bedtime,** on the goodnight screen: *today at this wall: 14 arrivals, 3 firsts, 2 whispers shouted to the town.* Counts only, never who.
+- **The one caveat, accepted:** with only two people at a wall, an arrival line points at the person who just walked up. That is no more than seeing someone arrive with a letter, and nothing is recorded. Delaying lines at random would hide it but kill the liveness, so the work does not.
+- **Optional, for the box design:** a small light on the wall, powered by the panel, that pulses once when news arrives, so passers-by without a phone see the network working too.
+
 ## Messages: no identity, no moderation, replies
 
 - **No identity.** A message has no author, no key and no account. If someone wants a name, they type it into the message, and anyone can type any name. The panel's seal proves only *where and when* a message was written.
@@ -225,6 +240,7 @@ The work collects nothing about anyone. No accounts, names, keys, phone IDs, log
 | 14 | Whisper and shout | Whispers: live at one wall, memory only, gone at bedtime, 30 per phone. Shouts: sealed and carried, 3 per phone per wall per day |
 | 15 | Promote | Any whisper, anyone's, can be shouted once; it costs the promoter a shout |
 | 16 | Courier | By default: pickup and delivery automatic, announced in a ticker, bag visible, **empty my bag** to opt out |
+| 17 | Arrival | Every delivery is announced live to everyone at the wall; bedtime tally of counts only; an optional arrival light |
 
 ## Technical direction
 
