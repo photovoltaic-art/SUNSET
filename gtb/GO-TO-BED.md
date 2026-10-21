@@ -47,25 +47,37 @@ The public are the messengers. A phone that joins one panel picks up what that p
 
 **What it may change:** if people can carry the network, **the radio between panels becomes optional**: an accelerator where links reach, not a requirement. A people-powered GO TO BED could run on hardware close to the SUNDIAL carrier, with the radio added later or only where walls can hear each other.
 
-## Accounting layer: a sat per delivery (later, optional)
+## Receipts: first to deliver
 
-An idea to keep apart from the core work: each time a carrier brings a panel a block it did not have, the carrier earns a sat.
+**The public incentive: who can be the first to deliver a block to a panel.** The panel gives the first deliverer a signed receipt. The reward is symbolic (one sat). This work issues **receipts only**; turning receipts into sats is a separate redeem layer, outside the work.
 
-**The difficulty:** the panels are offline, so no payment can settle at the moment of delivery. The answer is to **account offline and settle later**, in two steps:
+**How it works**
 
-1. **Receipts (offline, no money):** the panel signs a small receipt: *this phone's temporary key delivered block B to panel P at time T.* The phone keeps its receipts in browser storage, like stamps in a pilgrim's passport: one per panel, per new block. This works with no internet and no money, and is worth building even on its own.
-2. **Settlement (online, later, optional):** receipts are redeemed for sats wherever there is internet, through a Lightning or ecash (Cashu) wallet; for example a page on the website, or a partner in town. Alternatively, each panel could hold a small float of pre-minted ecash, loaded on the round, and hand over a token with each receipt; the visitor redeems it later in any Cashu wallet.
+1. **A courier key.** The first time a visitor chooses to carry, their browser makes a random key pair: a pseudonym, not linked to the phone, its Wi-Fi address or a person. It is optional and kept only by the visitor: the chat itself still works with a temporary key per visit.
+2. **The delivery.** At a panel, the phone offers the sealed blocks it carries. The panel checks each block's seal (the signature of the panel that sealed it) and keeps the ones it lacks.
+3. **First only.** For each block that is new to this panel, the panel issues one receipt, to the first key that brings it. A second delivery of the same block to the same panel earns nothing. So each receipt can exist only once: nine panels each seal one block a day, each can be delivered to eight others, so **at most 72 receipts a day** can ever be earned.
+4. **The receipt.** A few lines, signed with the panel's key:
 
-**Rules that keep it honest:**
+   ```
+   panel 3 · received block 7/2027-07-14 (sealed by panel 7)
+   first delivered by courier key ab12…ef
+   at 2027-07-15 09:42 (panel 3's clock)
+   ```
 
-- **Only new blocks count:** a panel pays only for sealed blocks it did not already hold. Blocks are sealed by the panels themselves at bedtime, so visitors cannot manufacture them; walking back and forth between two panels earns nothing after the first trip.
-- **The incentive points the right way:** stale, outlying panels lack the most blocks, so they pay the most. The money rewards exactly the walks that heal the imbalance.
-- **A cap per phone per day**, and a fixed total per day: the most the network can ever pay is the number of new blocks it can absorb.
-- **A small float:** a panel holding ecash is a small wallet on a wall; keep the float symbolic, so losing a box loses little.
+5. **Where it lives.** The receipt is kept in **two places**:
+   - **on the visitor's phone**, in the browser's storage for the panels' shared local address, so the receipt book is visible at every panel, like a pilgrim's passport;
+   - **in the panel's next sealed block.** The day's deliveries are written into that panel's block at bedtime, so the receipts travel round the town with the messages and become part of the chain: a public, tamper-evident record of who delivered what, first.
 
-**Questions:** who funds the sats (PVA, sponsors, the town)? Does money change why people take part, from play to farming? Should amounts stay symbolic (one sat) so the receipt matters more than the value? The rules on giving away bitcoin from a public artwork in Italy need checking before step 2.
+**Why both:** the phone's copy is the visitor's proof; the chain's copy is the public record and the backup. A redeem layer, whatever it is, only needs the chain and the panels' public keys to check a receipt: signature valid, and this key really was first.
 
-**Order:** receipts first, as part of the work; settlement only after an event has shown how people carry.
+**What can go wrong**
+
+- **Lost phone storage:** some phones clear a site's storage after days without a visit, and the Wi-Fi pop-up window may keep none at all. Receipts are still in the chain, but the visitor loses their courier key with them. A **"keep my receipts"** button can save the key and receipts as a short text or file the visitor stores elsewhere.
+- **The pseudonym persists:** a courier key that lasts across visits is a lasting identity, in tension with "the work keeps no one". So carrying is opt-in, the key is random and unlinked, and the public record shows only a short fingerprint.
+- **Cheating:** blocks are sealed and signed by panels, so they cannot be invented; replaying a block earns nothing after the first delivery; and the panel's own clock, not the phone's, stamps the time.
+- **Racing to be first:** that is the point. Blocks sealed at sunset can be delivered from dawn, so the first receipts of the day go to whoever reaches the next panel first in the morning.
+
+**The redeem layer (separate, not part of this work):** reads receipts from the chain or a visitor's saved file, checks them against the panels' public keys, and pays the symbolic sat by Lightning or ecash wherever there is internet. Its rules on giving away bitcoin in Italy are its own question.
 
 ## Building on SUNDIAL
 
