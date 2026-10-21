@@ -27,9 +27,9 @@ for r in receipts:
         okc += 1; spent.add(hashlib.sha256(bytes.fromhex(r["secret"])).hexdigest())
     else:
         print("RECEIPT", r["panel"], r["block"], why)
-print(f"receipts: {len(receipts)} checked, {okc} valid and redeemed once")
+print(f"receipts: {len(receipts)} checked, {okc} valid and spent once")
 
-# forgetting: a redeem layer that keeps headers only (no words) can still check every block and receipt
+# forgetting: a spending node that keeps headers only (no words) can still check every block and receipt
 headers = {k: gtb.header(b) for k, b in blocks.items()}
 hbad = sum(1 for p in sorted(pubs) for i, k in enumerate(sorted(k for k in headers if k[0] == p))
            if gtb.check_block(pubs[p], headers[k], headers[sorted(k for k in headers if k[0] == p)[i - 1]] if i else None))
@@ -52,7 +52,7 @@ ok, why = gtb.check_receipt(pubs, r, blocks, set())
 print("attack 2, forged secret:", "refused (" + why + ")" if not ok else "ACCEPTED"); fails += ok
 r = receipts[0]
 ok, why = gtb.check_receipt(pubs, r, blocks, spent)
-print("attack 3, redeem twice:", "refused (" + why + ")" if not ok else "ACCEPTED"); fails += ok
+print("attack 3, spend twice:", "refused (" + why + ")" if not ok else "ACCEPTED"); fails += ok
 fake = gtb.sign(gtb.new_key(b"not-a-panel"), dict(v=0, panel=3, block="7/2027-07-13", t=0, secret=os.urandom(32).hex()))
 ok, why = gtb.check_receipt(pubs, fake, blocks, set())
 print("attack 4, receipt signed by a fake panel:", "refused (" + why + ")" if not ok else "ACCEPTED"); fails += ok

@@ -41,7 +41,7 @@ def block_id(b):
     return f'{b["panel"]}/{b["day"]}'
 
 def header(b):
-    """The block without its words: what the panel signs, and all a redeem layer needs to keep."""
+    """The block without its words: what the panel signs, and all a spending node needs to check stamps."""
     return {k: v for k, v in b.items() if k != "messages"}
 
 def block_fp(b):

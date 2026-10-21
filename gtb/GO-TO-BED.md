@@ -49,7 +49,7 @@ The public are the messengers. A phone that joins one panel picks up what that p
 
 ## Receipts: first to deliver
 
-**The public incentive: who can be the first to deliver a block to a panel.** The panel gives the first deliverer a signed receipt. The reward is symbolic (one sat). This work issues **receipts only**; turning receipts into sats is a separate redeem layer, outside the work.
+**The public incentive: who can be the first to deliver a block to a panel.** The panel gives the first deliverer a signed receipt: a **stamp**. Stamps are never cashed in. They have **uses** inside the work: first, bidding at the auction node (see Specialized nodes).
 
 **How it works**
 
@@ -68,7 +68,7 @@ The public are the messengers. A phone that joins one panel picks up what that p
    - **on the visitor's phone**, in the browser's storage for the panels' shared local address, so the receipt book is visible at every panel, like a pilgrim's passport;
    - **in the panel's next sealed block,** as a fingerprint only (see Security below). The day's deliveries are written into that panel's block at bedtime, so the record travels round the town with the messages and becomes part of the chain: a public, tamper-evident record that each block was delivered, and when.
 
-**Why both:** the phone's copy is the visitor's stamp; the chain's copy is the public record. A redeem layer only needs the chain and the panels' public keys to check a receipt: signature valid, recorded in the chain, not yet spent.
+**Why both:** the phone's copy is the visitor's stamp; the chain's copy is the public record. Anyone checking a stamp needs only the panels' public keys and the chain: signature valid, recorded in the chain, not yet spent.
 
 **What can go wrong**
 
@@ -80,29 +80,25 @@ The public are the messengers. A phone that joins one panel picks up what that p
 
 - **Each panel has its own mark:** a 5 × 5 pixel square, different for every panel, like a stamp. The same mark is on the panel's wall plate, in the tone's ring of nine, and on its receipts.
 - **The visitor's page is a passport:** nine empty boxes, one per panel. A successful first delivery fills that panel's box with its mark. Nine filled boxes on the same day is a **whole day**, and earns a page of its own.
-- **Each receipt can be saved as an image:** the panel's mark, the date, the block, and the receipt itself encoded in the image (a small code beside the stamp, or in the image file's text fields), so **the picture is the proof**. Saved to the phone's photos, receipts outlive browser storage, and the redeem layer can read them straight from the image. (Some phones' Wi-Fi pop-up windows cannot save files; saving may need a full browser, as with SUNDIAL's downloads.)
+- **Each receipt can be saved as an image:** the panel's mark, the date, the block, and the receipt itself encoded in the image (a small code beside the stamp, or in the image file's text fields), so **the picture is the proof**. Saved to the phone's photos, receipts outlive browser storage, and a spending node can read them straight from the image. (Some phones' Wi-Fi pop-up windows cannot save files; saving may need a full browser, as with SUNDIAL's downloads.)
 - **Rules for the marks:** nine shapes that are easy to tell apart at a glance and at stamp size; possibly mirror-symmetric, like simple identicons; printable in one colour.
 
 **Security: receipts are bearer stamps**
 
-A receipt works like cash: **whoever presents it first, redeems it.** There is no courier key and no phrase. The security rests on three things:
+A stamp works like a token: **whoever presents it first, spends it.** There is no courier key and no phrase. The security rests on three things:
 
 1. **Unforgeable:** every receipt carries the panel's signature, and must match an entry in that panel's sealed block in the chain.
-2. **Unspent:** the redeem layer keeps a public list of redeemed receipts, so each pays once.
-3. **Scarce and symbolic:** one receipt per block per panel means the town can never pay out more than **72 sats a day**, so there is little worth stealing.
+2. **Unspent:** the spending node keeps a list of spent stamps, so each is used once.
+3. **Scarce:** one receipt per block per panel means the town can never earn more than **72 stamps a day**.
 
-**The one technical catch: the chain must not give receipts away.** If the sealed block recorded each receipt in full, anyone reading the chain could rebuild and redeem it. So each receipt contains a **random secret**, and the block records only the secret's **fingerprint (hash)**. The redeem layer checks that the secret in a presented receipt matches the fingerprint in the chain. The chain proves the receipt exists; only the image holds the secret.
+**The one technical catch: the chain must not give receipts away.** If the sealed block recorded each receipt in full, anyone reading the chain could rebuild and spend it. So each receipt contains a **random secret**, and the block records only the secret's **fingerprint (hash)**. A spending node checks that the secret in a presented stamp matches the fingerprint in the chain. The chain proves the receipt exists; only the image holds the secret.
 
-**What visitors are told:** your stamps are like cash, so don't share them. Saved to the phone's photos, they last.
+**What visitors are told:** your stamps are yours to use, so don't share them. Saved to the phone's photos, they last.
 **A sharing version:** the passport can also save a picture of the stamps *without* the secret code, safe to post and show off.
 
-**What can go wrong, and why it is accepted:** a stamp photographed or posted with its code can be redeemed by someone else; a lost image is a lost sat. At one sat a stamp, that is the same deal as dropping a coin. It also matches the work: no key, no account, no lasting identity. The receipt simply records that *someone* walked it there first.
+**What can go wrong, and why it is accepted:** a stamp photographed or posted with its code can be spent by someone else; a lost image is a lost stamp. That is the same deal as dropping a token. It also matches the work: no key, no account, no lasting identity. The receipt simply records that *someone* walked it there first.
 
-**Privacy at redemption:** the redeem layer sees a receipt and a payment destination, nothing else.
-
-**Spending (decided):** stamps can be **spent** at a specialized node, the first being the auction node, where they buy objects. See Specialized nodes.
-
-**The redeem layer (separate, not part of this work, optional):** reads receipts from the chain or a visitor's saved file, checks them against the panels' public keys, and pays the symbolic sat by Lightning or ecash wherever there is internet. Its rules on giving away bitcoin in Italy are its own question.
+**No cash, only uses (decided).** Stamps are never redeemed for money or sats. They are **spent** at specialized nodes, the first being the auction node, where they buy objects. Spending happens in presence, at a wall, offline: no payment destination, no wallet, no record of who.
 
 ## Whisper and shout
 
@@ -183,22 +179,22 @@ An **auction in presence**: the objects are real, on show near the wall; **the d
 
 - **The gallery:** photos of the lots, held on this panel only (about 1 MB of flash: 10–20 images), never carried. Each lot has a short ID, e.g. *A*, *B*. The town hears about the auction through shouts.
 - **Bidding in stamps.** Stamps are earned only by being first to deliver, at most 72 a day across the town. You cannot buy the art with money, only with walking: **proof of walk as the currency.**
-- **No redeem, just spend.** At this node a stamp is spent, not exchanged for anything else. Spent stamps go on the node's spent list; the passport shows them as spent.
+- **No cash, just spend.** Stamps are never redeemed for money anywhere in the work; at this node they are spent. Spent stamps go on the node's spent list; the passport shows them as spent.
 - **How a bid works:**
   1. The bidder's page offers stamps for a lot. The node checks each one (a valid panel signature; recorded in the chain if the node still holds that block; not spent, not already backing a bid).
   2. The stamps are **held** by the node against the bid. The ticker calls it: *new high bid on lot A: 9 stamps*.
   3. **Outbid:** the held stamps are released and can back a new bid.
-  4. **Hammer:** at the close (set by the admin, or bedtime: the sun as hammer), the winning stamps are **spent**. The winner's page shows a collection code: the secret behind a fingerprint recorded in the node's block, like a receipt. Show it, take the object.
+  4. **Hammer at bedtime.** An auction runs for **one day** and ends automatically when the panel goes to bed: the sun is the hammer. The winning stamps are **spent**. The winner's page shows a collection code: the secret behind a fingerprint recorded in the node's block, like a receipt. Show it, take the object.
 - **One spending node per town** keeps it simple: the spent list lives on that panel, so a stamp cannot be spent twice. The node also writes the day's spent fingerprints into its sealed block, so other walls' passports learn which stamps are gone.
 - **Everyone at the wall watches the bidding** in the ticker and the live room. Whispers are the saleroom chatter.
 
 ### Event mode (admin, to add)
 
-The auction node needs an admin, unlike an ordinary wall: to load the gallery, set the lots, open and close bidding. **Event mode** borrows SUNDIAL's admin login (challenge-response, no password sent). Outside an event the node goes back to being an ordinary wall, and the gallery is cleared.
+The auction node needs an admin, unlike an ordinary wall: to load the gallery and set the lots for the day. Bidding opens when the panel wakes and closes at bedtime, with no one pressing a button. **Event mode** borrows SUNDIAL's admin login (challenge-response, no password sent). Outside an event the node goes back to being an ordinary wall, and the gallery is cleared.
 
 ### To settle before building
 
-- **Stamps cross an open Wi-Fi.** The page and the panel talk over plain `http` on an open network, so someone nearby with the right tools could capture a stamp's secret as it is issued or spent. At one symbolic sat that hardly mattered; when stamps buy objects it does. Options: a Wi-Fi password printed on the wall plate with the newer encryption (WPA3), which keeps each phone's traffic private even when everyone knows the password, if the ESP32 supports it in this mode; or spend stamps with a one-time code shown on screen instead of sending the secret. To check on the bench.
+- **Stamps cross an open Wi-Fi.** The page and the panel talk over plain `http` on an open network, so someone nearby with the right tools could capture a stamp's secret as it is issued or spent. When stamps buy objects, that matters. Options: a Wi-Fi password printed on the wall plate with the newer encryption (WPA3), which keeps each phone's traffic private even when everyone knows the password, if the ESP32 supports it in this mode; or spend stamps with a one-time code shown on screen instead of sending the secret. To check on the bench.
 - **The format additions:** held and spent stamps, lots, the spent list in the node's block. Format v0 stays as is until the node is built.
 
 ### Other specialized nodes (ideas)
@@ -206,7 +202,18 @@ The auction node needs an admin, unlike an ordinary wall: to load the gallery, s
 - **A vote node:** an in-presence ballot where each vote costs a stamp. Choices made by those who walked.
 - **A swap node:** objects left and taken, the exchange agreed in whispers, stamps as the deposit.
 - **A gallery node:** a wall that shows images, SUNDIAL-style, alongside the chat.
-- **A radio node:** the one panel with a LoRa link, to a neighbouring village's walls.
+- **A radio node:** a link to another place (below).
+
+### The radio node: a link to another place
+
+One panel in each of two places, joined by radio. Everything else still moves on foot.
+
+- **The radio:** LoRa on the EU 868 MHz licence-free band. A small board on the carrier's spare pins, powered from AUX and scaled to the sun. Low power, long range: a few km with clear line of sight (for example Bosa to Bosa Marina, about 2.5 km), less through hills and buildings.
+- **Enough for GTB:** a day's blocks are a few KB each. At LoRa's slowest settings a block takes tens of seconds; within the band's airtime rules (1 % duty cycle, about 36 seconds an hour) the two radio nodes can swap a town's sealed blocks in an hour or two of a sunny day. Whispers and images never go by radio.
+- **Both must be awake:** the link only works while both panels have sun, which is most of a clear day. A cloudy day at one end is a day without news from the other place. Bedtime still rules.
+- **Radio earns no stamps.** Stamps are for walking; news that arrives by radio is announced in the ticker (*news from Bosa Marina arrived by radio*) but no one is first. Inside each town, people still carry it from the radio node to the other walls, and they earn stamps for that.
+- **Format note:** two places means two sets of panels 1–9. Block IDs would need the place, e.g. `marina-3/2027-07-14`.
+- **The story:** the radio node is the port. News from the other place arrives there, and the town's walkers take it inland.
 
 ## Messages: no identity, no moderation, replies
 
@@ -224,7 +231,7 @@ The auction node needs an admin, unlike an ordinary wall: to load the gallery, s
 - **Panels** drop every block after 7 days. The chain fades with it: each block holds only the fingerprint of the one before.
 - **Phones:** the page drops blocks older than 3 days each time it opens at a panel.
 - **Receipts and passports** hold no words: a panel, a block ID, a time, a secret.
-- **The redeem layer keeps no words.** The panel's seal covers a fingerprint of the day's messages, not the messages themselves ([format](gtb/FORMAT.md)). So the record of who delivered what stays provable from block headers alone, and the words can go. The test bed checks this: every block and every receipt verified with the words removed.
+- **Checking stamps needs no words.** The panel's seal covers a fingerprint of the day's messages, not the messages themselves ([format](gtb/FORMAT.md)). So the record of which deliveries earned stamps stays provable from block headers alone, and the words can go. The test bed checks this: every block and every receipt verified with the words removed.
 - **Panel flash:** the firmware overwrites a block's file before deleting it, so a panel taken off the wall gives up no more than its last 7 days.
 
 **What the work cannot promise, and says so:**
@@ -241,12 +248,12 @@ The work collects nothing about anyone. No accounts, names, keys, phone IDs, log
 | How many phones are connected now | A number, for the tone | Live only |
 | The message text | In the day's block | 7 days, then gone |
 | When a message was written | The hour, not the minute | 7 days |
-| A first delivery | Block ID, the hour, the fingerprint of the receipt's secret | 7 days on panels; headers with the redeem layer |
+| A first delivery | Block ID, the hour, the fingerprint of the receipt's secret | 7 days on panels |
 | Anything else (web requests, phone types, browsers) | Nothing | — |
 
 - **Times are kept to the hour** in messages, deliveries and receipts, so a person seen at a wall cannot be tied to a message by its timestamp.
-- **The passport is the visitor's own record**, kept on their phone. It shows where that phone went; it leaves the phone only if they choose to redeem.
-- **The redeem layer** (separate) sees receipts and a payment destination. It should pay by ecash or single-use invoice, keep no records beyond the spent list, and redeeming stays optional.
+- **The passport is the visitor's own record**, kept on their phone. It shows where that phone went; it leaves the phone only when a stamp is spent, and then only that stamp.
+- **Spending** happens in presence at a wall: the node sees the stamps offered, nothing else, and keeps only the spent list.
 - **What people write is theirs.** Someone may type a name or a number into a message; with no moderation, panels carry it for up to 7 days. That is content people chose to publish, not data the work collects.
 
 **For the Comune (draft line, to check with whoever handles permissions):** *the installation collects no personal data and publishes only what visitors write themselves, for at most seven days.*
@@ -272,7 +279,7 @@ The work collects nothing about anyone. No accounts, names, keys, phone IDs, log
 | 9 | Identity | None (level 0), or a name typed into the message (level 1). Don't trust anything that is written |
 | 10 | Moderation | None. Messages fade after 3 days on phones, 7 on panels |
 | 11 | Replies | A message can reply to another by its address, `panel/day#n` ([format](gtb/FORMAT.md)) |
-| 12 | Forgetting | A feature. All words gone from the network after 7 days at most; the redeem layer keeps block headers only, no words |
+| 12 | Forgetting | A feature. All words gone from the network after 7 days at most; stamps stay checkable from block headers, no words |
 | 13 | User data | None collected. Wi-Fi addresses counted in memory only; times about people kept to the hour |
 | 14 | Whisper and shout | Whispers: live at one wall, memory only, gone at bedtime, 30 per phone. Shouts: sealed and carried, 3 per phone per wall per day |
 | 15 | Promote | Any whisper, anyone's, can be shouted once; it costs the promoter a shout |
@@ -280,7 +287,8 @@ The work collects nothing about anyone. No accounts, names, keys, phone IDs, log
 | 17 | Arrival | Every delivery is announced live to everyone at the wall; bedtime tally of counts only; an optional arrival light |
 | 18 | Specialized nodes | A panel can be given a job on top of the network. First: the auction node |
 | 19 | Auction | In presence; the dashboard is the bidding platform; local gallery of the lots; event mode with admin (to add) |
-| 20 | Stamps as currency | Bids are paid in stamps: proof of walk as currency. No redeem, just spend |
+| 20 | Stamps as currency | Bids are paid in stamps: proof of walk as currency. No cash redemption anywhere; stamps only have uses |
+| 21 | Auction close | One day per auction; ends automatically at the panel's bedtime |
 
 ## Technical direction
 
@@ -308,16 +316,16 @@ Three scenarios, one week each, nine panels, a quarter of messages replying to e
 - **The busy town saturates:** every panel up to date within a day. The 60-message block limit is reached at the centre.
 - **The quiet town shows the imbalance the work is about:** central panels stay partly fresh; outlying panels fall to zero for days, and a single whole round lifts the whole town at once.
 - **Headers alone are enough:** with every word removed, all blocks and receipts still check.
-- **All six attacks fail:** altered message, forged secret, redeeming twice, a fake panel, a stolen panel key whose receipts are not in the chain, and a reply pointing at a message not yet written.
+- **All six attacks fail:** altered message, forged secret, spending twice, a fake panel, a stolen panel key whose receipts are not in the chain, and a reply pointing at a message not yet written.
 
 ## Open questions
 
 1. **Phones in practice:** does browser storage carry blocks between panels, in the Wi-Fi pop-up and in a full browser, on iPhone and Android? (Carry test.)
 2. **Night:** the concept says sleeping is the point. A battery would break principle 3.
 3. **Capacity:** about 10 phones per panel at once.
-4. **Spend or redeem:** stamps are now spent at the auction node. Does the separate sat redeem layer stay as an option, or go?
-5. **Event-mode admin** for specialized nodes: to add, borrowing SUNDIAL's login.
-6. **Open Wi-Fi and stamp secrets:** see the auction node.
+4. **Event-mode admin** for specialized nodes: to add, borrowing SUNDIAL's login.
+5. **Open Wi-Fi and stamp secrets:** see the auction node.
+6. **The radio node:** which two places, line of sight between them, a LoRa board for the carrier's spare pins.
 
 ## Tests, in order
 

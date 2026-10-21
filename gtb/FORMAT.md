@@ -101,13 +101,13 @@ Issued to the first phone that delivers a block new to this panel.
 - The panel records only `rcpt` = SHA-256 of the secret in its next block, so the chain proves the receipt exists without giving it away.
 - One receipt per block per panel: at most 9 blocks × 8 other panels = **72 receipts a day**.
 
-## Checking a receipt (the redeem layer, separate)
+## Checking a stamp (at a spending node)
 
 1. The panel signature is valid (panel public keys are published).
 2. SHA-256(`secret`) appears as `rcpt` in a delivery entry of that panel's block for that day, with the same `block`.
-3. It is not on the public spent list.
+3. It is not on the spending node's spent list.
 
-The redeem layer keeps **block headers only**, never `messages`. Headers are enough for all three checks.
+A spending node needs **block headers only**, never `messages`. Headers are enough for all three checks. Stamps are never redeemed for money; they are spent at specialized nodes (first: the auction node).
 
 ## Panel keys
 
