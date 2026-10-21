@@ -203,6 +203,10 @@ The auction node needs an admin, unlike an ordinary wall: to load the gallery an
 - **A swap node:** objects left and taken, the exchange agreed in whispers, stamps as the deposit.
 - **A gallery node:** a wall that shows images, SUNDIAL-style, alongside the chat.
 - **A radio node:** a link to another place (below).
+- **A miner node (SolarSats):** a Bitaxe (about 1–1.2 TH/s, 15–25 W at 5 V) running on the panel's spare midday power.
+  - **Power:** not from the 5 V outlet (J11 is fused at 0.5 A; `5V SW` is a 1 A load switch; a Bitaxe wants 3–5 A). From **AUX** instead: panel power through F4 and D5 to the miner's own 5 V, 6 A buck converter, enabled by the relay on `5V SW`. At about 37 V, 20 W is about 0.6 A, well inside v1's 3 A AUX fuse. The firmware runs it only in strong sun and sheds it first, so the wall always has priority. A vertical panel gives 50–60 W at noon in June, much less in winter: a summer-midday miner.
+  - **The catch: a Bitaxe needs internet** (2.4 GHz Wi-Fi to a mining pool). That breaks *offline by nature*, and LoRa is far too slow for pool traffic. A miner node only works where there is someone's Wi-Fi to join, so it is the one node that is not offline. To decide.
+  - **Heat:** 15–25 W in a sealed box on a sunny wall will throttle. It needs its own vented, shaded enclosure.
 
 ### The radio node: a link to another place
 
