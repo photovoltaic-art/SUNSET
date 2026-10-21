@@ -80,9 +80,9 @@ def deliver(p, day, t, carried):
         bid = f"{k[0]}/{k[1]}"
         if bid not in first_given[p]:
             first_given[p].add(bid)
-            r, h = gtb.make_receipt(keys[p], p, bid, t)
+            r, h = gtb.make_receipt(keys[p], p, bid, gtb.hour(t))
             receipts.append(r)
-            deliveries_today[p].append(dict(block=bid, t=t, rcpt=h))
+            deliveries_today[p].append(dict(block=bid, t=gtb.hour(t), rcpt=h))
             new += 1
     stats["deliveries"] += new
     return new
@@ -112,7 +112,7 @@ for day in range(a.days):
         for _ in range(rnd.choice([0, 0, 0, 1, 1, 2, 3])):
             if len(messages_today[p]) >= gtb.LIMITS["msgs_per_block"]:
                 stats["refused_msgs"] += 1; continue
-            m = dict(t=int(ts(day, int(t))), text=rnd.choice(PHRASES))
+            m = dict(t=gtb.hour(ts(day, int(t))), text=rnd.choice(PHRASES))
             if rrep.random() < a.reply:
                 targets = [f"{k[0]}/{k[1]}#{n + 1}" for k, b in sorted(carried.items()) for n in range(len(b["messages"]))]
                 targets += [f"{p}/{date}#{n + 1}" for n in range(len(messages_today[p]))]

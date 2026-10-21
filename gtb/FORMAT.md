@@ -1,17 +1,17 @@
 # GO TO BED — block and receipt format, v0
 
-*Draft, 21 Oct 2026 (revised the same day: replies; the seal covers a fingerprint of the words, so they can fade). Sized for simple, failsafe operation on the SUNDIAL carrier's ESP32 (no PSRAM, ~2 MB of storage).*
+*Draft, 21 Oct 2026 (revised the same day: replies; the seal covers a fingerprint of the words, so they can fade; times about people kept to the hour). Sized for simple, failsafe operation on the SUNDIAL carrier's ESP32 (no PSRAM, ~2 MB of storage).*
 
 Plain JSON. Every number below is a limit the panel enforces; anything over a limit is refused, never truncated.
 
 ## Messages
 
 ```json
-{"t": 1784021220, "text": "the sea is flat today"}
-{"t": 1784023900, "text": "it was flat here too — Maria", "re": "7/2027-07-13#4"}
+{"t": 1784019600, "text": "the sea is flat today"}
+{"t": 1784023200, "text": "it was flat here too — Maria", "re": "7/2027-07-13#4"}
 ```
 
-- `t`: when the panel received it, by **the panel's clock** (Unix seconds). Phones never set times.
+- `t`: the **hour** the panel received it, by **the panel's clock** (Unix seconds, rounded down to the hour). Phones never set times. Order within the block gives the sequence; nothing needs seconds.
 - `text`: up to **140 characters**, plain text, no markup. A name, if any, is just part of the text.
 - `re` (optional): the address of the message this one replies to.
 - No author, no key, no phone identifier. Messages are not signed one by one: the panel's seal on the block covers them. **The seal proves where and when a message was written, never who wrote it.** Don't trust anything a message says, including a name.
@@ -37,7 +37,7 @@ One block per panel per day, sealed at bedtime.
   "woke": 1784002800,
   "slept": 1784054100,
   "msgs": "c81a…",
-  "deliveries": [ {"block": "7/2027-07-13", "t": 1784006520, "rcpt": "4b1e…"} ],
+  "deliveries": [ {"block": "7/2027-07-13", "t": 1784005200, "rcpt": "4b1e…"} ],
   "sig": "…",
   "messages": [ … ]
 }
@@ -52,7 +52,7 @@ One block per panel per day, sealed at bedtime.
 | `prev` | Fingerprint of this panel's previous block (`""` for the first): the chain |
 | `woke`, `slept` | When the panel woke and went to bed (panel clock) |
 | `msgs` | SHA-256 of `messages` (canonical JSON): the words' fingerprint |
-| `deliveries` | The day's first deliveries to this panel: which block arrived, when, and the **fingerprint** of the receipt's secret |
+| `deliveries` | The day's first deliveries to this panel: which block arrived, the hour it arrived, and the **fingerprint** of the receipt's secret |
 | `sig` | The panel's Ed25519 signature over the **header**: the block without `sig` and without `messages` |
 | `messages` | That day's messages written at this panel, oldest first. Outside the signature, but bound to it by `msgs` |
 
@@ -67,7 +67,8 @@ One block per panel per day, sealed at bedtime.
 | Limit | Value | Why |
 | --- | --- | --- |
 | Messages per block | 60 | A block stays under about 12 KB |
-| Messages per phone per panel per day | 3 | Flood control; counted in RAM, forgotten at night |
+| Messages per phone per panel per day | 3 | Flood control; counted by the phone's Wi-Fi address in RAM only, never written to flash or a block, forgotten at bedtime |
+| Time precision | 1 hour | Messages, deliveries and receipts: a time to the second could tie a person seen at the wall to a message |
 | Message length | 140 characters | An art installation, not a forum |
 | Reply address | up to 18 characters | Adds about 25 bytes to a message; a full block of replies stays under 14 KB |
 | Block size | 16 KB, hard | Refused above this |
@@ -83,10 +84,11 @@ Older blocks fade out of the network. The chain's fingerprints keep it verifiabl
 Issued to the first phone that delivers a block new to this panel.
 
 ```json
-{"v": 0, "panel": 3, "block": "7/2027-07-13", "t": 1784006520, "secret": "7f3c…a91d", "sig": "…"}
+{"v": 0, "panel": 3, "block": "7/2027-07-13", "t": 1784005200, "secret": "7f3c…a91d", "sig": "…"}
 ```
 
 - `secret`: 32 random bytes from the panel, hex. **Whoever holds the receipt holds the secret.**
+- `t`: the hour of the delivery (rounded down). Who was first is decided by the panel at the moment of delivery, not by the stored time.
 - `sig`: the panel's signature over the receipt without `sig`.
 - The panel records only `rcpt` = SHA-256 of the secret in its next block, so the chain proves the receipt exists without giving it away.
 - One receipt per block per panel: at most 9 blocks × 8 other panels = **72 receipts a day**.

@@ -6,6 +6,10 @@ from cryptography.hazmat.primitives import serialization
 LIMITS = dict(text_chars=140, msgs_per_block=60, msgs_per_phone_panel_day=3,
               block_bytes=16 * 1024, phone_days=3, panel_days=7)
 
+def hour(t):
+    """Times about people are kept to the hour, never finer (no user data: see ../FORMAT.md)."""
+    return int(t) // 3600 * 3600
+
 def canon(obj):
     return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode()
 
@@ -76,11 +80,13 @@ def check_block(pub, b, prev_block=None):
     if prev_block is None and b["seq"] == 1 and b["prev"] != "": errs.append("first block has prev")
     if prev_block is not None and b["prev"] != block_fp(prev_block): errs.append("chain broken")
     if len(canon(b)) > LIMITS["block_bytes"]: errs.append("too big")
+    if any(d["t"] % 3600 for d in b["deliveries"]): errs.append("delivery time finer than an hour")
     if "messages" not in b: return errs
     if fp(b["messages"]) != b["msgs"]: errs.append("messages altered")
     if len(b["messages"]) > LIMITS["msgs_per_block"]: errs.append("too many messages")
     if any(len(m["text"]) > LIMITS["text_chars"] for m in b["messages"]): errs.append("message too long")
-    if any(not (b["woke"] <= m["t"] <= b["slept"]) for m in b["messages"]): errs.append("message outside awake time")
+    if any(not (hour(b["woke"]) <= m["t"] <= b["slept"]) for m in b["messages"]): errs.append("message outside awake time")
+    if any(m["t"] % 3600 for m in b["messages"]): errs.append("message time finer than an hour")
     if any(not re_ok(m, b, i) for i, m in enumerate(b["messages"])): errs.append("bad reply address")
     if any(set(m) - {"t", "text", "re"} for m in b["messages"]): errs.append("unknown message field")
     return errs
@@ -88,6 +94,7 @@ def check_block(pub, b, prev_block=None):
 def check_receipt(pubs, r, blocks_by_id, spent):
     """blocks_by_id: {(panel, day): block or header}. Headers are enough. Returns (ok, reason)."""
     if not sig_ok(pubs[r["panel"]], r): return False, "bad panel signature"
+    if r["t"] % 3600: return False, "time finer than an hour"
     h = hashlib.sha256(bytes.fromhex(r["secret"])).hexdigest()
     found = any(d["rcpt"] == h and d["block"] == r["block"]
                 for (p, _), b in blocks_by_id.items() if p == r["panel"] for d in b["deliveries"])

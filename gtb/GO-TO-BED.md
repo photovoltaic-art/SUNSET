@@ -124,6 +124,26 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 - **A phone forgets only when the page runs.** A phone that visits once and never returns keeps its last blocks until the browser clears them (Safari after about 7 days without a visit; other browsers may keep them longer).
 - **People can copy.** A screenshot, a saved page, a walker with a script. Nothing in the work keeps anything; it cannot stop a person keeping something.
 
+## No user data
+
+The work collects nothing about anyone. No accounts, names, keys, phone IDs, logs or analytics.
+
+| What the panel sees | What it keeps | For how long |
+| --- | --- | --- |
+| A phone's Wi-Fi address (needed to join, and to count 3 messages per phone) | In memory only, as a counter | Until bedtime or power loss. Never written to flash, never in a block |
+| How many phones are connected now | A number, for the tone | Live only |
+| The message text | In the day's block | 7 days, then gone |
+| When a message was written | The hour, not the minute | 7 days |
+| A first delivery | Block ID, the hour, the fingerprint of the receipt's secret | 7 days on panels; headers with the redeem layer |
+| Anything else (web requests, phone types, browsers) | Nothing | — |
+
+- **Times are kept to the hour** in messages, deliveries and receipts, so a person seen at a wall cannot be tied to a message by its timestamp.
+- **The passport is the visitor's own record**, kept on their phone. It shows where that phone went; it leaves the phone only if they choose to redeem.
+- **The redeem layer** (separate) sees receipts and a payment destination. It should pay by ecash or single-use invoice, keep no records beyond the spent list, and redeeming stays optional.
+- **What people write is theirs.** Someone may type a name or a number into a message; with no moderation, panels carry it for up to 7 days. That is content people chose to publish, not data the work collects.
+
+**For the Comune (draft line, to check with whoever handles permissions):** *the installation collects no personal data and publishes only what visitors write themselves, for at most seven days.*
+
 ## Building on SUNDIAL
 
 - **Same principles** ([MANIFESTO](../MANIFESTO.md)): the panel powers only itself; offline by nature; the work keeps no one; slow.
@@ -146,6 +166,7 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 | 10 | Moderation | None. Messages fade after 3 days on phones, 7 on panels |
 | 11 | Replies | A message can reply to another by its address, `panel/day#n` ([format](gtb/FORMAT.md)) |
 | 12 | Forgetting | A feature. All words gone from the network after 7 days at most; the redeem layer keeps block headers only, no words |
+| 13 | User data | None collected. Wi-Fi addresses counted in memory only; times about people kept to the hour |
 
 ## Technical direction
 
