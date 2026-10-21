@@ -53,27 +53,26 @@ The public are the messengers. A phone that joins one panel picks up what that p
 
 **How it works**
 
-1. **A courier key.** The first time a visitor chooses to carry, their browser makes a random key pair: a pseudonym, not linked to the phone, its Wi-Fi address or a person. It is optional and kept only by the visitor: the chat itself still works with a temporary key per visit.
+1. **No account and no key.** Anyone can carry; the phone just holds the blocks it has picked up.
 2. **The delivery.** At a panel, the phone offers the sealed blocks it carries. The panel checks each block's seal (the signature of the panel that sealed it) and keeps the ones it lacks.
-3. **First only.** For each block that is new to this panel, the panel issues one receipt, to the first key that brings it. A second delivery of the same block to the same panel earns nothing. So each receipt can exist only once: nine panels each seal one block a day, each can be delivered to eight others, so **at most 72 receipts a day** can ever be earned.
+3. **First only.** For each block that is new to this panel, the panel issues one receipt, to the first phone that brings it. A second delivery of the same block to the same panel earns nothing. So each receipt can exist only once: nine panels each seal one block a day, each can be delivered to eight others, so **at most 72 receipts a day** can ever be earned.
 4. **The receipt.** A few lines, signed with the panel's key:
 
    ```
    panel 3 · received block 7/2027-07-14 (sealed by panel 7)
-   first delivered by courier key ab12…ef
+   first delivery · secret 7f3c…a91d
    at 2027-07-15 09:42 (panel 3's clock)
    ```
 
 5. **Where it lives.** The receipt is kept in **two places**:
    - **on the visitor's phone**, in the browser's storage for the panels' shared local address, so the receipt book is visible at every panel, like a pilgrim's passport;
-   - **in the panel's next sealed block.** The day's deliveries are written into that panel's block at bedtime, so the receipts travel round the town with the messages and become part of the chain: a public, tamper-evident record of who delivered what, first.
+   - **in the panel's next sealed block,** as a fingerprint only (see Security below). The day's deliveries are written into that panel's block at bedtime, so the record travels round the town with the messages and becomes part of the chain: a public, tamper-evident record that each block was delivered, and when.
 
-**Why both:** the phone's copy is the visitor's proof; the chain's copy is the public record and the backup. A redeem layer, whatever it is, only needs the chain and the panels' public keys to check a receipt: signature valid, and this key really was first.
+**Why both:** the phone's copy is the visitor's stamp; the chain's copy is the public record. A redeem layer only needs the chain and the panels' public keys to check a receipt: signature valid, recorded in the chain, not yet spent.
 
 **What can go wrong**
 
-- **Lost phone storage:** some phones clear a site's storage after days without a visit, and the Wi-Fi pop-up window may keep none at all. Receipts are still in the chain, but the visitor loses their courier key with them. A **"keep my receipts"** button can save the key and receipts as a short text or file the visitor stores elsewhere.
-- **The pseudonym persists:** a courier key that lasts across visits is a lasting identity, in tension with "the work keeps no one". So carrying is opt-in, the key is random and unlinked, and the public record shows only a short fingerprint.
+- **Lost phone storage:** some phones clear a site's storage after days without a visit; saving receipts as images to the phone's photos avoids this.
 - **Cheating:** blocks are sealed and signed by panels, so they cannot be invented; replaying a block earns nothing after the first delivery; and the panel's own clock, not the phone's, stamps the time.
 - **Racing to be first:** that is the point. Blocks sealed at sunset can be delivered from dawn, so the first receipts of the day go to whoever reaches the next panel first in the morning.
 
@@ -84,33 +83,22 @@ The public are the messengers. A phone that joins one panel picks up what that p
 - **Each receipt can be saved as an image:** the panel's mark, the date, the block, and the receipt itself encoded in the image (a small code beside the stamp, or in the image file's text fields), so **the picture is the proof**. Saved to the phone's photos, receipts outlive browser storage, and the redeem layer can read them straight from the image. (Some phones' Wi-Fi pop-up windows cannot save files; saving may need a full browser, as with SUNDIAL's downloads.)
 - **Rules for the marks:** nine shapes that are easy to tell apart at a glance and at stamp size; possibly mirror-symmetric, like simple identicons; printable in one colour.
 
-**Security: making sure the sat goes to the right person**
+**Security: receipts are bearer stamps**
 
-The principle: **a receipt is bound to a key, not to whoever holds the image.** A receipt names the courier's *public* key. Only the holder of the matching *private* key can redeem it. Anyone can see, share or copy a receipt image; it is useless to them.
+A receipt works like cash: **whoever presents it first, redeems it.** There is no courier key and no phrase. The security rests on three things:
 
-1. **Two halves of the courier key.**
-   - The **public key** is all a panel ever needs: it writes it into the receipt. The phone's browser keeps only this half.
-   - The **private key** is shown to the visitor once, as a short word phrase to write down or photograph, and is then **deleted from the browser**. It never stays on the panels' local web address, where any fake network pretending to be a panel could read it.
-2. **Redeeming (on the separate, online redeem page, over HTTPS).** The visitor brings their receipts (images or saved file), enters their word phrase, and gives a payment destination (a Lightning invoice or address, or an ecash wallet). Their browser **signs one message: "pay these receipts to this destination"**. The private key stays on their device; only the signature is sent.
-3. **The redeem layer checks, then pays:**
-   - each receipt carries a valid **panel signature** (the panels' public keys are published);
-   - each receipt is **recorded in that panel's sealed block** in the chain, collected on the walking round, so a receipt the chain does not know is refused;
-   - the **courier's signature** matches the key named in the receipts, and covers the exact destination, so no one can intercept the request and change where the sat goes;
-   - each receipt is **unspent**: the redeem layer keeps a public list of redeemed receipts, so each pays once. Since each (block, panel) has only one receipt, the whole town can pay out at most 72 sats a day.
-4. **Then it pays the symbolic sat** to the signed destination.
+1. **Unforgeable:** every receipt carries the panel's signature, and must match an entry in that panel's sealed block in the chain.
+2. **Unspent:** the redeem layer keeps a public list of redeemed receipts, so each pays once.
+3. **Scarce and symbolic:** one receipt per block per panel means the town can never pay out more than **72 sats a day**, so there is little worth stealing.
 
-**What can still go wrong**
+**The one technical catch: the chain must not give receipts away.** If the sealed block recorded each receipt in full, anyone reading the chain could rebuild and redeem it. So each receipt contains a **random secret**, and the block records only the secret's **fingerprint (hash)**. The redeem layer checks that the secret in a presented receipt matches the fingerprint in the chain. The chain proves the receipt exists; only the image holds the secret.
 
-| Risk | What happens | Answer |
-| --- | --- | --- |
-| Visitor loses the word phrase | Receipts can't be redeemed | Accepted: symbolic value. The receipts still count in the chain and the passport |
-| Someone photographs a receipt | Nothing: they lack the private key | By design |
-| A fake network posing as a panel | Can't sign real receipts; can't read a private key that isn't in the browser | Private key deleted from the browser after it is shown |
-| A stolen panel box, key extracted | Fake receipts for that panel | Refused unless recorded in a sealed block collected on the round; the panel's key is replaced; daily cap |
-| Redeeming twice | Refused | Public spent list |
-| Someone sees the visitor's phrase | They can redeem that visitor's receipts | As with any key: keep the phrase private |
+**What visitors are told:** your stamps are like cash, so don't share them. Saved to the phone's photos, they last.
+**A sharing version:** the passport can also save a picture of the stamps *without* the secret code, safe to post and show off.
 
-**Privacy at redemption:** the redeem layer learns a public key and a payment destination, nothing else. With ecash or a fresh Lightning invoice, the visitor can stay pseudonymous.
+**What can go wrong, and why it is accepted:** a stamp photographed or posted with its code can be redeemed by someone else; a lost image is a lost sat. At one sat a stamp, that is the same deal as dropping a coin. It also matches the work: no key, no account, no lasting identity. The receipt simply records that *someone* walked it there first.
+
+**Privacy at redemption:** the redeem layer sees a receipt and a payment destination, nothing else.
 
 **The redeem layer (separate, not part of this work):** reads receipts from the chain or a visitor's saved file, checks them against the panels' public keys, and pays the symbolic sat by Lightning or ecash wherever there is internet. Its rules on giving away bitcoin in Italy are its own question.
 
