@@ -112,7 +112,7 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 
 | # | Question | Decision |
 | --- | --- | --- |
-| 1 | How to test | A test bed first: a simulated town that writes real, signed blocks and receipts ([gtb/testbed](gtb/testbed/README.md)), then a one-board phone carry test ([gtb/carry_test](gtb/carry_test/carry_test.ino)) |
+| 1 | How to test | A test bed first: a simulated town that writes real, signed blocks and receipts ([gtb/testbed](gtb/testbed/README.md)), then a one-board phone carry test ([gtb/carry_test](gtb/carry_test/carry_test.ino), steps in [TEST.md](gtb/carry_test/TEST.md)) |
 | 2 | Open posting | Fine: it is an art installation. Messages are short (140 characters) and expire |
 | 3 | Flooding | Limits per phone and per block, sized together with 4 |
 | 4 | Sizes | Sized for simple, failsafe operation: [format v0](gtb/FORMAT.md) |
@@ -165,4 +165,4 @@ Three scenarios, one week each, nine panels, five attacks checked ([details](gtb
 
 ## Status
 
-On hold while SUNDIAL v1 goes to manufacture; the test bed is done and the carry test is ready to run. Prior art to study when it resumes: Meshtastic (LoRa mesh, app over Bluetooth), Bitchat (phone-to-phone Bluetooth mesh with Nostr bridging).
+On hold while SUNDIAL v1 goes to manufacture; the test bed is done and the carry test is ready to run ([steps](gtb/carry_test/TEST.md): four browser paths, iPhone and Android). Prior art to study when it resumes: Meshtastic (LoRa mesh, app over Bluetooth), Bitchat (phone-to-phone Bluetooth mesh with Nostr bridging).

@@ -24,4 +24,4 @@ python3 verify.py out                       # checks every block and receipt, th
 
 **Freshness** (in the chart) = how many of the other eight panels' latest blocks a panel holds at bedtime.
 
-The test bed answers format and incentive questions. It cannot answer whether phones really carry: that is the [carry test](../carry_test/carry_test.ino).
+The test bed answers format and incentive questions. It cannot answer whether phones really carry: that is the [carry test](../carry_test/TEST.md).

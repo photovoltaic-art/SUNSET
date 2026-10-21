@@ -12,7 +12,7 @@
   3. Tap "switch panel" (or wait for the board to restart as B). The board restarts as "gtb-test-B".
   4. Phone: join gtb-test-B, open the page. If carrying works, the page delivers panel A's block to B,
      B shows "received block A", and the phone now also carries B's block.
-  Record per phone and browser: did the block arrive? Did it survive closing the page / a day?
+  Full steps and results table: TEST.md (four paths: iPhone pop-up, Safari, Android pop-up, Chrome).
 */
 #include <WiFi.h>
 #include <WebServer.h>
