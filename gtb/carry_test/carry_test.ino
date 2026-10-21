@@ -24,6 +24,7 @@ WebServer server(80);
 DNSServer dns;
 char panel = 'A';
 String received;   // blocks delivered to this panel (in RAM)
+String whispers[30]; int nWhispers = 0;   // live room, RAM only, gone on restart
 
 const char PAGE[] PROGMEM = R"HTML(<!doctype html><html><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>GTB carry test</title>
@@ -31,6 +32,9 @@ const char PAGE[] PROGMEM = R"HTML(<!doctype html><html><head><meta charset="utf
 button{font-size:1.1em;padding:10px 14px;margin:6px 0}</style></head><body>
 <h2>GO TO BED · carry test · panel <span id=p>?</span></h2>
 <p id=s>…</p><h3>This phone carries</h3><pre id=c></pre><h3>This panel has received</h3><pre id=r></pre>
+<h3>Here (whispers, live)</h3><pre id=w>(none yet)</pre>
+<input id=t maxlength=140 placeholder="whisper (140)" style="width:100%;font-size:1em;padding:8px">
+<button onclick="wh()">whisper</button><br>
 <button onclick="sw()">switch panel (board restarts)</button>
 <script>
 let bag = {};
@@ -48,6 +52,15 @@ async function go() {
   document.getElementById('c').textContent = Object.keys(bag).join('\n') || '(nothing)';
   document.getElementById('r').textContent = res.received || '(nothing yet)';
 }
+async function wh() {
+  const t = document.getElementById('t'); if (!t.value) return;
+  await fetch('/whisper', {method:'POST', body: t.value.slice(0, 140)}); t.value = ''; poll();
+}
+async function poll() {
+  try { const w = await (await fetch('/whispers', {cache:'no-store'})).json();
+        document.getElementById('w').textContent = w.join('\n') || '(none yet)'; } catch (e) {}
+}
+setInterval(poll, 3000); poll();
 async function sw() { await fetch('/switch', {method:'POST'}); document.getElementById('s').textContent = 'switching… join the other gtb-test network'; }
 go();
 </script></body></html>)HTML";
@@ -67,6 +80,19 @@ void handleDeliver() {
   }
   server.send(200, "application/json", "{\"new\":" + String(n) + ",\"received\":\"" + (received.length() ? received.substring(0, received.length() - 1) : "") + "\"}");
 }
+String jsonEsc(const String &x) {
+  String o; for (char c : x) { if (c == '"' || c == '\\') o += '\\'; if ((uint8_t)c >= 0x20) o += c; } return o;
+}
+void handleWhisper() {
+  String t = server.arg("plain"); t = t.substring(0, 140);
+  if (t.length() && nWhispers < 30) whispers[nWhispers++] = t;
+  server.send(200, "text/plain", "ok");
+}
+void handleWhispers() {
+  String o = "[";
+  for (int i = 0; i < nWhispers; i++) { if (i) o += ","; o += "\"" + jsonEsc(whispers[i]) + "\""; }
+  server.send(200, "application/json", o + "]");
+}
 void handleSwitch() {
   server.send(200, "text/plain", "ok");
   prefs.putChar("panel", panel == 'A' ? 'B' : 'A');
@@ -83,6 +109,8 @@ void setup() {
   server.on("/info", handleInfo);
   server.on("/deliver", HTTP_POST, handleDeliver);
   server.on("/switch", HTTP_POST, handleSwitch);
+  server.on("/whisper", HTTP_POST, handleWhisper);
+  server.on("/whispers", handleWhispers);
   server.onNotFound([]() { server.sendHeader("Location", "http://192.168.4.1/", true); server.send(302, "text/plain", ""); });
   server.begin();
 }

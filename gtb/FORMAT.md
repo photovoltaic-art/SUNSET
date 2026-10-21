@@ -1,10 +1,16 @@
 # GO TO BED — block and receipt format, v0
 
-*Draft, 21 Oct 2026 (revised the same day: replies; the seal covers a fingerprint of the words, so they can fade; times about people kept to the hour). Sized for simple, failsafe operation on the SUNDIAL carrier's ESP32 (no PSRAM, ~2 MB of storage).*
+*Draft, 21 Oct 2026 (revised the same day: replies; whisper and shout; the seal covers a fingerprint of the words, so they can fade; times about people kept to the hour). Sized for simple, failsafe operation on the SUNDIAL carrier's ESP32 (no PSRAM, ~2 MB of storage).*
 
 Plain JSON. Every number below is a limit the panel enforces; anything over a limit is refused, never truncated.
 
-## Messages
+## Whispers and shouts
+
+- **Shouts** are the messages below: sealed into the day's block and carried across town.
+- **Whispers** are live messages at one wall. They are **not part of this format**: held in the panel's memory, served to phones at that wall, never sealed, never carried, gone at bedtime or on power loss. A whisper has the same `text` limit and may carry `re`.
+- **Promotion:** a whisper sent to the town becomes a shout with `p: 1`, timed at the hour it was promoted. Each whisper can be promoted once; it counts against the promoter's shouts.
+
+## Messages (shouts)
 
 ```json
 {"t": 1784019600, "text": "the sea is flat today"}
@@ -14,6 +20,7 @@ Plain JSON. Every number below is a limit the panel enforces; anything over a li
 - `t`: the **hour** the panel received it, by **the panel's clock** (Unix seconds, rounded down to the hour). Phones never set times. Order within the block gives the sequence; nothing needs seconds.
 - `text`: up to **140 characters**, plain text, no markup. A name, if any, is just part of the text.
 - `re` (optional): the address of the message this one replies to.
+- `p` (optional): `1` if this shout was promoted from a whisper (by anyone).
 - No author, no key, no phone identifier. Messages are not signed one by one: the panel's seal on the block covers them. **The seal proves where and when a message was written, never who wrote it.** Don't trust anything a message says, including a name.
 
 **Message address** = `panel/day#n`: the block ID, then the message's place in that block's `messages`, counting from 1. Messages are only ever added at the end and anything over a limit is refused, never dropped, so the address a message gets when it is written is final.
@@ -67,7 +74,8 @@ One block per panel per day, sealed at bedtime.
 | Limit | Value | Why |
 | --- | --- | --- |
 | Messages per block | 60 | A block stays under about 12 KB |
-| Messages per phone per panel per day | 3 | Flood control; counted by the phone's Wi-Fi address in RAM only, never written to flash or a block, forgotten at bedtime |
+| Shouts per phone per panel per day | 3 (a promotion counts as one) | Flood control; counted by the phone's Wi-Fi address in RAM only, never written to flash or a block, forgotten at bedtime |
+| Whispers per phone per panel per day | 30 | Memory only, not in blocks; at most 200 per panel per day |
 | Time precision | 1 hour | Messages, deliveries and receipts: a time to the second could tie a person seen at the wall to a message |
 | Message length | 140 characters | An art installation, not a forum |
 | Reply address | up to 18 characters | Adds about 25 bytes to a message; a full block of replies stays under 14 KB |

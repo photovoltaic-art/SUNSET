@@ -34,6 +34,12 @@ All GTB panels answer at `http://192.168.4.1`, so the browser treats them as one
    - the phone now carries `A/test` and `B/test`
 6. **Next day**, open the page again. Both blocks still listed = **survives a day**.
 
+## Live room (two phones, one panel)
+
+7. **Both phones on the same panel**, page open on each. Type a whisper on one. Within about 3 seconds it should appear under "Here" on the other. Then reply from the second phone. Pass = **live**.
+
+Try it in each path that passed, and mixed (an iPhone in Safari with an Android in Chrome).
+
 ## Order and tips
 
 - **iPhone: path 1 before path 2.** After path 1, open Safari *before* clearing anything and look at "This phone carries": that shows whether the sheet and Safari share storage. Then clear it (Settings → Safari → Advanced → Website Data → delete 192.168.4.1) and run path 2 clean.
@@ -45,12 +51,12 @@ All GTB panels answer at `http://192.168.4.1`, so the browser treats them as one
 
 One row per path per phone.
 
-| Path | Phone, OS version | Opened by itself? | Survives close | A → B carried | Survives a day | Shares storage with the other path? | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | | | | | | | |
-| 2 | | | | | | | |
-| 3 | | | | | | | |
-| 4 | | | | | | | |
+| Path | Phone, OS version | Opened by itself? | Survives close | A → B carried | Survives a day | Shares storage with the other path? | Live whispers | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | | | | | | | | |
+| 2 | | | | | | | | |
+| 3 | | | | | | | | |
+| 4 | | | | | | | | |
 
 ## What the results mean
 
@@ -68,4 +74,5 @@ Real panels will probably share one Wi-Fi name. Change the sketch to use the sam
 ## Known limits of the sketch
 
 - Panel B forgets what it received when the board restarts (RAM only). Fine for A → B.
+- Whispers are kept in memory, at most 30, and vanish when the board restarts (as on a real panel at bedtime).
 - Test blocks are tiny. Size limits are checked separately in the test bed (`../testbed`).

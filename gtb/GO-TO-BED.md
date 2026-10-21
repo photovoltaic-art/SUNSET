@@ -102,12 +102,67 @@ A receipt works like cash: **whoever presents it first, redeems it.** There is n
 
 **The redeem layer (separate, not part of this work):** reads receipts from the chain or a visitor's saved file, checks them against the panels' public keys, and pays the symbolic sat by Lightning or ecash wherever there is internet. Its rules on giving away bitcoin in Italy are its own question.
 
+## Whisper and shout
+
+Two kinds of message, and the visitor chooses.
+
+| | **Whisper** | **Shout** |
+| --- | --- | --- |
+| Who sees it | Whoever is at this wall today, live, within seconds | The whole town, carried on foot |
+| Where it lives | The panel's memory only. Never sealed, never carried | Sealed into the day's block |
+| How long | Until bedtime (or a power cut) | 7 days on panels, 3 on phones |
+| Limit | 30 per phone per wall per day | **3 per phone per wall per day** |
+| Default | Yes: nobody spends a shout by accident | Chosen with the switch, or by promoting a whisper |
+
+- **Promote to shout:** any whisper, your own or someone else's, can be sent to the town with one tap. It costs the promoter one of their three shouts. Whispers are anonymous, so there is no author to ask; promoting means *this deserves to travel*. A whisper can be promoted once.
+- **Shouts are per wall:** spend your three here and the page says *your shouts here are spent — whisper, or try another wall tomorrow*. Walking to another panel gives three more.
+- Two people at one wall can talk live by whisper; what they want the town to hear, they shout.
+
+## Courier by default: the bag
+
+Every visitor is a courier, automatically, and can see it.
+
+- **Pickup is automatic.** Each time the page opens at a wall, the phone collects what that wall holds that it lacks (the last 3 days of every panel).
+- **Delivery is automatic.** Whatever the phone carries that the wall lacks is handed over. A first delivery earns a stamp.
+- **Visible:** the bag shows on the page (*news from 5 panels*), and every pickup and delivery is announced in the ticker.
+- **Reversible:** an **empty my bag** button. An empty bag reads only what this wall holds, and delivers nothing.
+- **Why default:** the network is only as fast as the number of phones carrying, and carrying costs nothing anyone would notice (under 100 KB, holding no data about anyone). Opt-in would starve outlying panels.
+
+## The visitor's page
+
+1. **Arrive.** A small plate on the wall: the panel's 5 × 5 mark and *join GO TO BED*.
+2. **Join the Wi-Fi.** The page opens by itself, or in the browser (the carry test decides which, and what the plate says).
+3. **The page wakes,** and the background work begins and is announced.
+
+| Part | What it shows |
+| --- | --- |
+| **Tone** | The pulse, phones here now, the ring of nine |
+| **Ticker** | One line at a time, automatic: what is moving, here and now (below) |
+| **Status row** | **Shouts ● ● ○** (left today at this wall) · **Bag:** news from 5 panels · **Passport:** stamps today |
+| **Here** | Today's whispers at this wall, live. Each has a small **↑ shout** button |
+| **Write** | 140 characters, **Whisper / Shout** switch (whisper by default) |
+| **Town** | Shouts carried in from other walls, by panel and day, with replies under the messages they answer |
+
+**The ticker.** Collection and delivery happen in the background, without a button; the ticker makes them visible, so the network feels alive and nothing is hidden:
+
+> *picked up today's news from panel 3*
+> *delivered panel 7's news here — first! stamp*
+> *delivered 2 blocks — already here*
+> *someone just brought panel 8's news*
+> *a whisper was shouted to the town*
+> *you're carrying news from 5 panels*
+
+The ticker also shows what **other phones** do at this wall, live and anonymously, so a visitor sees that others are carrying too. Ticker lines live in the panel's memory and are gone at bedtime.
+
+4. **Dusk.** The pulse slows, the ticker says *going to bed*, the live room closes and the page says goodnight. Whispers are gone; shouts are sealed for tomorrow's walkers.
+
 ## Messages: no identity, no moderation, replies
 
 - **No identity.** A message has no author, no key and no account. If someone wants a name, they type it into the message, and anyone can type any name. The panel's seal proves only *where and when* a message was written.
 - **Don't trust anything that is written.** That is the stance of the work, not a gap in it.
 - **No moderation.** Nothing is removed or hidden. Words fade instead: gone from phones after 3 days and from every panel after 7.
 - **Replies.** Every message has an address: its panel, day and place in that day's block, e.g. `7/2027-07-13#4`. Tap a message, tap reply; the reply carries that address and the page shows the original above it, or "not here yet" if no one has carried it this far. Threads cross the town one night per hop.
+- **Whispers** are anonymous too; your own are marked *you* on your phone only.
 - **Reading happens at a panel.** A plain-`http` page cannot install itself for offline use, so the words travel in the phone but are read standing at a wall, in daylight.
 
 ## Forgetting
@@ -167,6 +222,9 @@ The work collects nothing about anyone. No accounts, names, keys, phone IDs, log
 | 11 | Replies | A message can reply to another by its address, `panel/day#n` ([format](gtb/FORMAT.md)) |
 | 12 | Forgetting | A feature. All words gone from the network after 7 days at most; the redeem layer keeps block headers only, no words |
 | 13 | User data | None collected. Wi-Fi addresses counted in memory only; times about people kept to the hour |
+| 14 | Whisper and shout | Whispers: live at one wall, memory only, gone at bedtime, 30 per phone. Shouts: sealed and carried, 3 per phone per wall per day |
+| 15 | Promote | Any whisper, anyone's, can be shouted once; it costs the promoter a shout |
+| 16 | Courier | By default: pickup and delivery automatic, announced in a ticker, bag visible, **empty my bag** to opt out |
 
 ## Technical direction
 
@@ -187,7 +245,7 @@ Three scenarios, one week each, nine panels, a quarter of messages replying to e
 | Receipts (first deliveries) | 408 | 265 | 163 |
 | Typical delay, bedtime to another panel | 14 h | 21 h | 38 h |
 | Whole days | 3 | 1 | 0 |
-| Largest block | 4.7 KB | 3.4 KB | 2.5 KB |
+| Largest block | 4.8 KB | 3.4 KB | 2.5 KB |
 | Most a walking phone carried | 91 KB | 32 KB | 20 KB |
 
 - **Sizes are comfortably inside the limits** in every scenario: blocks under 5 KB against a 16 KB limit; a phone carries under 100 KB.

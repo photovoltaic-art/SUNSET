@@ -88,7 +88,8 @@ def check_block(pub, b, prev_block=None):
     if any(not (hour(b["woke"]) <= m["t"] <= b["slept"]) for m in b["messages"]): errs.append("message outside awake time")
     if any(m["t"] % 3600 for m in b["messages"]): errs.append("message time finer than an hour")
     if any(not re_ok(m, b, i) for i, m in enumerate(b["messages"])): errs.append("bad reply address")
-    if any(set(m) - {"t", "text", "re"} for m in b["messages"]): errs.append("unknown message field")
+    if any(set(m) - {"t", "text", "re", "p"} for m in b["messages"]): errs.append("unknown message field")
+    if any(m.get("p", 1) != 1 for m in b["messages"]): errs.append("bad promoted flag")
     return errs
 
 def check_receipt(pubs, r, blocks_by_id, spent):

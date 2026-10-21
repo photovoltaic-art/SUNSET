@@ -1,10 +1,10 @@
 GO TO BED test bed: 7 days, 9 panels, seed 1, 6 visitors/h at the centre, walk share 0.25, whole-round share 0.01
 visitors served: 2442  (walkers who reached a panel already asleep: 31)
-messages written: 2290  (replies: 569; refused, block full: 144)
+shouts written: 2290  (replies: 569; promoted from whispers: 226; refused, block full: 144)
 walkers: 602  whole rounds tried: 6  whole days: 3 ['2027-07-12', '2027-07-13', '2027-07-15']
 first deliveries = receipts issued: 408  (max possible 432)
-block size: median 3139 B, max 4733 B (limit 16384 B)
-phone storage when walking: median 80592 B, max 90879 B
+block size: median 3163 B, max 4775 B (limit 16384 B)
+phone storage when walking: median 81240 B, max 91473 B
 delay from bedtime to arrival elsewhere: median 13.9 h, 90% 18.8 h
 freshness at bedtime (other panels whose latest block it holds, of 8), by day:
   panel 1 (centre): [0, 8, 8, 8, 8, 8, 8]

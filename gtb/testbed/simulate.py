@@ -20,10 +20,12 @@ ap.add_argument("--walk", type=float, default=0.25, help="share of visitors who 
 ap.add_argument("--round", type=float, default=0.01, help="share of walkers who try the whole round")
 ap.add_argument("--rate", type=float, default=6, help="visitors per hour at the central panel")
 ap.add_argument("--reply", type=float, default=0.25, help="share of messages that reply to an earlier one")
+ap.add_argument("--promoted", type=float, default=0.1, help="share of shouts that were promoted from a whisper")
 ap.add_argument("--out", default="out")
 a = ap.parse_args()
 rnd = random.Random(a.seed)
-rrep = random.Random(a.seed + 1000)   # replies use their own dice, so the rest of the run is unchanged
+rrep = random.Random(a.seed + 1000)
+rpro = random.Random(a.seed + 2000)   # promotions too   # replies use their own dice, so the rest of the run is unchanged
 
 # ---- the town (invented): positions in metres, centre ~ (0,0); busier near the centre
 PANELS = {1: (0, 0), 2: (180, 60), 3: (-150, 120), 4: (60, -200), 5: (320, -40),
@@ -60,7 +62,7 @@ receipts = []
 deliveries_today = {p: [] for p in PANELS}
 messages_today = {p: [] for p in PANELS}
 first_given = {p: set() for p in PANELS}  # block ids already receipted here
-stats = dict(visitors=0, missed_asleep=0, messages=0, refused_msgs=0, walkers=0, deliveries=0, rounds_tried=0, replies=0)
+stats = dict(visitors=0, missed_asleep=0, messages=0, refused_msgs=0, walkers=0, deliveries=0, rounds_tried=0, replies=0, promoted=0)
 whole_days = []
 freshness = {p: [] for p in PANELS}     # per day: number of other panels whose yesterday's block it holds by bedtime
 arrivals = {}                            # (block_id, panel) -> time held; for delay stats
@@ -118,6 +120,8 @@ for day in range(a.days):
                 targets += [f"{p}/{date}#{n + 1}" for n in range(len(messages_today[p]))]
                 if targets:
                     m["re"] = rrep.choice(targets); stats["replies"] += 1
+            if rpro.random() < a.promoted:
+                m["p"] = 1; stats["promoted"] += 1
             messages_today[p].append(m)
             stats["messages"] += 1
         # walk on?
@@ -180,7 +184,7 @@ def pct(xs, f): return xs[int(f * (len(xs) - 1))] if xs else float("nan")
 lines = [
     f"GO TO BED test bed: {a.days} days, 9 panels, seed {a.seed}, {a.rate} visitors/h at the centre, walk share {a.walk}, whole-round share {a.round}",
     f"visitors served: {stats['visitors']}  (walkers who reached a panel already asleep: {stats['missed_asleep']})",
-    f"messages written: {stats['messages']}  (replies: {stats['replies']}; refused, block full: {stats['refused_msgs']})",
+    f"shouts written: {stats['messages']}  (replies: {stats['replies']}; promoted from whispers: {stats['promoted']}; refused, block full: {stats['refused_msgs']})",
     f"walkers: {stats['walkers']}  whole rounds tried: {stats['rounds_tried']}  whole days: {len(set(whole_days))} {sorted(set(whole_days))}",
     f"first deliveries = receipts issued: {len(receipts)}  (max possible {72 * (a.days - 1)})",
     f"block size: median {sorted(sizes)[len(sizes)//2]} B, max {max(sizes)} B (limit {gtb.LIMITS['block_bytes']} B)",
