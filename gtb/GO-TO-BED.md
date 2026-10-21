@@ -23,8 +23,8 @@ Not a record of the day, like SUNDIAL's dial, but a **dial tone you can see**: t
 
 - **The tone:** a slow pulse at the centre while the network is awake. No pulse, no network: it has gone to bed.
 - **Here:** small marks round the pulse, one per phone connected to this panel now (up to about 10).
-- **The town:** a ring of nine points, one per panel, lit if that panel is awake and reachable. The ring fills in the morning and empties towards sunset as panels go to bed, each at its own time.
-- **Last voice:** how long ago the last message reached this panel.
+- **The town:** a ring of nine points, one per panel, showing **how fresh each panel is, as far as this panel knows**: bright for news from today, fading for older. Without radio links a panel can only learn about the others from what visitors carry, so the ring is the town as this panel last heard it.
+- **Last update:** the date and time this panel was last brought up to date by a visitor, and how long ago the last message reached it.
 
 That is all: live, simple, wordless enough to read in any language. Its job is to give a **reason to participate**: someone is listening, the town is awake, a message sent now will travel. Below it, the chat.
 
@@ -39,6 +39,9 @@ The public are the messengers. A phone that joins one panel picks up what that p
 - **The clock travels too.** Phones carry the time between panels, as well as messages, so the town keeps time together. Each panel keeps its own clock module and treats carried time as a hint, never an order: one phone can't reset the town.
 - **A slow version of Bitcoin's nodes,** in spirit: copies spread by gossip until every panel holds every block. Unlike Bitcoin there is nothing to agree on and nothing to spend; every message is simply added. Panels only ever merge what they are given.
 - **Proof of walk.** A message crosses town only if someone carries it, or a radio link reaches. The network's speed is the speed of people, and of the sun.
+- **Permissionless.** Anyone can carry; no one needs to be chosen, registered or known. Every walk counts, even between just two panels: each carry brings two panels closer.
+- **The imbalance shows.** Each panel shows when it was last updated, and its ring shows how fresh the others are. Busy panels in the centre stay current; outlying panels that few people visit fall behind, and everyone can see it. That gap is an open invitation to walk to them.
+- **The whole round.** When one phone visits all nine panels on the same day, the town is whole: every panel holds everything. The day is marked as a *whole day* in the record (a count, never who). Anyone can make it happen, by choosing to walk the full round.
 
 **How a phone carries it (to test).** All the panels answer at the same local web address, so a web page stored by one panel's visit is readable at the next: the phone's browser storage is the courier's bag, with no app. The catch: some phones' Wi-Fi pop-up windows keep no storage, so carrying may need a full browser. Test this first.
 
