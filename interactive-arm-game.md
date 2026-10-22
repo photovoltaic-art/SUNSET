@@ -4,7 +4,7 @@ A SUNSET interactive node with a robot arm in a transparent enclosure, played fr
 
 It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [battery-tier.md](battery-tier.md); this document covers only what is different.
 
-> Status: draft 1, 22 Oct 2026. Brings together the decisions made so far; nothing built. **Nothing here changes the carrier board.**
+> Status: draft 2, 22 Oct 2026. The arm is now the **Waveshare RoArm-M2-S** (was the Joy-IT Grab-it): closed-loop bus servos that report position, load and temperature, so the node knows when it has failed. Nothing built. **Nothing here changes the carrier board.**
 
 ---
 
@@ -31,21 +31,38 @@ It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar 
 
 ## 2. Hardware
 
-### 2.1 The arm: Joy-IT Grab-it (Robot02)
+### 2.1 The arm: Waveshare RoArm-M2-S
 
-Chosen over the Arduino TinkerKit Braccio, which reads as a school or hobby kit rather than an object; the Grab-it's black anodised aluminium reads as an artwork behind perspex.
+A 4-axis desktop arm with its own ESP32 motion controller and **serial bus servos with feedback.** Chosen because an unattended arm has to know what it is doing.
 
-| | Joy-IT Grab-it (Robot02) |
+| | Waveshare RoArm-M2-S |
 | --- | --- |
-| Frame | Black anodised aluminium profiles, ball-bearing joints and turntable |
-| Servos | 6 × 21.5 kg·cm at 7.4 V, metal gears, standard PWM; 5–7.4 V, up to about 2 A each |
-| Reach / height | About 30 cm from the turntable centre; up to 42 cm tall |
-| Weight | 1540 g |
-| Controller | None in the base kit; driven here by the carrier (2.3) |
-| Availability | Current product (about €160 for the arm alone, about €250 bundled with a controller) |
+| Axes | 4: 360° base, shoulder, elbow, gripper (direct-drive clamp); no wrist rotation |
+| Servos | ST3215 serial bus servos, 30 kg·cm at 12 V, 12-bit magnetic encoders |
+| Feedback, every servo | Position, load, temperature, voltage, current |
+| Frame | Carbon fibre and aluminium, about 826 g |
+| Reach | About 28 cm horizontal; about 1.09 m workspace diameter with the base turning |
+| Payload | Up to 0.5 kg (manufacturer's figure) |
+| Power | DC 7–13 V input (12 V, 5 A supply in the box) |
+| Controller | On-board ESP32-WROOM-32U; JSON commands over UART, USB, HTTP or ESP-NOW; control code open source |
+| Price | About $205–225; stocked in Europe (RobotShop EU, Grobotronics) |
 
-- **Difficulty is a design choice, not a defect.** The arm is stiff and precise, so the game is made hard by the peg tolerances and the controls (3.2), not by jitter.
-- **Its strength cuts both ways.** It can crack a peg board or push on the perspex if a move goes wrong. The firmware sets **soft angle limits and speed limits** on every joint, so the arm cannot reach the walls.
+**Why it, over the alternatives:**
+
+- **It knows where it is.** A hobby servo is sent a pulse and the controller has to assume it got there. The RoArm's servos report their real angle and load on every move, so the node can catch a stall, a jam or a slipped joint, home itself each morning, and back off before a servo burns out (3.5).
+- **Faults become public.** A stall or a missed position stops the game and posts a **service notice**, like the auction's faults ([SUNSET.md](SUNSET.md) 7.1).
+- **12 V native,** so it lives on the battery tier with one regulator (2.3), not a separate servo supply.
+- **It reads as an instrument,** carbon and aluminium behind perspex, not a classroom kit.
+
+**Considered and set aside:**
+
+| Arm | Why not |
+| --- | --- |
+| Arduino TinkerKit Braccio | Reads as a school or hobby kit; hobby servos, no feedback |
+| Joy-IT Grab-it (Robot02) | Strong aluminium arm, but hobby PWM servos with no feedback, and a separate 6–7.4 V servo supply. The previous choice |
+| Adeept 5-DOF (Arduino) | 9 g plastic-gear micro servos and an acrylic STEM-kit frame; would not last a season. Could serve as a cheap desk mule for firmware |
+
+**Strength cuts both ways.** 30 kg·cm can crack a peg board or push on the perspex. The firmware sets **soft angle limits and speed limits** on every joint, and the load feedback stops a move that meets resistance.
 
 ### 2.2 The board: pegs, holes and the gravity loop
 
@@ -53,24 +70,26 @@ Nothing needs resetting:
 
 - The holes are **through-holes.** A peg dropped in falls through the board onto a **sloped ramp** below and rolls back to a **hopper**, where the arm picks it up again. The pegs circulate like a marble run, and the board is always empty and ready.
 - **A sensor under each hole** (IR break-beam or a small microswitch flap) gives the ESP32 a trustworthy "success" for that hole.
-- **Holes from loose to tight,** or round, square and triangular pegs, so some drops are easy and some very hard.
+- **Round pegs, holes from loose to tight,** so some drops are easy and some very hard. The arm has no wrist rotation, so square or keyed pegs are out unless the gripper is set up as an extra axis.
 - **Jams:** if a peg sticks on the ramp or lands outside the hopper, the arm runs a **self-clearing routine** after sunset, when play has closed. It can double as a small evening performance.
 
-### 2.3 Driving the arm from the carrier
+### 2.3 Wiring the arm to the carrier
 
-Six servos and the hole sensors need more pins than J9 has, so the servos go on a **PCA9685-class 16-channel PWM board** on the carrier's I2C header (J13). J9 is left for the sensors.
+**Wired and in one unit.** The arm sits in the same enclosure as the carrier and battery, joined by a UART cable. The carrier sends moves ("go to hole 3", "grip", "release") as JSON; the arm's own ESP32 runs the motion and replies with what actually happened. The PCA9685 board of draft 1 is gone, and J13 is free.
+
+The arm's ESP-NOW link could in principle let it sit away from the panel, but the stock firmware sends no feedback over ESP-NOW, the link would need its own signing, and the arm would still need 12 V from the battery. Wired is simpler and cannot be spoofed.
 
 | Use | GPIO / bus | Header | Notes |
 | --- | --- | --- | --- |
-| Servo PWM, 6 channels (16 available) | I2C SDA 21 / SCL 22 | J13 | PCA9685 board, shared I2C with the DS3231 (different address) |
-| Servo power enable | 26 | J9 | MOSFET or relay on the servo supply; off at boot (pull-down), off outside play |
+| Arm UART: carrier TX → arm RX | 26 | J9 | UART1, 115200 baud; check the arm's UART is 3.3 V logic before wiring |
+| Arm UART: carrier RX ← arm TX | 27 | J9 | **Remove R19** (as on the auction node): 27 no longer switches U4/J11 |
+| Arm power enable | 17 | J10 | MOSFET or relay on the arm's 12 V feed; off at boot (pull-down), off outside play and on any fault. GPIO 17 is J10's TX line, free because VE.Direct text mode is receive-only (3.6) |
 | Hole sensors 1–5 | 32, 33, 36, 13, 14 | J9 | 36 is input only and needs an external pull-up; GPIO 14 toggles at boot, harmless on an input |
-| Hopper / jam sensor (optional) | one of the pins above | J9 | Or an I2C port expander (MCP23017 class) on J13 if more inputs are needed; the PCA9685 is outputs only |
-| Switched 5 V | 27 | via R19 to U4 | Unchanged; free for a light or fan |
-| VE.Direct | 16 RX, 17 TX | J10 | As on every interactive node |
-| Enclosure temperature probe | 4 | J4 / J5 | Heat check (3.5) |
+| Hopper / jam sensor (optional) | J13 | J13 | An I2C port expander (MCP23017 class) if more inputs are needed; J13 is free now |
+| VE.Direct | 16 RX | J10 | Text mode, receive only |
+| Enclosure temperature probe | 4 | J4 / J5 | Heat check (3.5); the servos also report their own temperature |
 
-**Servo supply:** a 12 V → 6–7.4 V buck converter rated for about 10 A peaks, from the battery through its own fuse, never through the carrier. Six servos at up to 2 A each could in theory draw over 12 A, but in normal moves only one or two joints work hard at a time.
+**Arm supply:** the arm takes **7–13 V**, but a LiFePO₄ battery sits at about 13.2–13.4 V and reaches 14.2–14.6 V while charging. So the arm is fed through a **regulated 12 V DC-DC converter rated 5 A or more,** from the battery through its own fuse and the power-enable switch, never through the carrier. The sun gate stops play long before the battery is low enough to starve the converter.
 
 ### 2.4 The enclosure
 
@@ -83,7 +102,8 @@ Six servos and the hole sensors need more pins than J9 has, so the servos go on 
 | Load | Draw | Notes |
 | --- | --- | --- |
 | ESP32, Wi-Fi on, sunrise to sunset | about 0.5 W | about 6 Wh a day |
-| Arm, during a turn | roughly 10–40 W, peaks higher | depends on moves; idle between turns with servo power off |
+| Arm, during a turn | roughly 10–40 W, peaks up to 60 W (12 V × 5 A) | depends on moves; torque off between turns, power off outside play |
+| Arm, waiting between turns | about 1 W | arm controller awake, servo torque off |
 | Arm, per day | set by play | each turn costs energy; this is what the sun gate meters (3.3) |
 
 A 12 V 20–40 Ah LiFePO₄ pack (about 250–500 Wh) covers a busy day with reserve. The real cost per turn is measured in the pilot.
@@ -116,13 +136,22 @@ One player at a time; the access point serves up to 10 phones, so the queue is s
 
 ### 3.4 Daylight only
 
-Play runs from sunrise to sunset, like all SUNSET business. At sunset the Wi-Fi closes, servo power goes off, and the self-clearing routine (2.2) runs if needed.
+Play runs from sunrise to sunset, like all SUNSET business. At sunset the Wi-Fi closes, the self-clearing routine (2.2) runs if needed, and the arm's power goes off until morning.
 
-### 3.5 Heat and safety
+### 3.5 Feedback, faults and safety
 
-- **Servo power off** whenever no turn is running.
-- **No play above a set enclosure temperature,** read from the probe; the page says why.
-- **Soft limits and speed limits** on every joint (2.1).
+The arm's feedback is what lets the game run unattended for a season.
+
+- **Morning homing.** At sunrise the arm powers up, moves to its home pose and checks every joint reads where it should before the first turn.
+- **Every move is checked.** After each move the carrier reads back the joint angles. A joint that didn't arrive, or arrived and then drifted, is a fault.
+- **Load limit.** If a joint's load climbs past a threshold (gripper jammed on a peg, arm pressed against the board or the perspex), the move stops and the arm backs off.
+- **Heat.** No play above a set enclosure temperature or servo temperature; the page says why. Torque off whenever no turn is running.
+- **On a fault:** the turn ends, the player keeps any stamp already confirmed, the page shows "resting", the arm's power is cut, and the node posts a **service notice** naming the fault (stall, joint error, heat). It retries once after sunset during the clearing routine; if the fault clears, play resumes next morning.
+- **Soft limits and speed limits** on every joint (2.1); the load limit is the backstop.
+
+### 3.6 Victron link on this node
+
+VE.Direct runs in **text mode, receive only:** the Victron broadcasts its readings every second and the carrier only listens. This frees GPIO 17 (J10's TX line) for the arm's power switch. The node cannot send HEX commands to the Victron; it doesn't need to.
 
 ---
 
@@ -130,7 +159,8 @@ Play runs from sunrise to sunset, like all SUNSET business. At sunset the Wi-Fi 
 
 Same interactive build as the other SUNSET nodes (interactive-auction.md 4), with the node role set to **arm game**:
 
-- servo control through the PCA9685 over I2C, with per-joint soft limits and speed limits;
+- arm control over UART1 (JSON commands to the RoArm's controller), with per-joint soft limits, speed limits and a load limit;
+- read-back after every move, morning homing, fault handling and service notices (3.5);
 - the turn queue, turn timer and controls page;
 - hole sensors, and stamp issue on a confirmed drop (commit-and-reveal, as for auction tokens);
 - the sun gate on the Victron's charge state;
@@ -149,6 +179,8 @@ Same interactive build as the other SUNSET nodes (interactive-auction.md 4), wit
 | Peg and board materials | Durable, quiet, and kind to the arm's gripper |
 | Jam handling | Whether a hopper sensor is needed, or the nightly clearing routine is enough |
 | Site | Shade and ventilation for servos in summer |
+| Arm firmware | Keep Waveshare's stock firmware and use its JSON commands, or flash a trimmed build (open source) that accepts only the game's moves |
+| Gripper | Stock clamp, or a custom jaw shaped for the pegs |
 
 ## 6. Pilot tasks
 
@@ -157,6 +189,8 @@ Same interactive build as the other SUNSET nodes (interactive-auction.md 4), wit
 | Energy per turn | Measured, to set the sun gate's thresholds |
 | Difficulty | Hole tolerances and stamp values that make the game hard but winnable |
 | Soft limits | Joint angles and speeds that keep the arm off the perspex and the board |
+| Load thresholds | Load readings for a clean grip, a jammed peg and a push against the perspex; where to set the stop |
+| UART and power | The arm's UART logic level; the 12 V converter's behaviour across the battery's range; the arm's idle draw with torque off |
 | Sensor reliability | No missed drops, no false stamps (a peg brushing the sensor without dropping through) |
 | Heat | Temperature inside the enclosure on a summer afternoon, servos idle and working |
 | Gravity loop | Pegs return to the hopper every time; how often the clearing routine is needed |
