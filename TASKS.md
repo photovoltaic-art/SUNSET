@@ -43,5 +43,5 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 
 ## Repository
 
-- [ ] Make the repository public, with "not yet licensed for reuse" (as SUNDIAL), so SUNDIAL's and PVA's links to it work.
+- [x] Repository public (22 Oct 2026), "not yet licensed for reuse" (as SUNDIAL).
 - [ ] Licence, at release: match SUNDIAL.
