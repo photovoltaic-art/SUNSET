@@ -2,7 +2,7 @@
 
 A SUNSET interactive node that **turns digital stamps into paper stamps, and back.** The visitor spends stamps from their phone and the node prints a small paper stamp: a bearer note that can be handed to anyone in the street, with no phone involved. Brought back to the node, the paper turns into digital stamps again.
 
-It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [interactive-auction.md](interactive-auction.md), sections 1 and 2; this document covers only what is different.
+It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [battery-tier.md](battery-tier.md); this document covers only what is different.
 
 > Status: draft 3, 22 Oct 2026 (each mint issues two parts, the stamp as artwork and a redeem sticker; the artwork stamp alone is also sold as a souvenir). Artwork to be designed; nothing built. **Nothing here changes the carrier board.**
 

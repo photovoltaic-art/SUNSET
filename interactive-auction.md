@@ -1,58 +1,19 @@
-# Interactive nodes and the street auction — specified against carrier v1
+# The street auction — an interactive node on carrier v1
 
-The PVA carrier board v1 ([hardware/CARRIER.md](hardware/CARRIER.md)) was designed for a SUNDIAL wall panel: no battery, awake from dawn to dusk. This document specifies a second way of using **the same board, unchanged**: an **interactive node** on a battery, and the first interactive node, **the street auction**.
+The first of SUNSET's interactive nodes: **the street auction.** It runs on carrier v1 on the battery tier ([battery-tier.md](battery-tier.md)).
 
-The interactive nodes belong to **SUNSET** (PVA no. 2, formerly GO TO BED), a network of panels that carry messages and stamps between walls. Where SUNDIAL is about time, SUNSET is about one moment in it: every day's business closes at sunset. They are specified here because they are a use of carrier v1, like the three layers in [SUNDIAL.md](SUNDIAL.md).
+The interactive nodes belong to **SUNSET** (PVA no. 2, formerly GO TO BED), a network of panels that carry messages and stamps between walls. Where SUNDIAL is about time, SUNSET is about one moment in it: every day's business closes at sunset. They are a use of the PVA carrier v1, like the three layers of SUNDIAL ([SUNDIAL.md](https://github.com/photovoltaic-art/sundial/blob/main/SUNDIAL.md)).
 
 > Status: draft 2, 22 Oct 2026 (three lockers; business in daylight only; evening lights on the battery). Concept and rules settled in discussion; nothing built. Nothing here changes the carrier board.
 
 ---
 
-## 1. Two power tiers, one board
+## 1. The auction on the battery tier
 
-**The rule: the power tier follows the load, not the role.** A node that only serves pages and keeps records is a wall node. A node that moves, flips, lights or releases something is an interactive node.
+The auction is an interactive node: carrier v1 on the battery tier, specified in [battery-tier.md](battery-tier.md) (two tiers, JP1 off, sunset as the close of business, the Victron data, wiring). Particular to the auction:
 
-| | Wall node | Interactive node |
-| --- | --- | --- |
-| Examples | SUNDIAL panels; SUNSET message walls; a data-only auction | The street auction (lockers); the robot arm; the flip-dot wall |
-| Panel connects to | Carrier J1 directly | Victron SmartSolar MPPT 75/15 → 12 V LiFePO₄ battery → MPPT load output → carrier J1 |
-| JP1 (sun-sensor jumper) | **On** | **Off**, and the sun sensor compiled out of the firmware |
-| Sun reading | The carrier's own short-circuit current: true light level | Victron PV voltage and power over VE.Direct: energy harvested |
-| GPIO 34 divider reads | Panel voltage (dawn and dusk gates) | Battery voltage (a cross-check of the Victron's figure) |
-| Battery data | None | Victron: battery voltage and current, charge state, yield today |
-| Awake | Dawn to dusk, off at night | Business sunrise to sunset; lights after sunset (about four hours, set in the pilot), then asleep until sunrise (1.2) |
-| Temperature probe, clock, Wi-Fi, storage | Same | Same |
-| Firmware | Wall build | Interactive build |
-
-### 1.1 Why JP1 must be off
-
-Every 10 seconds the sun sensor's MOSFET (Q1) shorts `PV+` to ground through the 5 mΩ shunt, before the fuse. A panel is a current source and gives at most about 6 A into that short, which is the whole point of the sensor. **A battery is not a current source:** the same pulse would be a dead short of a 12 V LiFePO₄ pack.
-
-- **JP1 is a physical jumper** (a 2-pin header between GPIO 25 and the gate driver U3). With the jumper removed, Q1 cannot be switched on, whatever the firmware does.
-- **The interactive build also compiles the sun sensor out** (`SUN_SENSOR 0`), so GPIO 25 is never driven high, even if someone refits the jumper.
-- The Victron's own load-output protection is a third line, not a substitute for the first two.
-
-The carrier cannot keep its own sun measurement on this tier: the panel now feeds the Victron, and shorting the Victron's input every 10 seconds would discharge its input capacitors through Q1 and upset its tracking.
-
-### 1.2 Sunset is the moment
-
-SUNDIAL seals each day's dial at Bosa's sunset. SUNSET keeps the same moment: **the day's business closes at sunset.** The auction's hammer falls, the day's records seal, and the whole network keeps one rhythm.
-
-- **Sunset comes from the clock,** computed for Bosa as SUNDIAL's seal already is (`sunTimes`), not from the panel or battery voltage. A cloudy afternoon must not end the auction early.
-- **All business is in daylight.** Listing, bidding, collecting and returning happen between sunrise and sunset, and nowhere else. At sunset the Wi-Fi closes.
-- **The battery keeps the lights on after sunset,** about four hours as the starting point. In Sardinia the street is busiest in the evening, so the lockers stay lit: the result of the day's hammer, and tomorrow's lot waiting in the wings, readable from the pavement. Nothing can be done until sunrise.
-- **Then the node sleeps.** The lights go out and the ESP32 deep-sleeps until sunrise.
+- **The battery keeps the lockers lit after sunset,** about four hours as the starting point. In Sardinia the street is busiest in the evening, so the lockers stay lit: the result of the day's hammer, and tomorrow's lot waiting in the wings, readable from the pavement. Nothing can be done until sunrise; then the lights go out and the ESP32 deep-sleeps until sunrise.
 - **The lighting routine is not fixed here.** Which lockers are lit, in which colours, how bright, by day or only in the evening, and for how long, is a firmware setting, tuned on the built hardware during the pilot (6).
-- The battery smooths cloudy days and motor or solenoid surges, and lights the evening. It does not move the close of the day.
-
-**The sun is the coin slot.** Actions that cost energy (a grab, a flip, a door) are offered only when the battery's charge state allows. A dull week means fewer actions, and the page says so.
-
-### 1.3 What the Victron data means
-
-The VE.Direct text protocol sends a block of values about once a second (19200 baud): battery voltage and current, PV voltage and power, charge state, yield today, load-output state.
-
-- **PV power is energy harvested, not light.** When the battery is full the Victron backs off the panel, so on full-battery days an interactive node's dial understates the sun. Interactive-node dials are labelled accordingly. Only wall nodes measure the sun.
-- **Check the 75/15's VE.Direct signal level before wiring.** If its TX is 5 V, put a resistor divider on the ESP32's RX pin.
 
 ---
 
@@ -60,19 +21,7 @@ The VE.Direct text protocol sends a block of values about once a second (19200 b
 
 ### 2.1 Wiring
 
-```
- PV panel ──► Victron MPPT 75/15 (PV in)        battery ◄──► MPPT (battery terminals)
-                     │
-                     ├── LOAD out (low-voltage disconnect) ──► fuse ──► carrier J1 (PANEL +/−)
-                     │                                           └──► fuse ──► 12 V line to the off-board driver
-                     └── VE.Direct ──► carrier J10 (GPIO 16 RX, 17 TX, GND)
-```
-
-- **Panel to MPPT:** a recycled panel's open-circuit voltage (44.5 V on the TSM-185DC01 label, about 48 V on a cold morning) is well inside the 75 V limit.
-- **Carrier power:** J1 takes the MPPT load output. The buck converter turns about 13 V into the usual 5 V rail. The low-voltage disconnect protects the battery.
-- **Supercapacitors:** harmless with a battery; fit them or leave them out.
-- **Heavy loads stay off the carrier.** Solenoids and lights run from their own fused 12 V line through a small off-board driver (2.3). The carrier's take-offs (F2 0.5 A at 5 V, F3 0.2 A at 3.3 V) are for small sensors, not locks.
-- **AUX (J12)** is not used on this tier: the battery and load output replace it.
+As in [battery-tier.md](battery-tier.md) 2.1. The auction's off-board driver (2.3) hangs on the fused 12 V line from the Victron's load output.
 
 ### 2.2 Pins for the auction node
 
@@ -165,7 +114,7 @@ A lot with no bids at the hammer goes to wings out for the seller to take back, 
 
 **The light is the message.** Without accounts or contact details, the node cannot tell anyone anything directly; the colour of each locker, readable from the street, is the status. The seller token also shows the lot's status on the node's page, and uncollected lots are announced by shout.
 
-After sunset the lights can show the day's result to the evening street (1.2); the colours and routine are set in the pilot (6).
+After sunset the lights can show the day's result to the evening street (1); the colours and routine are set in the pilot (6).
 
 A door switch on each locker confirms that the door was opened and closed again, so each locker resets itself.
 

@@ -2,7 +2,7 @@
 
 The four **wall nodes** are the backbone of [SUNSET](SUNSET.md). Each is a recycled panel on a wall, serving its own Wi-Fi with no internet. On it, anyone can read and leave short messages. Visitors' phones carry messages from wall to wall as they walk, and the first to deliver new messages to a wall earns a **stamp**: *proof of walk*. The walls are where most visitors meet SUNSET, where its news travels, and where most new stamps come from.
 
-A wall node is a **wall-tier** panel: the panel straight into the carrier board, no battery, awake from dawn to dusk, the same hardware as a SUNDIAL panel ([SUNDIAL.md](SUNDIAL.md), [hardware/CARRIER.md](hardware/CARRIER.md)).
+A wall node is a **wall-tier** panel: the panel straight into the carrier board, no battery, awake from dawn to dusk, the same hardware as a SUNDIAL panel ([SUNDIAL.md](https://github.com/photovoltaic-art/sundial/blob/main/SUNDIAL.md), [CARRIER.md](https://github.com/photovoltaic-art/sundial/blob/main/hardware/CARRIER.md)).
 
 > Status: draft 2, 22 Oct 2026 (shouts are paid for). Brings together the decisions made so far; nothing built. The shared stamp format is outlined here (5) and will get its own specification.
 

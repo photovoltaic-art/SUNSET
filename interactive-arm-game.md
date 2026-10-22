@@ -2,7 +2,7 @@
 
 A SUNSET interactive node with a robot arm in a transparent enclosure, played from visitors' phones. The game is **pegs in holes**: drop a peg cleanly into a hole and the machine pays a stamp. It is SUNSET's first **earning node by skill**, beside the walls, which pay for walking.
 
-It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [interactive-auction.md](interactive-auction.md), sections 1 and 2; this document covers only what is different.
+It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [battery-tier.md](battery-tier.md); this document covers only what is different.
 
 > Status: draft 1, 22 Oct 2026. Brings together the decisions made so far; nothing built. **Nothing here changes the carrier board.**
 

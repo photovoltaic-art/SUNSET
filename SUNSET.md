@@ -1,6 +1,6 @@
 # SUNSET — PVA no. 2
 
-SUNSET is the second work of **PVA (Photovoltaic Art)**, after [SUNDIAL](README.md). Where SUNDIAL is about time, SUNSET is about one moment in it: **every day's business closes at sunset.** (Its working title was GO TO BED.)
+SUNSET is the second work of **PVA (Photovoltaic Art)**, after [SUNDIAL](https://github.com/photovoltaic-art/sundial). Where SUNDIAL is about time, SUNSET is about one moment in it: **every day's business closes at sunset.** (Its working title was GO TO BED.)
 
 SUNSET is **nine recycled solar panels** on the walls of a town, forming a small offline network with its own currency. People earn **stamps** by walking messages between walls and by skill, and spend them at an auction, a mint and a wall of mechanical pixels. Every panel runs on its own sun, on the same carrier board as SUNDIAL, and everything that happens is unattended, anonymous and over by sunset.
 
@@ -23,7 +23,7 @@ SUNSET is **nine recycled solar panels** on the walls of a town, forming a small
 
 ### 1.1 Two power tiers, one board
 
-Every panel uses the **PVA carrier board v1** ([hardware/CARRIER.md](hardware/CARRIER.md)), unchanged. **The power tier follows the load, not the role** (interactive-auction.md 1):
+Every panel uses the **PVA carrier board v1** ([CARRIER.md](https://github.com/photovoltaic-art/sundial/blob/main/hardware/CARRIER.md)), unchanged. **The power tier follows the load, not the role** ([battery-tier.md](battery-tier.md) 1):
 
 | | Wall nodes (4) | Interactive nodes (5) |
 | --- | --- | --- |
@@ -206,12 +206,12 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 
 | Rule | Where it is specified |
 | --- | --- |
-| Business only in daylight; sunset from the clock, as SUNDIAL's seal | interactive-auction.md 1.2 |
+| Business only in daylight; sunset from the clock, as SUNDIAL's seal | battery-tier.md 1.2 |
 | Every node's 5 × 5 logo is unique, and never the same as the Photovoltaic Art logo | wall-node.md 5.1 |
 | No identities: no accounts, no names; bearer stamps and tokens | interactive-auction.md 3.5 |
 | Commit and reveal for every token and stamp sent over the open Wi-Fi | interactive-auction.md 3.5 |
 | Every state change written to flash before it is acted on | interactive-auction.md 3.5 |
-| Interactive nodes: JP1 off, sun sensor compiled out | interactive-auction.md 1.1 |
+| Interactive nodes: JP1 off, sun sensor compiled out | battery-tier.md 1.1 |
 | Messages on the walls vanish within 7 days; nothing attributable is kept | wall-node.md 2.3 |
 
 ---

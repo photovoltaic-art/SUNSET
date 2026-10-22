@@ -2,7 +2,7 @@
 
 A SUNSET interactive node with a **flip-dot panel**: a grid of mechanical pixels, each a small disc that shows one colour or the other. **A dot can only be flipped with a paper stamp.** No phone, no app: the visitor holds a redeem sticker from the print node up to the scanner, turns two knobs to choose a dot, and presses to flip it. Beside the panel is a **sticker wall**, where people stick their spent stickers.
 
-It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [interactive-auction.md](interactive-auction.md), sections 1 and 2; the paper stamps in [interactive-print.md](interactive-print.md).
+It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [battery-tier.md](battery-tier.md); the paper stamps in [interactive-print.md](interactive-print.md).
 
 > Status: draft 1, 22 Oct 2026. Concept settled in discussion; panel quote requested from Alfa-Zeta; nothing built. **Nothing here changes the carrier board.**
 

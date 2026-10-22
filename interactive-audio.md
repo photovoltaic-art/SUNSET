@@ -4,7 +4,7 @@ A SUNSET interactive node that plays **the SUNSET set** at sunset. It doesn't pl
 
 **The panel is only the transmitter.** The carrier's ESP32 reads the music from its microSD card and streams it over Bluetooth to a registered Bluetooth speaker. Nothing is added inside the enclosure.
 
-It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [interactive-auction.md](interactive-auction.md), sections 1 and 2; this document covers only what is different.
+It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [battery-tier.md](battery-tier.md); this document covers only what is different.
 
 > Status: draft 3, 22 Oct 2026 (the panel as Bluetooth transmitter to a registered speaker; option of a speaker locker that charges it). Concept only; nothing built. **Nothing here changes the carrier board.**
 
