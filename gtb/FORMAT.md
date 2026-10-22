@@ -2,6 +2,8 @@
 
 *Draft, 21 Oct 2026 (revised the same day: replies; whisper and shout; the seal covers a fingerprint of the words, so they can fade; times about people kept to the hour). Sized for simple, failsafe operation on the SUNDIAL carrier's ESP32 (no PSRAM, ~2 MB of storage).*
 
+> **Superseded by [stamp-format.md](../stamp-format.md)** (SUNSET's stamp and block format, v1), which builds on this v0 and keeps its blocks, seals and receipts. Kept as written; the [test bed](testbed/README.md) implements v0.
+
 Plain JSON. Every number below is a limit the panel enforces; anything over a limit is refused, never truncated.
 
 ## Whispers and shouts

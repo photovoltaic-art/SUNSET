@@ -115,9 +115,9 @@ A 12 V 20–40 Ah LiFePO₄ pack (about 250–500 Wh) covers a busy day with res
 ### 3.1 A turn
 
 1. **Join the node's Wi-Fi;** the game page opens. If someone is playing, join the queue.
-2. **Start a turn.** The phone makes its own secret and sends only its hash (as in interactive-auction.md 3.5), so the stamp it earns can't be copied off the open network.
+2. **Start a turn.** The phone makes a fresh holder key for the stamp it may earn and sends only the public half ([stamp-format.md](stamp-format.md) 3.1), so the stamp can't be copied off the open network.
 3. **Steer the arm:** pick a peg from the hopper, carry it to a hole, release.
-4. **A sensor confirms the drop:** the node issues the stamp to the player's passport page, signed by the node, revealed only to the phone that holds the secret.
+4. **A sensor confirms the drop:** the node issues the stamp (`why: skill`) to that holder key, signed by the node, into the player's passport page.
 5. **The turn ends** on the timer, or when the player ends it. Next in the queue.
 
 One player at a time; the access point serves up to 10 phones, so the queue is short by design.
@@ -162,7 +162,7 @@ Same interactive build as the other SUNSET nodes (interactive-auction.md 4), wit
 - arm control over UART1 (JSON commands to the RoArm's controller), with per-joint soft limits, speed limits and a load limit;
 - read-back after every move, morning homing, fault handling and service notices (3.5);
 - the turn queue, turn timer and controls page;
-- hole sensors, and stamp issue on a confirmed drop (commit-and-reveal, as for auction tokens);
+- hole sensors, and stamp issue on a confirmed drop (holder keys, stamp-format.md 3);
 - the sun gate on the Victron's charge state;
 - the self-clearing routine after sunset;
 - every stamp issued written to flash before it is shown, so a reboot can neither lose nor repeat one.

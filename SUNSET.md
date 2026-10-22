@@ -1,10 +1,10 @@
 # SUNSET — PVA no. 2
 
-SUNSET is the second work of **PVA (Photovoltaic Art)**, after [SUNDIAL](https://github.com/photovoltaic-art/sundial). Where SUNDIAL is about time, SUNSET is about one moment in it: **every day's business closes at sunset.** (Its working title was GO TO BED.)
+SUNSET is the second work of **PVA (Photovoltaic Art)**, after [SUNDIAL](https://github.com/photovoltaic-art/sundial). Where SUNDIAL is about time, SUNSET is about one moment in it: **every day's business closes at sunset.** It grew from **GO TO BED**, a group chat that goes to bed at sunset, whose concept, block format and tests are kept in [gtb/](gtb/GO-TO-BED.md).
 
 SUNSET is **nine recycled solar panels** on the walls of a town, forming a small offline network with its own currency. People earn **stamps** by walking messages between walls and by skill, and spend them at an auction, a mint and a wall of mechanical pixels. Every panel runs on its own sun, on the same carrier board as SUNDIAL, and everything that happens is unattended, anonymous and over by sunset.
 
-> Status: draft 1, 22 Oct 2026. The five interactive nodes are specified in their own documents; the wall nodes in [wall-node.md](wall-node.md); the stamp format is outlined there and still to be specified in full. Nothing is built.
+> Status: draft 2, 22 Oct 2026. The five interactive nodes are specified in their own documents, the wall nodes in [wall-node.md](wall-node.md), and the stamps and blocks shared by all of them in [stamp-format.md](stamp-format.md). Tasks: [TASKS.md](TASKS.md). Nothing is built.
 
 ---
 
@@ -207,9 +207,12 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 | Rule | Where it is specified |
 | --- | --- |
 | Business only in daylight; sunset from the clock, as SUNDIAL's seal | battery-tier.md 1.2 |
-| Every node's 5 × 5 logo is unique, and never the same as the Photovoltaic Art logo | wall-node.md 5.1 |
+| Every node's 5 × 5 logo is unique, and never the same as the Photovoltaic Art logo | stamp-format.md 3.2 |
+| Every node seals one signed block a day at sunset, chained to the day before | stamp-format.md 6 |
+| All signatures Ed25519; the nine public keys published | stamp-format.md 2 |
 | No identities: no accounts, no names; bearer stamps and tokens | interactive-auction.md 3.5 |
-| Commit and reveal for every token and stamp sent over the open Wi-Fi | interactive-auction.md 3.5 |
+| Nothing worth copying crosses the open Wi-Fi: holder keys for stamps, commit and reveal for tokens | stamp-format.md 3.1, interactive-auction.md 3.5 |
+| A double spend that can't be stopped offline is bounded, proved and shown in public | stamp-format.md 5 |
 | Every state change written to flash before it is acted on | interactive-auction.md 3.5 |
 | Interactive nodes: JP1 off, sun sensor compiled out | battery-tier.md 1.1 |
 | Messages on the walls vanish within 7 days; nothing attributable is kept | wall-node.md 2.3 |
@@ -220,7 +223,8 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 
 Each of these fits SUNSET's design and is kept for a later season or a fork:
 
-- **A radio node** linking SUNSET to the next village, and **relay panels** in between: a network of villages.
+- **A radio node** linking SUNSET to the next village over LoRa (868 MHz, licence-free; Bosa to Bosa Marina is about 2.5 km), and **relay panels** in between: a network of villages. News by radio earns no stamps; walkers still carry it inland (gtb/GO-TO-BED.md, the radio node).
+- **A miner node:** a Bitaxe on a panel's spare midday power (the SolarSats idea). It needs a pool over the internet, so it would be the one node that is not offline; to decide (gtb/GO-TO-BED.md, other specialized nodes).
 - **A second flip-dot wall,** or a reclaimed bus-sign panel instead of a new one.
 - **Distributed sound:** phones playing layers of the set (interactive-audio.md 4).
 
@@ -230,7 +234,7 @@ Each of these fits SUNSET's design and is kept for a later season or a fork:
 
 | Question | Notes |
 | --- | --- |
-| **Stamp format** | The bearer-stamp design shared by all nodes: the public unspent list, the 5 × 5 node logos, signatures |
+| Stamp format | Drafted in [stamp-format.md](stamp-format.md); its own open questions (season's end, passport backup) are listed there |
 | Onboarding | The one-screen explanation at the first wall; the first stamp |
 | Site plan | Where each of the nine panels goes, against section 4 |
 | Permissions | Comune, wall owners, amplified sound, an unattended street auction |

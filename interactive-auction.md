@@ -124,7 +124,7 @@ A door switch on each locker confirms that the door was opened and closed again,
 - **A bid needs the stamps in hand.** Bidding spends them into the node (marked spent on the public list) and gives the bidder a bid receipt.
 - **Outbid:** the node at once issues fresh stamps of the same value back to the bidder.
 - **Won:** the stamps stay with the node until the seller redeems them, as fresh stamps.
-- **Why spent, not "locked":** SUNSET nodes learn of each other's spends only when couriers carry blocks between walls. A stamp merely marked as locked at the auction could be spent at another wall before the news arrived. Spending into the node means the only valid copies are the ones it holds, so nothing can be spent twice. To the user it behaves exactly like "locked until paid or returned".
+- **Why spent, not "locked":** SUNSET nodes learn of each other's spends only when couriers carry blocks between walls. A stamp merely marked as locked at the auction would still be spendable everywhere else. Spent into the node, it is recorded spent and its replacement exists only at the node. To the user it behaves exactly like "locked until paid or returned". The one double spend no offline node can stop (a holder copying their own phone) is bounded and made public (stamp-format.md 5).
 
 No separate escrow is needed: **the firmware is the escrow.** Every lot ends with the seller holding either the stamps or the goods (or, if the winner never comes, both).
 
@@ -132,7 +132,7 @@ No separate escrow is needed: **the firmware is the escrow.** Every lot ends wit
 
 The node's Wi-Fi is open and plain HTTP: anything sent can be read by anyone in range (SUNDIAL.md 4.3). A token sent in clear could be copied by a bystander, who would reach the locker first. So tokens are **commit and reveal**:
 
-1. **At bid time** (or at listing, for the seller), the phone makes its own random secret and sends only its hash. The node records the hash against the bid or lot and signs the receipt (HMAC-SHA256 with a key only the node holds).
+1. **At bid time** (or at listing, for the seller), the phone makes its own random secret and sends only its hash. The node records the hash against the bid or lot and signs the receipt (HMAC-SHA256 with a key only the node holds: only this node ever checks it). **Stamps themselves are not tokens:** they use holder keys and Ed25519 ([stamp-format.md](stamp-format.md) 3).
 2. **At collection,** the phone reveals the secret. The node checks it against the hash, opens the door at once and marks the token used.
 
 Anyone listening sees the secret only at the moment it stops being worth anything. Tokens are bearer: whoever holds the phone's secret holds the claim. Tokens are saved in the visitor's passport page beside their stamps.
@@ -183,7 +183,7 @@ New for the auction: the three-locker rotation (3.1) and locker states (3.3), bi
 | Exact cut-off times | Midday for collection, sunset for seller returns: confirm against how people actually use the street |
 | Bid steps and opening bid | Minimum increment; whether the seller can set a reserve |
 | Comune permission | An unattended street exchange is the piece most likely to need a word with the comune before Bosa 2027 |
-| Stamp format | Depends on SUNSET's bearer-stamp spec (public unspent list, node logos, passport page) |
+| Stamp format | Drafted: [stamp-format.md](stamp-format.md). Siting within ESP-NOW range of the gateway would put the auction's spends on the live spent list (stamp-format.md 5.2) |
 | Prior art | Check "world's first fully automated street auction" before using it publicly |
 
 ---

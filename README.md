@@ -4,7 +4,7 @@
 
 Nine end-of-life solar panels on the walls of a town, forming a small offline network with its own currency. Every day's business closes at sunset.
 
-SUNSET is the second work of **PVA (Photovoltaic Art)**, a manifesto for new uses of end-of-life PV panels: [photovoltaic.art](https://photovoltaic.art). The first is [SUNDIAL](https://github.com/photovoltaic-art/sundial). **A PVA work is nine panels;** that is its one rule. (SUNSET's working title was GO TO BED.)
+SUNSET is the second work of **PVA (Photovoltaic Art)**, a manifesto for new uses of end-of-life PV panels: [photovoltaic.art](https://photovoltaic.art). The first is [SUNDIAL](https://github.com/photovoltaic-art/sundial). **A PVA work is nine panels;** that is its one rule. SUNSET grew from GO TO BED, a group chat that goes to bed at sunset ([gtb/](gtb/GO-TO-BED.md)).
 
 People earn **stamps** by walking messages between walls and by skill, and spend them at an auction, a mint and a wall of mechanical pixels. Paper stamps pass from hand to hand, so anyone can take part, with or without a phone. Every panel runs on its own sun; everything is unattended, anonymous and over by sunset.
 
@@ -26,13 +26,20 @@ Start with **[SUNSET.md](SUNSET.md)**: the nine panels, the stamp economy, a day
 ```
 README.md                    this file
 SUNSET.md                    the whole work: nine panels, economy, the day, layout, pages, operations
-wall-node.md                 the four message walls: visitor experience, messages, couriers, proof of walk, stamp format (outline)
+TASKS.md                     what to do next: tests, sourcing, design, site
+stamp-format.md              stamps and blocks shared by every node (v1, built on GO TO BED's v0)
+wall-node.md                 the four message walls: visitor experience, messages, couriers, proof of walk
 battery-tier.md              carrier v1 on a battery: the tier every interactive node uses
 interactive-auction.md       the street auction
 interactive-arm-game.md      the arm game
 interactive-print.md         the print node (proof of print)
 interactive-flipdot.md       the flip-dot wall (cash only)
 interactive-audio.md         the SUNSET set
+gtb/                         GO TO BED, the concept SUNSET grew from (moved from the PVA repo with its history)
+  GO-TO-BED.md               the concept note and its decisions (21 Oct 2026)
+  FORMAT.md                  block and receipt format v0
+  carry_test/                ESP32 sketch and steps: do phones carry blocks between panels?
+  testbed/                   simulated town producing real signed blocks and receipts; results
 ```
 
 ## Hardware
@@ -41,4 +48,4 @@ Every panel uses the **PVA carrier board v1**, unchanged, specified and drawn in
 
 ## Status
 
-Drafts, 22 October 2026. Still to be written: the full **stamp format** (outlined in wall-node.md 5), the firmware, the site plan for a first town, and permissions. The history of these documents up to the move is kept here; they were first written in the SUNDIAL repository.
+Drafts, 22 October 2026. Still to come: the firmware, the site plan for a first town, and permissions ([TASKS.md](TASKS.md)). The history of these documents is kept here: SUNSET's were first written in the SUNDIAL repository, GO TO BED's in the PVA repository.

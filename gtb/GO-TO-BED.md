@@ -2,6 +2,8 @@
 
 *Concept, on hold. Opened 21 Oct 2026. Not yet a project: this note keeps the idea and its open questions.*
 
+> **The concept SUNSET grew from (moved here from the PVA repository, 22 Oct 2026).** Kept as written, for its reasoning, format and tests. Where it and SUNSET differ, SUNSET decides: see [SUNSET.md](../SUNSET.md) and [stamp-format.md](../stamp-format.md). The main changes since: interactive nodes on a battery (the manifesto's principle 3 now allows a battery that stores the panel's own sun), shouts paid in stamps, more than one spending node, and paper stamps.
+
 ## The idea
 
 A group chat that goes to bed at sunset.
@@ -235,7 +237,7 @@ One panel in each of two places, joined by radio. Everything else still moves on
 - **Panels** drop every block after 7 days. The chain fades with it: each block holds only the fingerprint of the one before.
 - **Phones:** the page drops blocks older than 3 days each time it opens at a panel.
 - **Receipts and passports** hold no words: a panel, a block ID, a time, a secret.
-- **Checking stamps needs no words.** The panel's seal covers a fingerprint of the day's messages, not the messages themselves ([format](gtb/FORMAT.md)). So the record of which deliveries earned stamps stays provable from block headers alone, and the words can go. The test bed checks this: every block and every receipt verified with the words removed.
+- **Checking stamps needs no words.** The panel's seal covers a fingerprint of the day's messages, not the messages themselves ([format](FORMAT.md)). So the record of which deliveries earned stamps stays provable from block headers alone, and the words can go. The test bed checks this: every block and every receipt verified with the words removed.
 - **Panel flash:** the firmware overwrites a block's file before deleting it, so a panel taken off the wall gives up no more than its last 7 days.
 
 **What the work cannot promise, and says so:**
@@ -264,7 +266,7 @@ The work collects nothing about anyone. No accounts, names, keys, phone IDs, log
 
 ## Building on SUNDIAL
 
-- **Same principles** ([MANIFESTO](../MANIFESTO.md)): the panel powers only itself; offline by nature; the work keeps no one; slow.
+- **Same principles** ([MANIFESTO](https://github.com/photovoltaic-art/PVA/blob/main/MANIFESTO.md)): the panel powers only itself; offline by nature; the work keeps no one; slow.
 - **Same base hardware where possible:** the SUNDIAL carrier's power path, sun sensor and clock, with lessons from its v1 bench test.
 - **The SUNDIAL carrier already has the hooks:** an AUX output that takes spare panel power through its own converter, a switched 5 V output, and spare SPI/UART/I²C pins. The firmware sheds AUX loads the moment the panel voltage sags, so the board always has priority.
 
@@ -272,17 +274,17 @@ The work collects nothing about anyone. No accounts, names, keys, phone IDs, log
 
 | # | Question | Decision |
 | --- | --- | --- |
-| 1 | How to test | A test bed first: a simulated town that writes real, signed blocks and receipts ([gtb/testbed](gtb/testbed/README.md)), then a one-board phone carry test ([gtb/carry_test](gtb/carry_test/carry_test.ino), steps in [TEST.md](gtb/carry_test/TEST.md)) |
+| 1 | How to test | A test bed first: a simulated town that writes real, signed blocks and receipts ([gtb/testbed](testbed/README.md)), then a one-board phone carry test ([gtb/carry_test](carry_test/carry_test.ino), steps in [TEST.md](carry_test/TEST.md)) |
 | 2 | Open posting | Fine: it is an art installation. Messages are short (140 characters) and expire |
 | 3 | Flooding | Limits per phone and per block, sized together with 4 |
-| 4 | Sizes | Sized for simple, failsafe operation: [format v0](gtb/FORMAT.md) |
+| 4 | Sizes | Sized for simple, failsafe operation: [format v0](FORMAT.md) |
 | 5 | Time | Stamped by the panel's clock only |
 | 6 | Hardware | **The SUNDIAL carrier and its ESP32 (ELEGOO 30-pin), unchanged.** Format v0 needs no PSRAM, no Nostr relay and no radio: blocks are a few KB, signatures are light work. An ESP32-S3 is only needed if a later version adds a panel-to-panel radio or a large relay |
 | 7 | Relation to SUNDIAL | New firmware; same carrier board and hardware; its own set of PV panels |
 | 8 | Panels | Nine. PVA works are nine panels |
 | 9 | Identity | None (level 0), or a name typed into the message (level 1). Don't trust anything that is written |
 | 10 | Moderation | None. Messages fade after 3 days on phones, 7 on panels |
-| 11 | Replies | A message can reply to another by its address, `panel/day#n` ([format](gtb/FORMAT.md)) |
+| 11 | Replies | A message can reply to another by its address, `panel/day#n` ([format](FORMAT.md)) |
 | 12 | Forgetting | A feature. All words gone from the network after 7 days at most; stamps stay checkable from block headers, no words |
 | 13 | User data | None collected. Wi-Fi addresses counted in memory only; times about people kept to the hour |
 | 14 | Whisper and shout | Whispers: live at one wall, memory only, gone at bedtime, 30 per phone. Shouts: sealed and carried, 3 per phone per wall per day |
@@ -299,12 +301,12 @@ The work collects nothing about anyone. No accounts, names, keys, phone IDs, log
 - **Board:** the SUNDIAL carrier, ELEGOO ESP32, new firmware.
 - **The network:** people carry it (proof of walk). Only sealed blocks travel, so a day's words leave a panel after it has slept once: the network's minimum delay is one night.
 - **Radio (later, optional):** a panel-to-panel link where walls can hear each other, most likely LoRa (SX1262 class) on the carrier's spare pins, its power scaled to the sun reading and drawn from AUX. Not needed for the first version.
-- **Format:** plain JSON blocks and bearer receipts, Ed25519 signatures ([FORMAT.md](gtb/FORMAT.md)). Nostr remains a possible later bridge, not a dependency.
+- **Format:** plain JSON blocks and bearer receipts, Ed25519 signatures ([FORMAT.md](FORMAT.md)). Nostr remains a possible later bridge, not a dependency.
 - **Phones:** the panel serves the chat page over plain `http`; no app, no account.
 
 ## What the test bed shows (simulated, invented town)
 
-Three scenarios, one week each, nine panels, a quarter of messages replying to earlier ones, six attacks checked, and a check with the words removed ([details](gtb/testbed/README.md)):
+Three scenarios, one week each, nine panels, a quarter of messages replying to earlier ones, six attacks checked, and a check with the words removed ([details](testbed/README.md)):
 
 | | Busy | Quiet | Sparse |
 | --- | --- | --- | --- |
@@ -341,4 +343,4 @@ Three scenarios, one week each, nine panels, a quarter of messages replying to e
 
 ## Status
 
-On hold while SUNDIAL v1 goes to manufacture; the test bed is done and the carry test is ready to run ([steps](gtb/carry_test/TEST.md): four browser paths, iPhone and Android). Prior art to study when it resumes: Meshtastic (LoRa mesh, app over Bluetooth), Bitchat (phone-to-phone Bluetooth mesh with Nostr bridging).
+On hold while SUNDIAL v1 goes to manufacture; the test bed is done and the carry test is ready to run ([steps](carry_test/TEST.md): four browser paths, iPhone and Android). Prior art to study when it resumes: Meshtastic (LoRa mesh, app over Bluetooth), Bitchat (phone-to-phone Bluetooth mesh with Nostr bridging).

@@ -4,7 +4,7 @@ The four **wall nodes** are the backbone of [SUNSET](SUNSET.md). Each is a recyc
 
 A wall node is a **wall-tier** panel: the panel straight into the carrier board, no battery, awake from dawn to dusk, the same hardware as a SUNDIAL panel ([SUNDIAL.md](https://github.com/photovoltaic-art/sundial/blob/main/SUNDIAL.md), [CARRIER.md](https://github.com/photovoltaic-art/sundial/blob/main/hardware/CARRIER.md)).
 
-> Status: draft 2, 22 Oct 2026 (shouts are paid for). Brings together the decisions made so far; nothing built. The shared stamp format is outlined here (5) and will get its own specification.
+> Status: draft 3, 22 Oct 2026. Blocks and stamps now follow [stamp-format.md](stamp-format.md), which builds on GO TO BED's format v0 ([gtb/FORMAT.md](gtb/FORMAT.md)): messages, replies, limits and fading come from there. Nothing built.
 
 ---
 
@@ -37,7 +37,7 @@ The visitor's phone is a **courier by default**. On connecting to a wall, the pa
 
 ### 1.5 The first stamp
 
-If the visitor is **the first to deliver** a wall's new messages to another wall, that wall pays a stamp. A newcomer's first stamp is a few minutes' walk from their first wall. It lands in their **passport page** (5.3), stamped with the 5 × 5 logo of the wall that paid it.
+If the visitor is **the first to deliver** a wall's sealed day of messages to another wall, that wall pays a stamp. A newcomer's first stamp is a few minutes' walk from their first wall. It lands in their **passport page** (5.1), stamped with the 5 × 5 logo of the wall that paid it.
 
 ### 1.6 What it feels like
 
@@ -77,19 +77,19 @@ A town where the walls talk to each other only through the people walking betwee
 
 ### 3.1 Blocks
 
-Each node keeps a **block:** everything it currently holds for the network (messages and shouts, and the stamp records that other nodes need: 5.2). A block has a version, so a node can tell new information from old.
+Each node seals **one block a day, at sunset:** that day's shouts, and in its header the stamps it issued and spent. Each block is signed by the node and chained to its previous day, so a courier can lose a block but never forge or alter one (stamp-format.md 6; v0: [gtb/FORMAT.md](gtb/FORMAT.md)). A day's news leaves a wall after it has sealed, so the network's shortest delay is one night.
 
 ### 3.2 The courier's journey
 
-1. **Pick-up.** A phone connected to Wall A receives A's latest block (and anything A holds for other walls).
+1. **Pick-up.** A phone connected to Wall A receives the sealed blocks A holds that the phone lacks: A's own and other nodes'.
 2. **Carry.** The phone keeps it in the browser while the visitor walks.
-3. **Delivery.** At Wall B, the phone hands it over. B merges what is new and gives the phone its own block in return.
+3. **Delivery.** At Wall B, the phone hands its blocks over. B checks each seal, keeps what is new, and gives the phone what B holds in return.
 
 Every SUNSET node, wall or interactive, takes part: interactive nodes post their shouts into a block and receive the town's news and stamp records the same way.
 
 ### 3.3 Proof of walk
 
-- **The first delivery** of new information from one node to another earns the courier a stamp from the receiving node.
+- **The first delivery** of a node's sealed block to another node earns the courier a stamp from the receiving node: one per block per node, so at most 72 a day across the town. Shuttling between two walls earns nothing more once the blocks are delivered, which is the farming limit.
 - **Valid between any two nodes:** there is no fixed route and no centre. Two walls are already a network.
 - **Permissionless:** anyone walking with a phone can be a courier; no sign-up.
 - **Bounded by the sun:** wall nodes are awake only in daylight, so the number of deliveries, and of stamps paid, follows the length of the day.
@@ -118,27 +118,19 @@ A wall node draws well under 1 W. It needs nothing that a SUNDIAL panel doesn't 
 
 ---
 
-## 5. Stamps: the shared format (outline)
+## 5. Stamps
 
-To be specified in full separately; every SUNSET node depends on it.
+Specified in **[stamp-format.md](stamp-format.md)**, shared by every node. In short:
 
-### 5.1 What a stamp is
+- **A walk stamp** is paid by a wall to the first phone that delivers another node's sealed block to it: at most 72 a day across the town (stamp-format.md 7).
+- **Holder keys:** the phone makes a key for each stamp and spends it by signing, so nothing worth copying crosses the open Wi-Fi (stamp-format.md 3.1).
+- **Node logos:** each stamp shows the 5 × 5 logo of the node that issued it; every logo is unique and never the PVA logo (stamp-format.md 3.2).
+- **Walls are spending nodes too:** shouts are paid in stamps, checked and recorded spent like any other spend (stamp-format.md 3.4).
 
-- A **bearer receipt:** whoever holds it can spend it. No accounts, no names.
-- Issued by a node, carrying that node's **5 × 5 logo,** a serial and the panel's time.
-- **Node logos:** each node's logo is unique within the network, and **never the same as the Photovoltaic Art logo.** The PVA mark belongs to the project as a whole; it never appears as a node's logo or on a stamp as its issuer.
-- **No cash value.** Stamps have only uses, never redemption for money.
-
-### 5.2 The public unspent list
-
-- Security is a **public unspent list,** not a private key held by the visitor: each node records which stamps it has issued and which have been spent.
-- **Spends travel in blocks:** couriers carry each node's record of spent stamps to the others, so the town's list converges at walking speed.
-- **Where a double spend would matter,** nodes don't wait for couriers: stamps are **spent into** the node that receives them (interactive-auction.md 3.4), and the print node and flip-dot wall share their list in real time over ESP-NOW (interactive-flipdot.md 2.1).
-
-### 5.3 The passport page
+### 5.1 The passport page
 
 - A page on the visitor's phone, a grid of boxes **filled by stamps** as they are earned, each showing the logo of the node that paid it.
-- **Saved as images,** so the passport survives with nothing installed, plus a **shareable version** to show or send.
+- **Saved as images,** so the passport can be shown or shared with nothing installed. The images are a picture of the stamps; the stamps themselves, and their keys, live in the browser (stamp-format.md 8).
 - Tokens from the auction and paper-stamp receipts are kept here too.
 
 ---
@@ -147,12 +139,9 @@ To be specified in full separately; every SUNSET node depends on it.
 
 | Question | Notes |
 | --- | --- |
-| **Phone storage** | Couriers carry blocks in the browser. The captive-portal pop-up browser on some phones keeps no storage between networks; visitors may need to open the page in their normal browser. Test on iPhone and Android first |
-| Message length | The limit for whispers and shouts |
+| **Phone storage** | Couriers carry blocks in the browser. The captive-portal pop-up browser on some phones keeps no storage between networks; visitors may need to open the page in their normal browser. **The carry test is ready to run:** [gtb/carry_test/TEST.md](gtb/carry_test/TEST.md) |
+| Message length | 140 characters in v0; confirm in the pilot |
 | Shout price | How many stamps a shout costs, and whether the price rises when many shouts are waiting |
-| Stamps per delivery | One per first delivery, or scaled by how much new information is carried |
-| Farming | Two people shuttling between two walls: whether "new information" is enough of a limit, or a per-courier daily cap is needed (without identities) |
-| Replies | How a reply shows: threaded under the message, or as a new whisper quoting it |
 | Wall plate | Number, logo, network name, and a QR to join |
 
 ## 7. Pilot tasks

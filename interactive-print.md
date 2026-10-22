@@ -69,14 +69,14 @@ Redeem stickers are printed in **denominations** (for example 1, 5 and 10), so p
 
 1. The holder joins the **printing node's** Wi-Fi and scans the redeem sticker's QR with the phone's ordinary camera app, which opens the node's redeem page. (A web page served by the node cannot use the camera itself, because the node's pages are plain HTTP; the phone's own camera app can read the QR and open the link.) The short code can be typed instead.
 2. The node checks the signature and that the paper stamp is unspent.
-3. It marks the paper stamp spent and issues fresh digital stamps of the same value to the phone (commit and reveal, as in interactive-auction.md 3.5).
+3. It marks the paper stamp spent and issues fresh digital stamps of the same value to the phone, to holder keys the phone makes ([stamp-format.md](stamp-format.md) 3).
 4. **The redemption slot:** the redeemed sticker can be dropped into a perspex box beside the node, a growing, visible pile of spent money. Dropping it in is not enforced; the node's spent list is what counts.
 
 ### 3.3 Why redemption is at the printing node only
 
 SUNSET nodes learn of each other's spends only when couriers carry blocks between walls. If a paper stamp could be redeemed anywhere, a photocopy could be redeemed at two nodes before either heard of the other. **Redeemed only where it was printed,** the printing node's own spent list is always up to date, and a copy can never be redeemed twice.
 
-**Checking is everywhere; redeeming is at home.** The node signs each stamp with a **public-key signature** (Ed25519 or ECDSA P-256, both within the ESP32's means). Any node, or any phone with the public key, can check that a paper stamp is genuine without being able to redeem it.
+**Checking is everywhere; redeeming is at home.** The node signs each stamp with a **public-key signature** (Ed25519, as every SUNSET signature: stamp-format.md 2; the sticker's QR contents are in stamp-format.md 4). Any node, or any phone with the public key, can check that a paper stamp is genuine without being able to redeem it.
 
 ### 3.4 The souvenir: the artwork stamp alone
 
@@ -166,7 +166,6 @@ The node knows how many labels are left:
 | Label size and printer | Label diameter, paper width, and a printer that prints and cuts die-cut labels reliably |
 | Denominations | Which values, and whether each has its own design |
 | Printing fee | How many stamps per print |
-| Signature scheme | Ed25519 or ECDSA P-256; how the public key is published so phones can check stamps |
 | Redemption slot | Whether to fit it, and what happens to the pile (an artwork in itself, a yearly count) |
 | Paper's life | Whether fading is accepted as part of the work, or a longer-life thermal stock is used |
 
