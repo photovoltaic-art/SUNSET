@@ -132,7 +132,22 @@ One player at a time; the access point serves up to 10 phones, so the queue is s
 
 - **Each turn costs energy,** so turns are offered only when the battery's charge state allows (from the Victron over VE.Direct). The page shows a charge bar filling: the sun is the coin slot.
 - **Issuance is energy-backed.** The node can only mint as many stamps as its battery can pay for in moves. A cloudy week means fewer turns and fewer stamps in circulation.
-- **Anti-farming,** with no identities: the sun gate, the turn timer and the queue together cap how many stamps any one person can take in a day. A daily cap per node can be added if the pilot shows it is needed.
+- **Anti-farming,** with no identities: the sun gate, the turn timer, the queue and the sun's purse (3.3.1) together limit how many stamps any one person can take in a day.
+
+#### 3.3.1 The sun's purse: a variable hourly allowance
+
+Without a cap, the arm could pay 50–150 stamps on a busy sunny day, more than all the walking in town (72: SUNSET.md 3.1). With a plain daily cap, a busy morning would empty it and a visitor in the late afternoon could win nothing. So **the sun releases the arm's stamps as it shines.**
+
+- **The daily cap** `C` (about 30–40, set in the pilot) is what a clear day releases.
+- **Release follows the harvest.** The Victron reports the panel's power and today's yield over VE.Direct (3.6). Every watt-hour harvested drops stamps into the **sun's purse** at a rate of `C ÷ E`, where `E` is a clear day's yield for the season: the best daily yield of the last 14 days, from the node's own record. A clear day releases about `C`; a cloudy day fewer; never more than `C`.
+- **So the allowance varies by the hour,** as the sun does: little at sunrise, most around noon, tapering to sunset. A cloud releases nothing while it passes.
+- **Unclaimed stamps stay in the purse for later in the day,** so a quiet morning leaves more for the afternoon, but a busy morning can't take the afternoon's sun, which hasn't shone yet.
+- **The purse empties at sunset.** Nothing carries over to tomorrow: like all SUNSET business, it is over by sunset.
+- **A win pays from the purse:** the hole's value (1–3 stamps) if the purse holds it, otherwise what is there. The page shows the purse **before** a turn starts, so nobody plays expecting more.
+- **An empty purse doesn't stop play.** The arm plays for skill alone, and the page says when the next stamp will drop, from the panel's current power: *"the sun's purse is empty · next stamp in about 12 minutes"*.
+- **On the page:** the purse, the stamps the sun released this hour, and the day so far as a small curve: the arm's own record of the sun.
+
+This is the sun gate made exact: **issuance is energy-backed, stamp by stamp.**
 
 ### 3.4 Daylight only
 
@@ -163,7 +178,7 @@ Same interactive build as the other SUNSET nodes (interactive-auction.md 4), wit
 - read-back after every move, morning homing, fault handling and service notices (3.5);
 - the turn queue, turn timer and controls page;
 - hole sensors, and stamp issue on a confirmed drop (holder keys, stamp-format.md 3);
-- the sun gate on the Victron's charge state;
+- the sun gate on the Victron's charge state, and the sun's purse on its harvest (3.3.1): release rate, carry within the day, empty at sunset, written to flash so a reboot neither loses nor repeats a release;
 - the self-clearing routine after sunset;
 - every stamp issued written to flash before it is shown, so a reboot can neither lose nor repeat one.
 
@@ -175,7 +190,7 @@ Same interactive build as the other SUNSET nodes (interactive-auction.md 4), wit
 | --- | --- |
 | Number of holes and tolerances | How many holes, which shapes, how tight; how many stamps each pays |
 | Control scheme | Joint-by-joint buttons, or simpler moves ("left, right, down, grip"); tested with first-time players |
-| Daily stamp cap | **Likely needed:** uncapped, the arm could pay 50–150 stamps on a busy sunny day against the walls' 72 (SUNSET.md 3.1). About 30–40 a day proposed; set in the pilot |
+| Daily cap `C` | Decided: a cap, released by the sun through the day (3.3.1). Its size, about 30–40, and the reference yield `E` are set in the pilot |
 | Peg and board materials | Durable, quiet, and kind to the arm's gripper |
 | Jam handling | Whether a hopper sensor is needed, or the nightly clearing routine is enough |
 | Site | Shade and ventilation for servos in summer |

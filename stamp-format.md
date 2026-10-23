@@ -184,7 +184,7 @@ v0's limits stand, with these added or changed:
 | Limit | Value | Why |
 | --- | --- | --- |
 | Walk stamps | At most 72 a day across the town | One per first delivery of each node's block to each other node: 9 × 8. v0's cap, unchanged |
-| Skill stamps | Set by the arm game's sun gate | Issuance is energy-backed (interactive-arm-game.md 3.3) |
+| Skill stamps | At most `C` a day (about 30–40), released by the sun as the arm's panel harvests | The sun's purse (interactive-arm-game.md 3.3.1) |
 | `issued` and `spent` entries per block | 100 each | An `issued` entry is about 110 bytes, a `spent` entry about 180 (the signature): at most about 29 KB of header. A wall issues at most 8 walk stamps a day; 100 is for the busiest interactive node |
 | Block size | 48 KB hard (v0: 16 KB) | Headers now carry stamps; words still limited to 60 messages |
 | Storage | A node keeps 7 days of every node's blocks **within 1.2 MB**, oldest out first; a phone carries 3 days **within 500 KB**, newest first | Budgeted, not worst-cased: nine full blocks a day for a week would not fit in the ESP32's flash. A typical block is a few KB (v0's test bed: under 5 KB), so the budget is rarely reached |

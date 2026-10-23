@@ -93,19 +93,19 @@ A first sketch of capacity, from the node specifications: design maximums for a 
 | --- | --- | --- | --- | --- |
 | Walls 1–4 (incl. a garden node) | 10 phones each | ~120 visits each (3–5 minute stays) | ~1,500 visits each; **60 messages** sealed per wall | Wi-Fi; 60 messages per block |
 | Walk stamps (all nodes) | — | — | **72 across the town** | Hard cap: 9 nodes × 8 first deliveries (stamp-format.md 7) |
-| Arm game | **1 player** (queue of up to ~9) | 20–30 turns | ~150–250 turns; ~50–150 skill stamps **without a cap** | Turn timer, then battery (the sun gate) |
+| Arm game | **1 player** (queue of up to ~9) | 20–30 turns | ~150–250 turns; **up to `C` skill stamps** (about 30–40), released by the sun through the day | Turn timer, battery, and the sun's purse (interactive-arm-game.md 3.3.1) |
 | Street auction: bidding | 10 phones | dozens of bids | Unlimited bidders | Wi-Fi only |
 | Street auction: selling | — | — | **1 lot sold, 1 listed, 1 collected** | Three lockers, one stage |
 | Print node | **1 at a time** | 30–60 mints or redeems | ~300–500 | One printer; the **label roll** (2 labels per mint) |
 | Flip-dot wall | **1 at a time** (one cursor) | 20–40 sessions | ~300–500 sessions; a few hundred to ~1,000 flips | One cursor; noon blocks 5–10 minutes; 784 dots |
 | The SUNSET set | Everyone in earshot | — | **1 set**, on days the battery is full | Sun |
-| **Whole town** | **~90 phones** | — | Several thousand visits; 1 auction; ~120–220 new stamps | Footfall |
+| **Whole town** | **~90 phones** | — | Several thousand visits; 1 auction; ~100–110 new stamps on a clear day | Footfall |
 
 **What it shows:**
 
 - **The auction is the narrowest point, by design.** Bidding scales to anyone in range, but **one person sells each day**: about 180 sellers in a season. Ways to treat it are open (10): keep it as the day's event, with sellers queueing through the wings; **auction the slot**, sellers bidding stamps for tomorrow's listing, which turns scarcity into a sink; or a second stage (five lockers, two lots a day) in a later season.
-- **The arm could out-mint the walls.** Walking is capped at 72 stamps a day; the arm could pay 50–150 on a busy sunny day. If walking is to stay the main way to earn, the arm needs a **daily cap** of about 30–40 stamps (10).
-- **Stamps in against stamps out.** On a busy day the sinks (paid shouts, listing fees, print fees, souvenirs, flips) may not absorb 120–220 new stamps. Prices are tuned in the pilot to keep the two in balance.
+- **The arm could out-mint the walls,** so it has a **daily cap released by the sun:** stamps drop into a purse as the panel harvests, so a busy morning can't empty the afternoon, and walking stays the main way to earn (interactive-arm-game.md 3.3.1).
+- **Stamps in against stamps out.** On a busy day the sinks (paid shouts, listing fees, print fees, souvenirs, flips) may not absorb 100–110 new stamps; **every stamp also has a valid-until date** (stamp-format.md 3.5), so what is not spent leaves circulation on its own. Prices are tuned in the pilot to keep the two in balance.
 - **Three nodes serve one person at a time:** the arm, the print node and the flip-dot wall. Each page shows its queue.
 - **The label roll** is the print node's real daily limit; *labels running low* covers it (7.1).
 
@@ -268,5 +268,5 @@ Each of these fits SUNSET's design and is kept for a later season or a fork:
 | Build order | Which nodes are piloted first, and in which order the nine are built |
 | Budget | The cost of all nine nodes, to set the build order (TASKS.md) |
 | **The auction slot** | One seller a day (3.1): keep it as the day's event, auction tomorrow's listing slot for stamps, or add a second stage later |
-| **The arm's daily cap** | About 30–40 stamps a day, so skill doesn't out-mint walking (3.1) |
+| The arm's daily cap | Decided: released by the sun through the day (interactive-arm-game.md 3.3.1); its size, about 30–40, set in the pilot |
 | Stamps in and out | Whether the sinks absorb a busy day's new stamps; prices tuned in the pilot (3.1) |
