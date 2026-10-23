@@ -52,7 +52,7 @@ Every panel uses the **PVA carrier board v1** ([CARRIER.md](https://github.com/p
 
 ### 2.2 Stamps in, stamps out
 
-- **In:** walking (walls) and skill (arm game). Both are limited by the sun: the walls are awake only in daylight, and the arm game only plays while its battery allows. **Issuance is energy-backed.**
+- **In: two sources only.** **Proof of walk** (first deliveries between nodes, at most 72 a day) and **the sun's allowance** at the arm game (at most about 30–40 a day, released as its panel harvests). Both are limited by the sun: the walls are awake only in daylight, and the arm's stamps are released by its harvest. **Issuance is energy-backed.** Every other node moves, converts or burns stamps; none creates them (stamp-format.md 3.2).
 - **Out (sinks):** paid shouts, the auction's listing fee and burned relists, the print node's fee and souvenirs, every flip of a dot, and **time: every stamp has a valid-until date** (stamp-format.md 3.5), so unspent stamps leave circulation on their own.
 - **Moving:** auctions move stamps between people; paper moves them hand to hand, with no phone.
 - **No cash value, ever.** Stamps cannot be bought or redeemed for money. Their value is only in what they can be used for in the town.
@@ -234,6 +234,8 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 | Rule | Where it is specified |
 | --- | --- |
 | Business only in daylight; sunset from the clock, as SUNDIAL's seal | battery-tier.md 1.2 |
+| **Stamps are created only by proof of walk or the sun's allowance;** every other node moves, converts or burns them | stamp-format.md 3.2 |
+| Every stamp has a valid-until date; nothing renews it (paper inherits it) | stamp-format.md 3.5 |
 | Every node's 5 × 5 logo is unique, and never the same as the Photovoltaic Art logo | stamp-format.md 3.2 |
 | Every node seals one signed block a day at sunset, chained to the day before | stamp-format.md 6 |
 | All signatures Ed25519; the nine public keys published | stamp-format.md 2 |

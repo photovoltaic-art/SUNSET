@@ -123,7 +123,7 @@ A vertical panel gives about 50–60 W at noon in June. Watering takes a sliver 
 | Planting | Mediterranean plants that cope with sun-only, midday watering and a dry spell if the tank runs out: rosemary, lavender, helichrysum, salvia, sedum |
 | Bed on top or around | A planter on the cage (compact) or a bed around the base (more soil, more planting) |
 | Cladding | Wood around the cage, making it read as a planter |
-| **Proof of water?** | A stamp for whoever refills the tank (the first float rising while their phone is connected). Fits SUNSET's proofs, but the host's tap is right there, so it could be farmed; perhaps only when *tank low* has been showing for a day |
+| Proof of water? | A stamp for whoever refills the tank. **Not as it stands:** stamps are created only by proof of walk or the sun's allowance (stamp-format.md 3.2). Possible only if paid from a sun's purse of the garden node's own, like the arm's; otherwise refilling stays a host's task |
 | USB sockets too | The garden node could also carry POST.md's USB charger. Priority: board, then pump, then USB |
 
 ## 6. Pilot tasks

@@ -69,7 +69,7 @@ Redeem stickers are printed in **denominations** (for example 1, 5 and 10), so p
 
 1. The holder joins the **printing node's** Wi-Fi and scans the redeem sticker's QR with the phone's ordinary camera app, which opens the node's redeem page. (A web page served by the node cannot use the camera itself, because the node's pages are plain HTTP; the phone's own camera app can read the QR and open the link.) The short code can be typed instead.
 2. The node checks the signature and that the paper stamp is unspent.
-3. It marks the paper stamp spent and issues fresh digital stamps of the same value to the phone, to holder keys the phone makes ([stamp-format.md](stamp-format.md) 3).
+3. It marks the paper stamp spent and issues digital stamps of the same value to the phone, to holder keys the phone makes, valid until the paper's own date: redeeming never renews a stamp ([stamp-format.md](stamp-format.md) 3.5).
 4. **The redemption slot:** the redeemed sticker can be dropped into a perspex box beside the node, a growing, visible pile of spent money. Dropping it in is not enforced; the node's spent list is what counts.
 
 ### 3.3 Why redemption is at the printing node only

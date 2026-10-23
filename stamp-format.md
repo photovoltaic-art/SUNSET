@@ -76,7 +76,11 @@ A bystander sees public keys and signatures, and a signature is good for one spe
 | `sig` | The node's signature over everything above |
 
 - **Every stamp is worth one.** A payout of 9 is nine stamps. Simple to count, to show in the passport and to spend in part.
-- **Only `walk` and `skill` create stamps.** `refund`, `payout` and `redeem` re-issue value that was spent into the node first, so they never add to the total.
+- **Stamps are created two ways only:**
+  - **`walk`: proof of walk,** paid by any node for the first delivery of another node's sealed block: at most 72 a day across the town (7).
+  - **`skill`: the sun's allowance,** paid by the arm game from its sun's purse: at most `C` a day, released as its panel harvests (interactive-arm-game.md 3.3.1). Skill decides who wins a stamp; the sun decides how many exist.
+- **Everything else moves or burns stamps, never creates them.** `refund`, `payout` and `redeem` re-issue value that was first spent into the same node; paper is only minted from spent digital stamps. A node that issues `refund`, `payout` or `redeem` stamps can never issue more than it holds from earlier spends, and its block shows both sides.
+- **Any new way to earn** (a new node, a new proof) must draw from one of these two sources, or the rule is changed here first.
 
 ### 3.3 Issuance is recorded
 
@@ -104,10 +108,11 @@ Check 4 is skipped only when the issuer's block hasn't arrived yet: a fresh stam
 - **How long:** set in the pilot. **Proposed: 7 days,** the same as messages. Shorter makes stamps hotter; longer lets a visitor who comes back next weekend still spend.
 - **Re-issued stamps:**
   - `refund` (outbid at the auction): keeps the **earliest** `exp` of the stamps it replaces, so bidding can't be used to renew stamps.
-  - `payout` (to the seller) and `redeem` (paper back to digital): a **fresh** `exp` from the day of issue.
+  - `payout` (to the seller): a **fresh** `exp` from the day of issue. The seller earned them by selling.
+  - `redeem` (paper back to digital): the **paper's** valid-until date, never a fresh one. Paper's valid-until is the earliest `exp` of the digital stamps spent to mint it, so converting to paper and back can't be used to renew stamps.
 - **Checked at every spend** (3.4, check 0): a stamp past its `exp` is refused before anything else.
 - **A bonus for storage:** a node only needs to remember spent stamps until they would have expired, so the spent list stays small (5.3). With a validity of 7 days or less, every stamp is still within the 7 days of full headers, so check 4 is always possible.
-- **Paper stamps** carry their own valid-until date on the sticker, set separately (4).
+- **Paper stamps** carry a valid-until date on the sticker: the earliest `exp` of the stamps spent to mint it (4).
 
 ---
 
@@ -116,7 +121,7 @@ Check 4 is skipped only when the issuer's block hasn't arrived yet: a fresh stam
 Paper is specified in [interactive-print.md](interactive-print.md); this is its format.
 
 - **The redeem sticker's QR** carries: the print node's number, serial, value, day, a **redeem code** (random, 16 bytes), and the print node's Ed25519 signature over all of it.
-- **Valid until:** the sticker carries a valid-until date, printed and in the QR; its length is set separately from digital stamps (3.5).
+- **Valid until:** the sticker carries a valid-until date, printed and in the QR: the earliest `exp` of the digital stamps spent to mint it, so paper never outlives the stamps it came from (3.5).
 - **Genuine** is checkable anywhere, offline, from the print node's public key: by any node, and by the website's Verify page on any phone.
 - **Unspent** is known only to the print node and the flip-dot wall, which share one live spent list over ESP-NOW (interactive-flipdot.md 2.1). Redemption is at the print node only; spending paper is at the flip-dot wall only. So a copied sticker is honoured once, at most.
 - **Paper has no holder key.** It is bearer in the old way: the code is on the paper. That is the point of paper: it works without a phone. Its weakness (a photocopy is as good as the original until one is used) is stated in interactive-print.md 2.3.
@@ -207,7 +212,7 @@ The test bed (gtb/testbed) is extended to v1 to confirm these sizes before firmw
 
 | Question | Notes |
 | --- | --- |
-| Validity | How long a stamp is valid (3.5): 7 days proposed; set in the pilot. Paper's validity, separately |
+| Validity | How long a stamp is valid (3.5): 7 days proposed; set in the pilot. Paper inherits it |
 | Passport backup | Whether a visitor can export their stamps (a QR of the keys) to a new phone. Convenient, and exactly the copy that makes double spends possible |
 | Double-spend display | Count only, or the stamp IDs too (they identify no one) |
 | Auction siting | Within ESP-NOW range of the gateway, to put large spends on the live list (5.2)? |
