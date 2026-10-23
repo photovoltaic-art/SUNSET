@@ -79,6 +79,7 @@ Paper stamps pass from hand to hand, so nothing stops people trading with them o
 | **Sunrise** | The nodes wake. Business opens. Last night's auction winners can collect their lot (until midday) from **wings out**. The flip-dot panel still shows yesterday's picture |
 | **Morning** | A newcomer joins the first wall they meet: a passport page, the rules on one screen, and a message to carry. A few minutes' walk later, at the next wall, their first stamp |
 | **Through the day** | Walking wall to wall earns stamps. The arm game is the playful detour: a queue, a peg, a cheer when it drops. The lit lockers show today's lot on stage and tomorrow's in the wings, so people come back to check the bids |
+| **Solar noon** | The flip-dot wall marks noon: five minutes of every dot flipping black and white (the panel's daily exercise), then the town's picture comes back. Nothing can be flipped while it runs |
 | **Afternoon** | If the SUNSET set's battery is full, its shout goes round the walls: *the set plays tonight*. People spend at the print node, for a souvenir or for paper to take to the flip-dot wall. Spent stickers go up on the sticker wall |
 | **Sunset** | **The moment.** The auction's hammer falls. All business stops on every node. If the sun has earned it, the set begins at the wall |
 | **Evening** | The lockers glow in their state colours for a few hours; the flip-dot picture holds with no power; the set plays out. Nothing can be bought or sold until sunrise |

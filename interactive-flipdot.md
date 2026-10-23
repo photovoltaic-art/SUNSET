@@ -136,7 +136,13 @@ From Alfa-Zeta's *Flipdots display control protocols* (October 2023). One-way se
 
 The manual is clear that flip-dots outdoors need **exercise and cleaning**:
 
-- **Daily exercise.** After a period without use, dots can become "lazy" or blocked. The manual's remedy is a black–white flip-flop routine: **at least 5 minutes a day,** 10 minutes after more than two days idle. The node does it **once a day, mid-morning** (not at sunrise, out of respect for the neighbours: it is loud), then redraws the town's picture from flash. It costs about 16 W for 5 minutes, **about 1.5 Wh a day**, more than everything else the panel uses. It can become part of the work: *the wall stretches before the town starts drawing.*
+- **Daily exercise at noon.** After a period without use, dots can become "lazy" or blocked. The manual's remedy is a black–white flip-flop routine: **at least 5 minutes a day,** 10 minutes after more than two days idle. The node runs it **every day at solar noon** (from the clock, `sunTimes`, as SUNDIAL's dial keeps solar time), then redraws the town's picture from flash. It costs about 16 W for 5 minutes, **about 1.5 Wh a day**, more than everything else the panel uses. It is part of the work: *the wall marks noon.*
+- **Noon overrides everything on the panel.**
+  - **Before:** from 5 minutes before noon, no new sticker is accepted. The scanner shows red and the page says when flipping resumes.
+  - **During:** a session still running at noon is paused. Its sticker is already spent, so its **remaining flips are kept** (written to flash) and the cursor comes back for them after the exercise, for 10 minutes; unused flips then lapse, as any unused flips do.
+  - **Nothing else drives the panel** during the exercise: no flips, no redraws, no knob input.
+  - **After:** the picture is redrawn exactly as it was, and flipping reopens.
+  - After more than two days without power (a dark spell, a repair), the first noon runs 10 minutes, as the manual asks.
 - **Cleaning every round.** The manual's preventive cleaning is **at least every 4 weeks**: compressed air at about 3 cm, then a vacuum at minimum suction from at least 5 cm, never closer. **Never any lubricant.** SUNSET's fortnightly round is within that (SUNSET.md 7.2). Lazy or stuck dots are cleaned or replaced from the spare dots supplied.
 - **Visitors can't be told when a dot sticks** (3.6), so a paid flip on a stuck dot fails silently. The daily exercise and the fortnightly cleaning keep this rare; the round log records any dot that needed attention.
 
