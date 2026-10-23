@@ -179,6 +179,7 @@ New for the auction: the three-locker rotation (3.1) and locker states (3.3), bi
 
 | Question | Notes |
 | --- | --- |
+| **One seller a day** | The auction's capacity limit (SUNSET.md 3.1). Options: keep it as the day's event; auction tomorrow's listing slot for stamps (a sink, still one seller); a second stage later |
 | A maintenance path for a dead controller | BOX's rule is "no override, ever", but a dead board would trap a lot. Decide between that purity and a sealed, tamper-screwed manual release |
 | Exact cut-off times | Midday for collection, sunset for seller returns: confirm against how people actually use the street |
 | Bid steps and opening bid | Minimum increment; whether the seller can set a reserve |

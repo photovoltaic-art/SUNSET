@@ -175,7 +175,7 @@ Same interactive build as the other SUNSET nodes (interactive-auction.md 4), wit
 | --- | --- |
 | Number of holes and tolerances | How many holes, which shapes, how tight; how many stamps each pays |
 | Control scheme | Joint-by-joint buttons, or simpler moves ("left, right, down, grip"); tested with first-time players |
-| Daily stamp cap | Only if the sun gate and timer are not enough |
+| Daily stamp cap | **Likely needed:** uncapped, the arm could pay 50–150 stamps on a busy sunny day against the walls' 72 (SUNSET.md 3.1). About 30–40 a day proposed; set in the pilot |
 | Peg and board materials | Durable, quiet, and kind to the arm's gripper |
 | Jam handling | Whether a hopper sensor is needed, or the nightly clearing routine is enough |
 | Site | Shade and ventilation for servos in summer |
