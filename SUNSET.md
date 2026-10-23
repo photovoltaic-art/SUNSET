@@ -15,6 +15,7 @@ SUNSET is **nine recycled solar panels** on the walls of a town, forming a small
 | Panel | Kind | What it does | Specification |
 | --- | --- | --- | --- |
 | Wall 1–4 | **Wall node** | Message walls: visitors post and read messages; couriers (visitors) carry messages between walls and earn stamps for it. The network's news, and the main source of new stamps | [wall-node.md](wall-node.md) |
+| (any wall) | Wall node, on a post | Where there is no wall: a wall node on a post on private ground, above a closed water tank, watering its own flower bed from its sun | [garden-node.md](garden-node.md) |
 | Street auction | Interactive | One lot a day in three lit perspex lockers; bids in stamps; the hammer falls at sunset | [interactive-auction.md](interactive-auction.md) |
 | Arm game | Interactive | A robot arm in a perspex case; drop a peg in a hole, earn a stamp | [interactive-arm-game.md](interactive-arm-game.md) |
 | Print node | Interactive | Turns digital stamps into paper stamps and back; sells the artwork stamp as a souvenir | [interactive-print.md](interactive-print.md) |

@@ -31,6 +31,8 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 
 ## Design still open
 
+- [ ] Garden node (garden-node.md): planting, cladding, and whether refilling the tank earns a stamp (*proof of water*).
+
 - [ ] Artwork for the paper stamp and the redeem sticker (interactive-print.md 5).
 - [ ] The nine 5 × 5 node logos: unique, never the PVA logo.
 - [ ] The one-screen rules and the first five minutes (SUNSET.md 5).

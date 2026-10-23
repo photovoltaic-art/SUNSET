@@ -15,6 +15,7 @@ Start with **[SUNSET.md](SUNSET.md)**: the nine panels, the stamp economy, a day
 | Panel | What it does | Specification |
 | --- | --- | --- |
 | Walls 1–4 | Message walls: read, write, shout; couriers carry messages between walls and earn stamps (*proof of walk*) | [wall-node.md](wall-node.md) |
+| (any wall) | A wall node on a post where there is no wall, watering its own flower bed from a closed tank | [garden-node.md](garden-node.md) |
 | Print node | **The gateway.** Turns digital stamps into paper stamps and back; sells the artwork stamp as a souvenir | [interactive-print.md](interactive-print.md) |
 | Flip-dot wall | Also the gateway. Mechanical pixels flipped only with paper stamps; a sticker wall for the spent ones | [interactive-flipdot.md](interactive-flipdot.md) |
 | Street auction | One lot a day in three lit lockers; the hammer falls at sunset | [interactive-auction.md](interactive-auction.md) |
@@ -29,6 +30,7 @@ SUNSET.md                    the whole work: nine panels, economy, the day, layo
 TASKS.md                     what to do next: tests, sourcing, design, site
 stamp-format.md              stamps and blocks shared by every node (v1, built on GO TO BED's v0)
 wall-node.md                 the four message walls: visitor experience, messages, couriers, proof of walk
+garden-node.md               a wall node on a post, for a place with no wall: IBC tank, flower bed, sun-only watering
 battery-tier.md              carrier v1 on a battery: the tier every interactive node uses
 interactive-auction.md       the street auction
 interactive-arm-game.md      the arm game
