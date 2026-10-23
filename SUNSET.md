@@ -4,7 +4,7 @@ SUNSET is the second work of **PVA (Photovoltaic Art)**, after [SUNDIAL](https:/
 
 SUNSET is **nine recycled solar panels** on the walls of a town, forming a small offline network with its own currency. People earn **stamps** by walking messages between walls and by skill, and spend them at an auction, a mint and a wall of mechanical pixels. Every panel runs on its own sun, on the same carrier board as SUNDIAL, and everything that happens is unattended, anonymous and over by sunset.
 
-> Status: draft 2, 22 Oct 2026. The five interactive nodes are specified in their own documents, the wall nodes in [wall-node.md](wall-node.md), and the stamps and blocks shared by all of them in [stamp-format.md](stamp-format.md). Tasks: [TASKS.md](TASKS.md). Nothing is built.
+> Status: draft 2, 22 Oct 2026. The five interactive nodes are specified in their own documents, the wall nodes in [wall-node.md](wall-node.md), and the stamps and blocks shared by all of them in [stamp-format.md](stamp-format.md). Tasks: [TASKS.md](TASKS.md). Nothing is built. **SUNSET is planned for the second year, after SUNDIAL's first season.**
 
 ---
 

@@ -4,7 +4,7 @@ A SUNSET interactive node with a **flip-dot panel**: a grid of mechanical pixels
 
 It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [battery-tier.md](battery-tier.md); the paper stamps in [interactive-print.md](interactive-print.md).
 
-> Status: draft 3, 23 Oct 2026. Alfa-Zeta's quote, power data, serial protocol (rev. Oct 2023) and user manual (rev. 11.0) are in (3.1, 3.3, 3.6, 3.7). Nothing built. **Nothing here changes the carrier board.**
+> Status: draft 4, 23 Oct 2026. Sized: two 14 × 28 panels as a 28 × 28 square, yellow on black. Alfa-Zeta's quote, power data, serial protocol (rev. Oct 2023) and user manual (rev. 11.0) are in (3.1, 3.3, 3.6, 3.7). Nothing built. **Nothing here changes the carrier board.**
 
 ---
 
@@ -55,8 +55,8 @@ A paper sticker can be copied. If the flip-dot wall and the print node each kept
 
 | Part | Notes |
 | --- | --- |
-| **Flip-dot panel** | Alfa-Zeta XY5, 13.5 mm dots, controller included (RS-485). **7 × 28: €220; 14 × 28: €440**; shipping to Italy €25; in stock or 1–4 weeks (quote, 23 Oct 2026). White on black or yellow on black. Two 14 × 28 side by side make a 28 × 28 square canvas (€880). A reclaimed bus-sign panel is the later "reuse" version |
-| **24 V supply for the panel** | A **fixed-output, regulated** 12 V → 24 V DC-DC converter (industrial, about 1.1 A out, for example Mean Well SD-25A-24 class) from the battery, through its own fuse, with an enable or a switch in its input. Fixed, not an adjustable boost module: the panel's **maximum is 25 V**, only 1 V above nominal. Alfa-Zeta warns that panels fed straight from solar suffer from the unstable voltage; on the battery tier the converter sees a steady 12.8–14.4 V |
+| **Flip-dot panel** | **Two Alfa-Zeta XY5 14 × 28 panels, stacked to make a 28 × 28 square: 784 dots, yellow on black (like the sun).** 13.5 mm dots; four 7 × 28 modules, each with its controller (RS-485). **€880** (2 × €440) plus €25 shipping; in stock or 1–4 weeks (quote, 23 Oct 2026). A reclaimed bus-sign panel is the later "reuse" version |
+| **24 V supply for the panel** | A **fixed-output, regulated** 12 V → 24 V DC-DC converter (industrial, about 2 A out for the two panels, for example Mean Well SD-50A-24 class; its input fused for about 5 A peaks from the battery) from the battery, through its own fuse, with an enable or a switch in its input. Fixed, not an adjustable boost module: the panel's **maximum is 25 V**, only 1 V above nominal. Alfa-Zeta warns that panels fed straight from solar suffer from the unstable voltage; on the battery tier the converter sees a steady 12.8–14.4 V |
 | **RS-485 transceiver** | 3.3 V (MAX3485 class), carrier to panel |
 | **QR scanner** | Small fixed-mount module (GM65 class), behind a window in the enclosure, reading the sticker held up to it. Its light shows green (paid) or red (refused) |
 | **Two knobs and a button** | Rotary encoders with vandal-resistant metal knobs, and a large push button |
@@ -85,14 +85,14 @@ Every J9 pin is in use; the panel's power switch takes GPIO 17 from J10 instead 
 | Load | Draw | Notes |
 | --- | --- | --- |
 | ESP32, Wi-Fi and ESP-NOW on, sunrise to sunset | about 0.5 W | about 6 Wh a day |
-| Flip-dot pulses | peak 680 mA at 24 V for a 14 × 28 (340 mA for a 7 × 28), while flipping | A complete 14 × 28 redraw takes 160 ms at 680 mA: about **2.6 J**. Negligible, even for hundreds of flips |
-| Panel controller, idle | **40 mA at 24 V for a 14 × 28** (20 mA for a 7 × 28): about 1 W | 24 Wh a day if left on, twice the ESP32. So the panel is **powered only while someone is flipping** (3.4) |
-| Daily exercise | about 16 W for 5 minutes | about 1.5 Wh a day: the largest single load (3.7) |
+| Flip-dot pulses | peak 680 mA at 24 V per 14 × 28 panel, so about 1.4 A for the square, while flipping | A complete 14 × 28 redraw takes 160 ms at 680 mA: about **2.6 J**, so about 5 J for the square. Negligible, even for hundreds of flips |
+| Panel controllers, idle | **40 mA at 24 V per 14 × 28**, 80 mA for the square: about 2 W | 46 Wh a day if left on, four times the ESP32. So the panels are **powered only while someone is flipping** (3.4) |
+| Daily exercise | about 32 W for 5 minutes (both panels) | about 2.7 Wh a day: the largest single load (3.7) |
 | QR scanner | about 0.5–1 W while on | only in business hours |
 
 Holding the picture costs nothing: the dots stay where they are with no power.
 
-**A 14 × 28 is two independent 7 × 28 modules,** joined only mechanically. Each has its own controller and needs its own 24 V feed and RS-485 connection (daisy-chained module to module with short RJ11 cables), each with its own address. The supply is sized at 1 A per 14 × 28 panel.
+**A 14 × 28 is two independent 7 × 28 modules,** joined only mechanically. Each has its own controller and needs its own 24 V feed and RS-485 connection (daisy-chained module to module with short RJ11 cables), each with its own address. The supply is sized at 1 A per 14 × 28 panel: **2 A for the square.**
 
 ### 3.4 Powering the panel only when needed
 
@@ -125,7 +125,7 @@ From Alfa-Zeta's *Flipdots display control protocols* (October 2023). One-way se
 | `0x82` | 0 | (the refresh itself: `0x80 0x82 0x8F`) | all displays on the line |
 
 - **Data:** one byte per column of 7 dots, 28 bytes per module. Bit 0 (LSB) is the top dot, bit 6 the bottom; bit 7 is ignored and set to 0.
-- **Address:** set on each module's DIP switch DS#1, positions 0–5 (up to 64); 255 (`0xFF`) is broadcast. For a 14 × 28: top module 1, bottom module 2. A 28 × 28 (two panels, four modules): 1–4 on one line.
+- **Address:** set on each module's DIP switch DS#1, positions 0–5 (up to 64); 255 (`0xFF`) is broadcast. For the 28 × 28 square: **modules 1–4, top to bottom,** on one RS-485 line. Each frame addresses one 7-dot band of the square.
 - **Speed:** DIP switch DS#2: 9600, 19200, 38400 or 57600 baud. **9600**, the QR scanner's default, so both share UART1 as 3.2 describes.
 - **No single-dot command.** A flip sends the module's whole 28-byte frame with the one dot changed. The ESP32 keeps the canvas, so this is simple: 32 bytes per flip.
 - **Updating both modules together:** send each with `0x84` (store), then one `0x80 0x82 0x8F`, so the whole picture changes at once (used for the morning exercise and redraws, 3.7).
@@ -136,7 +136,7 @@ From Alfa-Zeta's *Flipdots display control protocols* (October 2023). One-way se
 
 The manual is clear that flip-dots outdoors need **exercise and cleaning**:
 
-- **Daily exercise at noon.** After a period without use, dots can become "lazy" or blocked. The manual's remedy is a black–white flip-flop routine: **at least 5 minutes a day,** 10 minutes after more than two days idle. The node runs it **every day at solar noon** (from the clock, `sunTimes`, as SUNDIAL's dial keeps solar time), then redraws the town's picture from flash. It costs about 16 W for 5 minutes, **about 1.5 Wh a day**, more than everything else the panel uses. It is part of the work: *the wall marks noon.*
+- **Daily exercise at noon.** After a period without use, dots can become "lazy" or blocked. The manual's remedy is a black–white flip-flop routine: **at least 5 minutes a day,** 10 minutes after more than two days idle. The node runs it **every day at solar noon** (from the clock, `sunTimes`, as SUNDIAL's dial keeps solar time), then redraws the town's picture from flash. It costs about 32 W for 5 minutes, **about 2.7 Wh a day**, more than everything else the panel uses. It is part of the work: *the wall marks noon.*
 - **Noon overrides everything on the panel.**
   - **Before:** from 5 minutes before noon, no new sticker is accepted. The scanner shows red and the page says when flipping resumes.
   - **During:** a session still running at noon is paused. Its sticker is already spent, so its **remaining flips are kept** (written to flash) and the cursor comes back for them after the exercise, for 10 minutes; unused flips then lapse, as any unused flips do.
@@ -150,7 +150,7 @@ The manual is clear that flip-dots outdoors need **exercise and cleaning**:
 
 ## 4. The picture
 
-- **One shared canvas** for the whole panel, built a paid dot at a time. Any dot can be flipped, including someone else's.
+- **One shared canvas, a 28 × 28 square of yellow dots,** built a paid dot at a time. Any dot can be flipped, including someone else's.
 - **The node's page shows it** (in daylight, on the node's Wi-Fi), with a history: how many dots were flipped each day, and the picture at each sunset.
 - **At each sunset the node records the picture,** like a sealed dial. A season's sunsets make a time-lapse, and a candidate for the year's PVA print.
 
@@ -169,8 +169,6 @@ The manual is clear that flip-dots outdoors need **exercise and cleaning**:
 
 | Question | Notes |
 | --- | --- |
-| Panel size | **14 × 28** (392 dots, €440) is the minimum for a picture; 7 × 28 (196 dots) is a ticker more than a canvas. Two 14 × 28 make a 28 × 28 square (784 dots, €880) |
-| Colour | White on black or yellow on black (both standard): yellow carries the bus-sign heritage; white reads as paper |
 | Start-up behaviour | Does the controller flip or test dots at power-up? Asked of Alfa-Zeta (3.4) |
 | Partial updates | Does a frame re-pulse every dot, or only the dots that change? Sets the energy and the noise per flip. Asked of Alfa-Zeta |
 | Flips per sticker | Value = flips (one stamp, one flip), or another rate |

@@ -50,4 +50,4 @@ Every panel uses the **PVA carrier board v1**, unchanged, specified and drawn in
 
 ## Status
 
-Drafts, 22 October 2026. Still to come: the firmware, the site plan for a first town, and permissions ([TASKS.md](TASKS.md)). The history of these documents is kept here: SUNSET's were first written in the SUNDIAL repository, GO TO BED's in the PVA repository.
+Drafts, October 2026. Planned for the second year, after SUNDIAL's first season. Still to come: the firmware, the site plan for a first town, and permissions ([TASKS.md](TASKS.md)). The history of these documents is kept here: SUNSET's were first written in the SUNDIAL repository, GO TO BED's in the PVA repository.
