@@ -53,7 +53,7 @@ Every panel uses the **PVA carrier board v1** ([CARRIER.md](https://github.com/p
 ### 2.2 Stamps in, stamps out
 
 - **In:** walking (walls) and skill (arm game). Both are limited by the sun: the walls are awake only in daylight, and the arm game only plays while its battery allows. **Issuance is energy-backed.**
-- **Out (sinks):** paid shouts, the auction's listing fee and burned relists, the print node's fee and souvenirs, and every flip of a dot.
+- **Out (sinks):** paid shouts, the auction's listing fee and burned relists, the print node's fee and souvenirs, every flip of a dot, and **time: every stamp has a valid-until date** (stamp-format.md 3.5), so unspent stamps leave circulation on their own.
 - **Moving:** auctions move stamps between people; paper moves them hand to hand, with no phone.
 - **No cash value, ever.** Stamps cannot be bought or redeemed for money. Their value is only in what they can be used for in the town.
 

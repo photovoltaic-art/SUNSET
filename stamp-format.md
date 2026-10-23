@@ -62,7 +62,7 @@ A bystander sees public keys and signatures, and a signature is good for one spe
 ### 3.2 A stamp
 
 ```json
-{"v": 1, "node": 3, "day": "2027-07-14", "n": 17, "t": 1784019600, "why": "walk", "hk": "5d0e…", "sig": "…"}
+{"v": 1, "node": 3, "day": "2027-07-14", "n": 17, "t": 1784019600, "why": "walk", "exp": "2027-07-21", "hk": "5d0e…", "sig": "…"}
 ```
 
 | Field | Meaning |
@@ -71,6 +71,7 @@ A bystander sees public keys and signatures, and a signature is good for one spe
 | `day`, `n` | The node's day and the stamp's serial that day, from 1. **Stamp ID** = `node/day/n`, e.g. `3/2027-07-14/17` |
 | `t` | The hour of issue, by the node's clock |
 | `why` | `walk` (first delivery), `skill` (arm game), `refund` (auction outbid), `payout` (auction seller), `redeem` (paper turned back into digital) |
+| `exp` | **Valid until:** the last day the stamp can be spent, by the nodes' clocks (3.5) |
 | `hk` | The holder's public key |
 | `sig` | The node's signature over everything above |
 
@@ -86,6 +87,7 @@ The node writes each stamp it issues into its next sealed block (`issued`, 6). S
 1. The spending node's page sends a fresh **challenge** (random, one use).
 2. The phone signs `spend|<stamp ID>|<spending node>|<day>|<challenge>` with the stamp's private key, for each stamp it spends, and sends the stamps and signatures.
 3. The node checks, for each stamp:
+   0. today is not after its `exp` (3.5);
    1. the issuer's signature (published keys);
    2. the holder's signature over this spend and this challenge;
    3. not on its **spent list** (5.2);
@@ -94,6 +96,19 @@ The node writes each stamp it issues into its next sealed block (`issued`, 6). S
 
 Check 4 is skipped only when the issuer's block hasn't arrived yet: a fresh stamp from a distant wall is accepted on its signature alone, as in v0.
 
+### 3.5 Valid until
+
+**Every stamp has a valid-until date.** After it, no node accepts it; it stays in the passport as a faded picture, like a message that has gone.
+
+- **Why:** stamps that are never spent would otherwise pile up and lose meaning (SUNSET.md 3.1). Expiry is a sink that needs no node: unspent stamps leave circulation on their own, and holding stamps is pointless, so people spend them. It is SUNSET's forgetting, applied to money as it is to words.
+- **How long:** set in the pilot. **Proposed: 7 days,** the same as messages. Shorter makes stamps hotter; longer lets a visitor who comes back next weekend still spend.
+- **Re-issued stamps:**
+  - `refund` (outbid at the auction): keeps the **earliest** `exp` of the stamps it replaces, so bidding can't be used to renew stamps.
+  - `payout` (to the seller) and `redeem` (paper back to digital): a **fresh** `exp` from the day of issue.
+- **Checked at every spend** (3.4, check 0): a stamp past its `exp` is refused before anything else.
+- **A bonus for storage:** a node only needs to remember spent stamps until they would have expired, so the spent list stays small (5.3). With a validity of 7 days or less, every stamp is still within the 7 days of full headers, so check 4 is always possible.
+- **Paper stamps** carry their own valid-until date on the sticker, set separately (4).
+
 ---
 
 ## 4. Paper stamps
@@ -101,6 +116,7 @@ Check 4 is skipped only when the issuer's block hasn't arrived yet: a fresh stam
 Paper is specified in [interactive-print.md](interactive-print.md); this is its format.
 
 - **The redeem sticker's QR** carries: the print node's number, serial, value, day, a **redeem code** (random, 16 bytes), and the print node's Ed25519 signature over all of it.
+- **Valid until:** the sticker carries a valid-until date, printed and in the QR; its length is set separately from digital stamps (3.5).
 - **Genuine** is checkable anywhere, offline, from the print node's public key: by any node, and by the website's Verify page on any phone.
 - **Unspent** is known only to the print node and the flip-dot wall, which share one live spent list over ESP-NOW (interactive-flipdot.md 2.1). Redemption is at the print node only; spending paper is at the flip-dot wall only. So a copied sticker is honoured once, at most.
 - **Paper has no holder key.** It is bearer in the old way: the code is on the paper. That is the point of paper: it works without a phone. Its weakness (a photocopy is as good as the original until one is used) is stated in interactive-print.md 2.3.
@@ -132,7 +148,7 @@ Preventing the last case would need a live link between all spending nodes, whic
 
 ### 5.3 The spent list
 
-- Each node keeps the **spent IDs of the whole season,** from its own spends and every `spent` record couriers bring. An ID is about 6 bytes packed (node, day, serial): 200 spends a day for 180 days is about 220 KB of flash.
+- Each node keeps the **spent IDs of every stamp not yet expired,** from its own spends and every `spent` record couriers bring; an ID is dropped once its stamp's `exp` has passed (3.5). An ID is about 6 bytes packed (node, day, serial): with 7-day validity, a few KB.
 - Full headers fade after 7 days, as in v0, so after a week check 4 (3.4) is no longer possible for a stamp; the issuer's signature and the spent list still are.
 
 ---
@@ -174,7 +190,7 @@ v0's limits stand, with these added or changed:
 | Storage | A node keeps 7 days of every node's blocks **within 1.2 MB**, oldest out first; a phone carries 3 days **within 500 KB**, newest first | Budgeted, not worst-cased: nine full blocks a day for a week would not fit in the ESP32's flash. A typical block is a few KB (v0's test bed: under 5 KB), so the budget is rarely reached |
 | Stamps per spend | 50 | One request stays small |
 | Shouts | Paid, so v0's 3-per-phone limit is dropped; price set in the pilot | wall-node.md 2.2 |
-| Spent list | The whole season (5.3) | Stamps stay spendable all season |
+| Spent list | Until each stamp's `exp` (5.3) | Expired stamps can't be spent, so need no record |
 
 The test bed (gtb/testbed) is extended to v1 to confirm these sizes before firmware (TASKS.md).
 
@@ -191,7 +207,7 @@ The test bed (gtb/testbed) is extended to v1 to confirm these sizes before firmw
 
 | Question | Notes |
 | --- | --- |
-| **Season's end** | Do stamps expire at the end of a season, or carry over? Carrying over means a spent list that grows across seasons |
+| Validity | How long a stamp is valid (3.5): 7 days proposed; set in the pilot. Paper's validity, separately |
 | Passport backup | Whether a visitor can export their stamps (a QR of the keys) to a new phone. Convenient, and exactly the copy that makes double spends possible |
 | Double-spend display | Count only, or the stamp IDs too (they identify no one) |
 | Auction siting | Within ESP-NOW range of the gateway, to put large spends on the live list (5.2)? |
