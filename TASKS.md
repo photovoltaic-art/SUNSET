@@ -24,7 +24,7 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 ## Hardware to source
 
 - [ ] **Arm:** Waveshare RoArm-M2-S (interactive-arm-game.md 2.1). Check the servos' and UART's voltage limits before wiring.
-- [ ] **Flip-dot panel:** waiting for Alfa-Zeta's reply (panel quote; also the custom 1 × 11 row for BINARY).
+- [ ] **Flip-dot panel:** Alfa-Zeta quoted 23 Oct 2026: 14 × 28 €440, 7 × 28 €220, controller included, shipping €25, 1–4 weeks (interactive-flipdot.md 3). Choose size and colour; ask about start-up behaviour, the RS-485 protocol document, and the 1 × 11 row for BINARY (not yet answered).
 - [ ] **Battery tier, per interactive node:** Victron SmartSolar MPPT 75/15, 12 V LiFePO₄, fuses, enclosure (battery-tier.md).
 - [ ] **Print node:** a die-cut label printer with cutter that runs on 12 V (interactive-print.md 4.1).
 - [ ] **The SUNSET set:** a Bluetooth speaker for the speaker locker (interactive-audio.md).
