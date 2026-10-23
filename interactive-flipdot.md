@@ -4,7 +4,7 @@ A SUNSET interactive node with a **flip-dot panel**: a grid of mechanical pixels
 
 It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [battery-tier.md](battery-tier.md); the paper stamps in [interactive-print.md](interactive-print.md).
 
-> Status: draft 2, 23 Oct 2026. Alfa-Zeta's quote and power data are in (3.1, 3.3). Nothing built. **Nothing here changes the carrier board.**
+> Status: draft 3, 23 Oct 2026. Alfa-Zeta's quote, power data, serial protocol (rev. Oct 2023) and user manual (rev. 11.0) are in (3.1, 3.3, 3.6, 3.7). Nothing built. **Nothing here changes the carrier board.**
 
 ---
 
@@ -87,9 +87,12 @@ Every J9 pin is in use; the panel's power switch takes GPIO 17 from J10 instead 
 | ESP32, Wi-Fi and ESP-NOW on, sunrise to sunset | about 0.5 W | about 6 Wh a day |
 | Flip-dot pulses | peak 680 mA at 24 V for a 14 × 28 (340 mA for a 7 × 28), while flipping | A complete 14 × 28 redraw takes 160 ms at 680 mA: about **2.6 J**. Negligible, even for hundreds of flips |
 | Panel controller, idle | **40 mA at 24 V for a 14 × 28** (20 mA for a 7 × 28): about 1 W | 24 Wh a day if left on, twice the ESP32. So the panel is **powered only while someone is flipping** (3.4) |
+| Daily exercise | about 16 W for 5 minutes | about 1.5 Wh a day: the largest single load (3.7) |
 | QR scanner | about 0.5–1 W while on | only in business hours |
 
 Holding the picture costs nothing: the dots stay where they are with no power.
+
+**A 14 × 28 is two independent 7 × 28 modules,** joined only mechanically. Each has its own controller and needs its own 24 V feed and RS-485 connection (daisy-chained module to module with short RJ11 cables), each with its own address. The supply is sized at 1 A per 14 × 28 panel.
 
 ### 3.4 Powering the panel only when needed
 
@@ -104,6 +107,38 @@ Alfa-Zeta: "You can safely switch off everything between updates to reduce power
 - Alfa-Zeta: operating **−40 to +70 °C**, humidity up to 90 % **without condensation**; outdoors it must be **closed and ventilated.**
 - **The risk is heat, not cold.** Black dots behind a window, in the Sardinian sun, can pass 70 °C inside a closed box. Site the wall facing **north or in shade** (it needs no sun of its own: the node's PV panel is separate), use a light-coloured, ventilated enclosure with a UV-stable polycarbonate front, and a breather vent against condensation.
 - The enclosure probe (J4/J5) pauses flipping above a set temperature and posts a service notice (SUNSET.md 7.1).
+- The manual gives **−40 to +80 °C** and 5–95 % humidity, non-condensing (the email said 70 °C: design for 70). It also asks for a **housing against dust and humidity, ventilated against sun load**. On the coast, the vents need filters against dust and salt.
+- **Handling (manual):** the dots are delicate and sensitive to static and dust, especially metal particles. Never drill with the boards fitted; handle modules by their edges; store them dots-down only with all dots turned white. Fixing is by brass threaded tubes on each module (drawings on request).
+
+### 3.6 The protocol
+
+From Alfa-Zeta's *Flipdots display control protocols* (October 2023). One-way serial over RS-485: the carrier talks, the panels never answer.
+
+```
+0x80   command   address   data …   0x8F
+```
+
+| Command | Data bytes | Shown at once? | Display |
+| --- | --- | --- | --- |
+| `0x83` | 28 | yes | 7 × 28 |
+| `0x84` | 28 | no: stored until a refresh | 7 × 28 |
+| `0x82` | 0 | (the refresh itself: `0x80 0x82 0x8F`) | all displays on the line |
+
+- **Data:** one byte per column of 7 dots, 28 bytes per module. Bit 0 (LSB) is the top dot, bit 6 the bottom; bit 7 is ignored and set to 0.
+- **Address:** set on each module's DIP switch DS#1, positions 0–5 (up to 64); 255 (`0xFF`) is broadcast. For a 14 × 28: top module 1, bottom module 2. A 28 × 28 (two panels, four modules): 1–4 on one line.
+- **Speed:** DIP switch DS#2: 9600, 19200, 38400 or 57600 baud. **9600**, the QR scanner's default, so both share UART1 as 3.2 describes.
+- **No single-dot command.** A flip sends the module's whole 28-byte frame with the one dot changed. The ESP32 keeps the canvas, so this is simple: 32 bytes per flip.
+- **Updating both modules together:** send each with `0x84` (store), then one `0x80 0x82 0x8F`, so the whole picture changes at once (used for the morning exercise and redraws, 3.7).
+- **No reply, so no fault detection.** The controller cannot report a stuck dot. A dot that fails to turn is visible only to the eye, and found at the round (3.7).
+- DIP DS#1 position 6 sets magnetising time (500 µs default); position 7 is the module's built-in test mode, off in use.
+
+### 3.7 Keeping the dots turning
+
+The manual is clear that flip-dots outdoors need **exercise and cleaning**:
+
+- **Daily exercise.** After a period without use, dots can become "lazy" or blocked. The manual's remedy is a black–white flip-flop routine: **at least 5 minutes a day,** 10 minutes after more than two days idle. The node does it **once a day, mid-morning** (not at sunrise, out of respect for the neighbours: it is loud), then redraws the town's picture from flash. It costs about 16 W for 5 minutes, **about 1.5 Wh a day**, more than everything else the panel uses. It can become part of the work: *the wall stretches before the town starts drawing.*
+- **Cleaning every round.** The manual's preventive cleaning is **at least every 4 weeks**: compressed air at about 3 cm, then a vacuum at minimum suction from at least 5 cm, never closer. **Never any lubricant.** SUNSET's fortnightly round is within that (SUNSET.md 7.2). Lazy or stuck dots are cleaned or replaced from the spare dots supplied.
+- **Visitors can't be told when a dot sticks** (3.6), so a paid flip on a stuck dot fails silently. The daily exercise and the fortnightly cleaning keep this rare; the round log records any dot that needed attention.
 
 ---
 
@@ -131,6 +166,7 @@ Alfa-Zeta: "You can safely switch off everything between updates to reduce power
 | Panel size | **14 × 28** (392 dots, €440) is the minimum for a picture; 7 × 28 (196 dots) is a ticker more than a canvas. Two 14 × 28 make a 28 × 28 square (784 dots, €880) |
 | Colour | White on black or yellow on black (both standard): yellow carries the bus-sign heritage; white reads as paper |
 | Start-up behaviour | Does the controller flip or test dots at power-up? Asked of Alfa-Zeta (3.4) |
+| Partial updates | Does a frame re-pulse every dot, or only the dots that change? Sets the energy and the noise per flip. Asked of Alfa-Zeta |
 | Flips per sticker | Value = flips (one stamp, one flip), or another rate |
 | Canvas policy | Never reset, reset yearly, or kept as a permanent record of the town |
 | Cursor | Blinking cursor dot on the panel, or a small separate indicator |

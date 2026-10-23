@@ -199,6 +199,7 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 | --- | --- |
 | Data collection (archive, counts) | **Fortnightly**, with SUNDIAL's round when both are in the same town. SUNSET produces very little data: a day's flip-dot picture is under 50 bytes, so even a monthly round would lose nothing |
 | Battery, Victron, heat and enclosure checks | Fortnightly, on the same round |
+| Flip-dot panel | Every round: compressed air, then a vacuum at minimum suction; replace stuck dots. The manual asks for at least every 4 weeks (interactive-flipdot.md 3.7) |
 | Sticker wall | Photographed each round; cleared when full |
 | **Print node labels** | **On demand,** when the node posts *labels running low*. The gateway's host can be the one who refills them, with access to the paper compartment only, never the electronics |
 | Faults | On demand, from the service notice |
