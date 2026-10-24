@@ -53,13 +53,13 @@ Every panel uses the **PVA carrier board v1** ([CARRIER.md](https://github.com/p
 ### 2.2 Stamps in, stamps out
 
 - **In: two sources only.** **Proof of walk** (first deliveries between nodes, at most 72 a day) and **the sun's allowance** at the arm game (at most about 30–40 a day, released as its panel harvests). Both are limited by the sun: the walls are awake only in daylight, and the arm's stamps are released by its harvest. **Issuance is energy-backed.** Every other node moves, converts or burns stamps; none creates them (stamp-format.md 3.2).
-- **Out (sinks):** paid shouts, the auction's listing fee and burned relists, the gettoneria's fee and souvenirs, every flip of a dot, and **time: every stamp has a valid-until date** (stamp-format.md 3.5), so unspent stamps leave circulation on their own.
+- **Out (sinks):** paid shouts, the auction's listing fee and burned relists, the gettoneria's fee and souvenirs, every flip of a dot, and **time: every stamp has a valid-until date** (stamp-format.md 3.5), so unspent stamps leave circulation on their own, except those saved as tokens until 31 December.
 - **Moving:** auctions move stamps between people; tokens move them hand to hand, with no phone.
 - **No cash value, ever.** Stamps cannot be bought or redeemed for money. Their value is only in what they can be used for in the town.
 
 ### 2.3 Token money
 
-The gettoneria turns digital stamps into **tokens**: printed coins the size of a trolley token, each with an NFC tag, each worth one stamp. Tokens pass from hand to hand like cash, so **people without a phone can take part:** someone hands them a token, and they spend it at the flip-dot wall, which accepts only tokens. Tokens are reused: spent ones come back to the hopper at the round. The print node and the flip-dot wall share one spent list over ESP-NOW, so a copied sticker can never be spent twice.
+The gettoneria turns digital stamps into **tokens**: printed coins the size of a trolley token, each with an NFC tag, each worth one stamp. Tokens pass from hand to hand like cash, so **people without a phone can take part:** someone hands them a token, and they spend it at the flip-dot wall, which accepts only tokens. Tokens are reused: spent ones come back to the hopper at the round. **Tokens are valid until 31 December; digital stamps fade within days.** So SUNSET has two kinds of money: **stamps to spend, coins to keep.** Saving costs the minting fee, and the town's savings can never exceed the number of coins made: the ledger can't grow beyond the token stock (interactive-token.md 2.5). The print node and the flip-dot wall share one spent list over ESP-NOW, so a copied sticker can never be spent twice.
 
 ---
 
@@ -69,6 +69,7 @@ Tokens pass from hand to hand, so nothing stops people trading with them outside
 
 - **SUNSET neither invites nor prevents it.** It does not recruit shops, set prices or promise any value. Stamps are never sold or redeemed for money by SUNSET.
 - **What a trader can do with stamps taken:** spend tokens at the flip-dot wall, hand them on, or redeem them at the gettoneria and bid, list a lot, buy souvenirs or pay for shouts. The auction is the only place stamps buy *things* from other people.
+- **Coins suit trade.** Tokens last until 31 December, so a trader taking them needn't worry about a date for months. And when the hopper runs dry, a token is the only way to keep value, so a token may come to trade for more than a stamp: a market finding the price of durability (interactive-token.md 2.5).
 - **What it would mean:** stamps would find a price in the real town, and walking and skill would be worth more. The sun-limited issuance would become the currency's real monetary policy.
 - **The trader's risks are the trader's:** a token can be checked as **genuine** with the gettoneria's public key, but only the gettoneria and the flip-dot wall know whether it is **live**, so prompt redemption is the protection. Any sale for stamps is the trader's own business, receipts and tax included.
 
@@ -236,7 +237,8 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 | --- | --- |
 | Business only in daylight; sunset from the clock, as SUNDIAL's seal | battery-tier.md 1.2 |
 | **Stamps are created only by proof of walk or the sun's allowance;** every other node moves, converts or burns them | stamp-format.md 3.2 |
-| Every stamp has a valid-until date; nothing renews it (tokens inherit it) | stamp-format.md 3.5 |
+| Every digital stamp has a valid-until date of days; tokens are valid until 31 December, and turning stamps into tokens is the one way to keep value, at the price of the minting fee | stamp-format.md 3.5, 4 |
+| The ledger can't grow beyond the token stock | stamp-format.md 4 |
 | Every node's 5 × 5 logo is unique, and never the same as the Photovoltaic Art logo | stamp-format.md 3.2 |
 | Every node seals one signed block a day at sunset, chained to the day before | stamp-format.md 6 |
 | All signatures Ed25519; the nine public keys published | stamp-format.md 2 |

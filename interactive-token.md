@@ -60,16 +60,38 @@ Each token ID has one state at a time, recorded by the gettoneria and the flip-d
 | State | Meaning |
 | --- | --- |
 | **in the hopper** | Genuine, not in circulation, worth nothing |
-| **issued, valid until *date*** | In circulation, worth one stamp until its date |
+| **issued, valid until 31 December** | In circulation, worth one stamp until the end of the year it was issued |
 | **spent** | Used at the flip-dot wall; kept there until the round |
 | **souvenir** | Bought to keep; worth nothing; never accepted |
 
-**Valid until:** a token issued against digital stamps takes the **earliest valid-until date** of the stamps spent for it, so converting to tokens never renews a stamp; redeeming keeps the token's date (stamp-format.md 3.5).
+**Valid until 31 December.** Digital stamps fade within days (stamp-format.md 3.5); **a token is valid until 31 December of the year it was issued.** Coins are SUNSET's way to keep value.
+
+**The ledger can't grow beyond the token stock.** It has one line per token ever made, and no more: however many stamps are minted, however long a token is kept, the ledger is as large as the batch list and never larger. That is what lets a token live for a year at no cost to the nodes. It is a fundamental of the design: **the physical stock bounds the ledger, and the ledger bounds the money that can be kept.**
 
 ### 2.4 Its weaknesses, stated
 
 - **Cheap tags can be cloned.** A copy of a token's tag, set into another coin, is as good as the original until one of them is used. SUNSET accepts this as part of its **recognised bug** (stamp-format.md 5): the first to be used wins, and the other is refused and kept by the machine that refuses it, which takes it out of circulation.
-- **Tokens get lost,** and a lost token's stamp is gone, as with cash. It also expires on its date anyway.
+- **Tokens get lost,** and a lost token's stamp is gone, as with cash. The coin leaves the stock until it turns up.
+- **A kept token has more time to be cloned.** The first use still wins; this is minor.
+
+### 2.5 Saving in coins
+
+Because tokens last the year and digital stamps don't, SUNSET has two kinds of money: **stamps to spend, coins to keep.**
+
+- **Saving costs the minting fee.** Anyone holding stamps near their date can turn them into tokens to keep their value. The fee (3.4) is the **price of saving,** like a vault's charge: converting stamps to tokens and back renews them, deliberately, at that price.
+- **Savings are capped by the coins.** There are only as many tokens as PVA has made (say 500), so the town can never keep more than 500 stamps' worth, however many are minted. When every token is out, the hopper says *out of tokens* and saving stops until someone redeems.
+- **The town's savings are on show.** The gettoneria's page shows **tokens out in town:** the number issued and not yet back. It is the town's savings, counted, with no names (4.4).
+- **A coin may come to be worth more than a stamp.** When the hopper runs dry, a token is the only way to keep value, so people might trade one for more than a stamp in the street. SUNSET neither invites nor prevents it (SUNSET.md 2.4): a market finding the price of durability.
+- **Traders prefer coins.** A café taking tokens for coffee needn't worry about a date for months. The street economy runs on coins; play runs on stamps.
+- **The sink weakens, and the pilot watches it.** Expiry is SUNSET's main sink, and saved coins escape it until 31 December. Late in the season, savings may come back as large bids at the auction: drama, or a problem. Prices and the minting fee are tuned in the pilot.
+- **The loop thins.** Kept coins don't come back to the hopper, so the stock in the gettoneria falls over the season; *tokens running low* calls for a fresh batch (2.2).
+
+### 2.6 The end of the year
+
+- **On 31 December every live token expires.** From 1 January it is worth nothing.
+- **Brought back** to the gettoneria or the flip-dot wall after that, an expired token goes back into the hopper with no stamp, *in the hopper* again for the new year.
+- **Kept,** it is a keepsake: a coin from that year of SUNSET.
+- **Nothing carries across years:** the ledger's live states reset with the year, and the batch list stays as it was.
 
 ---
 
@@ -79,7 +101,7 @@ Each token ID has one state at a time, recorded by the gettoneria and the flip-d
 
 1. At the gettoneria, the visitor opens the mint page and chooses how many tokens.
 2. The stamps are **spent into the node** from the passport page, plus the minting fee (3.4).
-3. The hopper pays out the tokens one at a time. Each passes an **NFC reader in the exit chute**; the node records its ID as *issued, valid until* the earliest date of the stamps spent (2.3), and writes it to flash.
+3. The hopper pays out the tokens one at a time. Each passes an **NFC reader in the exit chute**; the node records its ID as *issued, valid until 31 December* (2.3), and writes it to flash.
 4. The visitor takes them from the cup.
 
 If a token passes the reader unread, the node pays one more and records the miss (6, pilot).
@@ -89,8 +111,8 @@ If a token passes the reader unread, the node pays one more and records the miss
 1. The holder joins the gettoneria's Wi-Fi and opens the redeem page on their phone.
 2. They **drop the tokens into the slot,** one at a time. Each passes an NFC reader in the chute.
 3. For each token the node checks: genuine (the signature), *issued*, not past its date.
-4. **Valid:** the node issues one digital stamp to a holder key the phone makes, valid until the token's own date, and a flap sends the token **back into the hopper**, *in the hopper* again. **The gettoneria refills itself** from what is redeemed.
-5. **Expired** (genuine, past its date): back into the hopper, no stamp.
+4. **Valid:** the node issues one digital stamp to a holder key the phone makes, with a **fresh** valid-until date from today (stamp-format.md 3.5): the token was the store, and the minting fee paid for it. A flap sends the token **back into the hopper**, *in the hopper* again. **The gettoneria refills itself** from what is redeemed.
+5. **Expired** (genuine, issued in an earlier year): back into the hopper, no stamp (2.6).
 6. **Not valid** (unknown, spent, souvenir, or a clone already used): the flap sends it to the **reject box**, where it stays until the round. The page says why.
 
 ### 3.3 Why tokens are redeemed here only
@@ -101,7 +123,7 @@ SUNSET nodes learn of each other's spends only when couriers carry blocks. **Tok
 
 ### 3.4 The minting fee
 
-Minting costs a small fee in stamps (for example 1 per mint, whatever the number of tokens), set in the pilot. It pays for the wear on the tokens and the hopper. It is a **sink.** Redeeming is free.
+Minting costs a small fee in stamps (for example 1 per mint, whatever the number of tokens), set in the pilot. It is the **price of saving** (2.5), and pays for the wear on the tokens and the hopper. It is a **sink.** Redeeming is free.
 
 ### 3.5 The souvenir
 
@@ -179,6 +201,7 @@ One of the lightest interactive nodes.
 - The node counts what goes into the hopper (batches loaded, tokens redeemed) and what comes out (paid out), and writes the count to flash.
 - **Below a threshold** (set in the pilot), it posts the service notice *tokens running low*; at zero, *out of tokens*, and minting pauses. The hopper's ccTalk status is the backstop if the count drifts.
 - *Reject box full* is posted the same way (SUNSET.md 7.1).
+- **Tokens out in town:** issued and not yet back, shown on the gettoneria's page: the town's savings (2.5). Live ledger states reset on 1 January (2.6).
 
 ---
 
@@ -204,6 +227,8 @@ One of the lightest interactive nodes.
 | Minting fee | How many stamps per mint (3.4) |
 | Stock | How many tokens a season needs, given losses and souvenirs |
 | Reject box | What happens to its contents: counted and shown, like the double-spend count (stamp-format.md 5.2) |
+| Stock size | How many tokens to make: the stock is the ceiling on the town's savings (2.5) |
+| Late-season savings | Whether saved coins returning as big auction bids is drama or a problem; minting fee tuned in the pilot (2.5) |
 
 ## 7. Pilot tasks
 

@@ -109,10 +109,10 @@ Check 4 is skipped only when the issuer's block hasn't arrived yet: a fresh stam
 - **Re-issued stamps:**
   - `refund` (outbid at the auction): keeps the **earliest** `exp` of the stamps it replaces, so bidding can't be used to renew stamps.
   - `payout` (to the seller): a **fresh** `exp` from the day of issue. The seller earned them by selling.
-  - `redeem` (a token back to digital): the **token's** valid-until date, never a fresh one. A token's valid-until is the earliest `exp` of the digital stamps spent for it, so converting to tokens and back can't be used to renew stamps.
+  - `redeem` (a token back to digital): a **fresh** `exp` from the day of redemption. Tokens are the deliberate way to keep value (4): the minting fee is the price of saving.
 - **Checked at every spend** (3.4, check 0): a stamp past its `exp` is refused before anything else.
 - **A bonus for storage:** a node only needs to remember spent stamps until they would have expired, so the spent list stays small (5.3). With a validity of 7 days or less, every stamp is still within the 7 days of full headers, so check 4 is always possible.
-- **Tokens** carry a valid-until date in the ledger: the earliest `exp` of the stamps spent for them (4).
+- **Tokens** are valid until **31 December** of the year they were issued (4). The ledger can't grow beyond the token stock, so a long life costs the nodes nothing.
 
 ---
 
@@ -124,7 +124,9 @@ Tokens are specified in [interactive-token.md](interactive-token.md); this is th
 - **The tag** is written once in a batch, then locked. It holds a link to the website's Verify page carrying the token's **ID** (the tag's own unique ID) and the gettoneria's **Ed25519 signature** over that ID, after the `#` so the browser never sends them. Nothing else: no value, no date, no secret.
 - **Genuine** is checkable anywhere, offline, from the gettoneria's public key: by any node, and by the website's Verify page on any NFC phone.
 - **Live, and until when,** is in the **ledger**, never on the coin: each ID is *in the hopper*, *issued* (with a valid-until date), *spent* or *souvenir* (interactive-token.md 2.3). The gettoneria and the flip-dot wall keep it and share every change live over ESP-NOW (interactive-flipdot.md 2.1). Redemption is at the gettoneria only; spending tokens is at the flip-dot wall only.
-- **Valid until:** an issued token takes the earliest `exp` of the digital stamps spent for it, so a token never outlives the stamps it came from (3.5).
+- **Valid until 31 December** of the year of issue. Digital stamps are for spending; **tokens are for keeping** (interactive-token.md 2.5).
+- **The ledger can't grow beyond the token stock.** It has one line per token made, whatever the minting and however long a token is kept. The physical stock bounds the ledger, and the ledger bounds the money that can be kept. This is a fundamental of the design.
+- **On 1 January** every live token's state resets: an expired token brought back goes into the hopper with no stamp (interactive-token.md 2.6).
 - **Tokens have no holder key.** They are bearer in the old way: whoever holds the coin holds the stamp. That is the point: they work without a phone.
 - **Clones are possible, and accepted.** A cheap tag can be copied. The first use of an ID wins; any later copy is refused and kept by the machine that refuses it. This is part of the recognised bug (5).
 
@@ -166,7 +168,7 @@ A v0 block, with these additions to the **header** (so they survive when the wor
 ```json
 "issued": [ {"n": 17, "t": 1784019600, "why": "walk", "hk": "5d0e…"} ],
 "spent":  [ {"id": "7/2027-07-13/4", "t": 1784023200, "ss": "…"} ],
-"tokens": [ {"id": "04a2…", "t": 1784026800, "ev": "issued", "exp": "2027-07-20"} ]
+"tokens": [ {"id": "04a2…", "t": 1784026800, "ev": "issued", "exp": "2027-12-31"} ]
 ```
 
 | Field | Meaning |
@@ -213,7 +215,7 @@ The test bed (gtb/testbed) is extended to v1 to confirm these sizes before firmw
 
 | Question | Notes |
 | --- | --- |
-| Validity | How long a stamp is valid (3.5): 7 days proposed; set in the pilot. Tokens inherit it |
+| Validity | How long a digital stamp is valid (3.5): 7 days proposed; set in the pilot. Tokens: 31 December of the year of issue |
 | Passport backup | Whether a visitor can export their stamps (a QR of the keys) to a new phone. Convenient, and exactly the copy that makes double spends possible |
 | Double-spend display | Count only, or the stamp IDs too (they identify no one) |
 | Auction siting | Within ESP-NOW range of the gateway, to put large spends on the live list (5.2)? |
