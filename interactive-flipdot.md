@@ -162,7 +162,8 @@ The manual is clear that flip-dots outdoors need **exercise and cleaning**:
 
 - **What it is:** a tall perspex tube beside the panel, where every spent token lands: the day's spending, stacked in view.
 - **Why:** a spent token has no value until it is back in the hopper, so it can be shown in public. The column grows through the day; its height is the town's spending.
-- **The round:** PVA empties the column and the kept-token box, and takes the tokens back to the gettoneria (interactive-token.md 3.7). A photograph of the column before emptying goes in the round log.
+- **Every day:** the gateway's host (or PVA) empties the column into the gettoneria next door, in its return mode, so the tokens are back in the hopper by morning (interactive-token.md 3.7). A photograph of the column before emptying goes in the log.
+- **At the round:** PVA empties the kept-token box for the bench check.
 
 ---
 

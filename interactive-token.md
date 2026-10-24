@@ -79,7 +79,7 @@ Each token ID has one state at a time, recorded by the gettoneria and the flip-d
 Because tokens last the year and digital stamps don't, SUNSET has two kinds of money: **stamps to spend, coins to keep.**
 
 - **Saving costs the minting fee.** Anyone holding stamps near their date can turn them into tokens to keep their value. The fee (3.4) is the **price of saving,** like a vault's charge: converting stamps to tokens and back renews them, deliberately, at that price.
-- **Savings are capped by the coins.** There are only as many tokens as PVA has made (say 500), so the town can never keep more than 500 stamps' worth, however many are minted. When every token is out, the hopper says *out of tokens* and saving stops until someone redeems.
+- **Savings are capped by the coins.** There are only as many tokens as PVA has made (**1,000**: 2.7), so the town can never keep more than that many stamps' worth, however many are minted. When every token is out, the hopper says *out of tokens* and saving stops until someone redeems.
 - **The town's savings are on show.** The gettoneria's page shows **tokens out in town:** the number issued and not yet back. It is the town's savings, counted, with no names (4.4).
 - **A coin may come to be worth more than a stamp.** When the hopper runs dry, a token is the only way to keep value, so people might trade one for more than a stamp in the street. SUNSET neither invites nor prevents it (SUNSET.md 2.4): a market finding the price of durability.
 - **Traders prefer coins.** A café taking tokens for coffee needn't worry about a date for months. The street economy runs on coins; play runs on stamps.
@@ -94,6 +94,23 @@ Because tokens last the year and digital stamps don't, SUNSET has two kinds of m
 - **Nothing carries across years:** the ledger's live states reset with the year, and the batch list stays as it was.
 
 ---
+
+### 2.7 The stock: 1,000 tokens
+
+**Err on the side of more.** The art pieces must never stop for want of coins, and the town's real-world use of tokens (a café's coffee, a trade in the street) shouldn't take coins from the nodes. So the stock is **1,000 tokens: 500 for the core, 500 as a buffer.**
+
+| Part | About | What it's for |
+| --- | --- | --- |
+| **Core: savings** | 250 | Coins people keep (2.5) |
+| **Core: float** | 100 | Coins changing hands day to day, and the flip-dot wall's spending |
+| **Core: in transit** | 100 | Spent coins in the flip-dot column, returned **daily** (3.7) |
+| **Core: hopper and losses** | 50 | Coins ready in the hopper; souvenirs, losses, the reject box |
+| **Buffer** | 500 | Everything beyond the core: **non-core activity** in the town (trading, saving, coins held by businesses), busy weeks, and a reserve so the hopper never runs dry |
+
+- **Redemption can never fail.** Redeeming re-issues digital stamps, which need no reserve, so a rush to redeem is just a busy hour, never a run on the bank. The only shortage possible is the opposite: the hopper running out of coins to mint with, which is what the buffer is for.
+- **Where the coins are:** the hopper holds a few hundred (to confirm with Slomatic for these tokens: 4.1). The rest wait in a **reserve tube** inside the enclosure, which PVA tips into the hopper when *tokens running low* appears, and in PVA's own store for fresh batches.
+- **The ledger stays tiny:** 1,000 lines, whatever happens (2.3).
+- **The cost:** at very roughly €0.50–1.50 a token (tag, plastic, printing, assembly), **€500–1,500** for the stock, in the budget (TASKS.md).
 
 ## 3. The flows
 
@@ -114,6 +131,7 @@ If a token passes the reader unread, the node pays one more and records the miss
 4. **Valid:** the node issues one digital stamp to a holder key the phone makes, with a **fresh** valid-until date from today (stamp-format.md 3.5): the token was the store, and the minting fee paid for it. A flap sends the token **back into the hopper**, *in the hopper* again. **The gettoneria refills itself** from what is redeemed.
 5. **Expired** (genuine, issued in an earlier year): back into the hopper, no stamp (2.6).
 6. **Not valid** (unknown, spent, souvenir, or a clone already used): the flap sends it to the **reject box**, where it stays until the round. The page says why.
+7. **Return mode** (opened from the admin page, by PVA or the gateway's host): spent tokens from the flip-dot wall's column go **back into the hopper**, *in the hopper* again, with no stamp. That is how the column is emptied each day (3.7).
 
 ### 3.3 Why tokens are redeemed here only
 
@@ -152,7 +170,9 @@ Useful to anyone accepting tokens, such as a bar near the gettoneria (SUNSET.md 
    └──────────────────────────────────────────────────────────────┘
 ```
 
-At each round, PVA empties the flip-dot wall's column and the gettoneria's reject box, checks the tokens on a bench reader (removing any duplicate IDs, which can only be clones), and loads the good ones back into the hopper, *in the hopper* again.
+**Every day,** after sunset or before opening, the gateway's host (or PVA) empties the flip-dot wall's column into the gettoneria's slot in **return mode** (3.2): the two nodes stand together, so this is a few steps. Only a day's spending is ever out of circulation.
+
+**At each round,** PVA empties the gettoneria's reject box and the flip-dot wall's kept-token box, checks those tokens on a bench reader (removing any duplicate IDs, which can only be clones), and loads the good ones back into the hopper.
 
 ---
 
@@ -167,7 +187,7 @@ At each round, PVA empties the flip-dot wall's column and the gettoneria's rejec
 | **Status pad** | A third NFC reader behind a marked spot on the front, with a light: touch a token to see whether it is live (3.6) |
 | **Redeem slot** | A slot sized to the token, a sensor that sees each token pass (optical or a coin validator that handles the token's material), an NFC reader in the chute, and a **solenoid flap**: to the hopper, or to the reject box |
 | **Reject box** | Locked, inside the enclosure; emptied at the round |
-| **Tokens** | A season's stock: a few hundred, plus spares for souvenirs and losses |
+| **Tokens** | **1,000**: 500 core, 500 buffer (2.7). Those not in the hopper wait in a reserve tube inside the enclosure, or in PVA's store |
 | **Batch writer** | On the bench, not in the node: a USB NFC writer and a script that writes, signs, locks and lists each tag |
 
 ### 4.2 Pins
@@ -225,9 +245,8 @@ One of the lightest interactive nodes.
 | Tag size | A tag small enough for a 23 mm coin that still reads reliably at the chutes and with phones |
 | Souvenir price | How many stamps a token to keep costs (3.5) |
 | Minting fee | How many stamps per mint (3.4) |
-| Stock | How many tokens a season needs, given losses and souvenirs |
 | Reject box | What happens to its contents: counted and shown, like the double-spend count (stamp-format.md 5.2) |
-| Stock size | How many tokens to make: the stock is the ceiling on the town's savings (2.5) |
+| Stock size | **Decided: 1,000** (2.7). The pilot shows how the buffer is used, and whether the hopper and reserve tube hold enough |
 | Late-season savings | Whether saved coins returning as big auction bids is drama or a problem; minting fee tuned in the pilot (2.5) |
 
 ## 7. Pilot tasks

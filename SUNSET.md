@@ -227,7 +227,7 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 | Data collection (archive, counts) | **Fortnightly**, with SUNDIAL's round when both are in the same town. SUNSET produces very little data: a day's flip-dot picture is under 50 bytes, so even a monthly round would lose nothing |
 | Battery, Victron, heat and enclosure checks | Fortnightly, on the same round |
 | Flip-dot panel | Every round: compressed air, then a vacuum at minimum suction; replace stuck dots. The manual asks for at least every 4 weeks (interactive-flipdot.md 3.7) |
-| **Tokens** | Every round: empty the flip-dot wall's column and the kept-token box, and the gettoneria's reject box; check the tokens on a bench reader (removing duplicate IDs, which are clones); load them back into the hopper (interactive-token.md 3.7). Photograph the column first |
+| **Tokens** | **Daily:** the host empties the flip-dot wall's column into the gettoneria in return mode (photograph it first). **Every round:** empty the kept-token box and the reject box, check those on a bench reader (removing duplicate IDs, which are clones), load them back; top up the hopper from the reserve tube (interactive-token.md 2.7, 3.7) |
 | **Gettoneria stock** | **On demand,** when the node posts *tokens running low*: a fresh batch, written, assembled and loaded by PVA (interactive-token.md 2.2) |
 | Faults | On demand, from the service notice |
 
