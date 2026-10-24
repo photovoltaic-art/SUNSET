@@ -12,7 +12,7 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 - [ ] **Carry test:** one ESP32 playing two walls; iPhone and Android, Wi-Fi pop-up and full browser ([steps](gtb/carry_test/TEST.md)). Add the v1 checks: the Ed25519 library runs in each browser path, and stamp keys survive a day (stamp-format.md 8). **The first thing to do; one ESP32 and two phones.**
 - [ ] **Extend the test bed to v1:** holder keys, `issued`/`spent` in headers, the new size limits and storage budget, and a cloned-phone double spend that is caught and proved (stamp-format.md 5, 7).
 - [ ] **Two boards on the bench:** wall firmware, a few phones, a day of light from a bench supply.
-- [ ] **Pilot:** two walls and the gateway pair (print node, flip-dot wall). Enough to test walking, minting, paper, spending and the live spent list.
+- [ ] **Pilot:** two walls and the gateway pair (gettoneria, flip-dot wall). Enough to test walking, minting, tokens, spending and the live ledger.
 - [ ] Then the full nine.
 
 ## Format
@@ -28,17 +28,17 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 - [ ] **Arm:** Waveshare RoArm-M2-S (interactive-arm-game.md 2.1). Check the servos' and UART's voltage limits before wiring.
 - [ ] **Flip-dot panel:** Alfa-Zeta quoted 23 Oct 2026: 14 × 28 €440, 7 × 28 €220, controller included, shipping €25, 1–4 weeks (interactive-flipdot.md 3). Protocol and manual received; follow-up sent 23 Oct (start-up behaviour, partial updates, outdoor housing, drawings, spare dots, the 1 × 11 row for BINARY). **Decided: two 14 × 28, stacked as a 28 × 28 square, yellow on black (€880 + €25 shipping).** Tell Alfa-Zeta when ordering (the follow-up said one panel, colour to confirm). Order for SUNSET's year (after SUNDIAL's first).
 - [ ] **Battery tier, per interactive node:** Victron SmartSolar MPPT 75/15, 12 V LiFePO₄, fuses, enclosure (battery-tier.md).
-- [ ] **Print node:** a die-cut label printer with cutter that runs on 12 V (interactive-print.md 4.1).
+- [ ] **Gettoneria:** Slomatic X3 EXP hopper, 12 V, ccTalk (interactive-token.md 4.1); **ask Slomatic whether it pays plastic tokens reliably**, or what token weight it needs. Tokens (about 23 mm, printed plastic, perhaps a metal insert), NTAG213 tags on a roll, a USB NFC writer for batches, PN532 readers.
 - [ ] **The SUNSET set:** a Bluetooth speaker for the speaker locker (interactive-audio.md).
 
 ## Design still open
 
 - [ ] Garden node (garden-node.md): planting and cladding. (*Proof of water* set aside: stamps come only from walk or the sun's allowance.)
 
-- [ ] Artwork for the paper stamp and the redeem sticker (interactive-print.md 5).
+- [ ] Artwork for both faces of the token (interactive-token.md 6).
 - [ ] The nine 5 × 5 node logos: unique, never the PVA logo.
 - [ ] The one-screen rules and the first five minutes (SUNSET.md 5).
-- [ ] Shout price, souvenir price, printing fee, listing fee: set in the pilot.
+- [ ] Shout price, souvenir price, minting fee, listing fee: set in the pilot.
 
 ## Site and permissions
 

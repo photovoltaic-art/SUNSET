@@ -1,19 +1,19 @@
 # The flip-dot wall — a cash-only interactive node on carrier v1
 
-A SUNSET interactive node with a **flip-dot panel**: a grid of mechanical pixels, each a small disc that shows one colour or the other. **A dot can only be flipped with a paper stamp.** No phone, no app: the visitor holds a redeem sticker from the print node up to the scanner, turns two knobs to choose a dot, and presses to flip it. Beside the panel is a **sticker wall**, where people stick their spent stickers.
+A SUNSET interactive node with a **flip-dot panel**: a grid of mechanical pixels, each a small disc that shows one colour or the other. **A dot can only be flipped with a token.** No phone, no app: the visitor drops a token from the gettoneria into the slot, turns two knobs to choose a dot, and presses to flip it. Spent tokens stack up in a **token column** beside the panel, the day's spending in view.
 
-It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [battery-tier.md](battery-tier.md); the paper stamps in [interactive-print.md](interactive-print.md).
+It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [battery-tier.md](battery-tier.md); the tokens in [interactive-token.md](interactive-token.md).
 
-> Status: draft 4, 23 Oct 2026. Sized: two 14 × 28 panels as a 28 × 28 square, yellow on black. Alfa-Zeta's quote, power data, serial protocol (rev. Oct 2023) and user manual (rev. 11.0) are in (3.1, 3.3, 3.6, 3.7). Nothing built. **Nothing here changes the carrier board.**
+> Status: draft 5, 24 Oct 2026. Paid with **tokens** from the gettoneria (coin reader and NFC reader), no longer paper stickers. Sized: two 14 × 28 panels as a 28 × 28 square, yellow on black. Alfa-Zeta's quote, power data, serial protocol (rev. Oct 2023) and user manual (rev. 11.0) are in (3.1, 3.3, 3.6, 3.7). Nothing built. **Nothing here changes the carrier board.**
 
 ---
 
 ## 1. The idea
 
-- **Cash only.** The only way to flip a dot is a paper redeem sticker. Digital stamps can't do it, so paper stamps have a use of their own, and **anyone can take part without a phone:** someone hands them a sticker, they spend it at the wall.
-- **Proof of mark.** Every dot on the panel was paid for with paper. Over a season the town draws a shared picture, one paid pixel at a time.
+- **Cash only.** The only way to flip a dot is a token. Digital stamps can't do it, so tokens have a use of their own, and **anyone can take part without a phone:** someone hands them a token, they spend it at the wall.
+- **Proof of mark.** Every dot on the panel was paid for with a token. Over a season the town draws a shared picture, one paid pixel at a time.
 - **Mechanical pixels.** A flip-dot holds its position with no power and needs only a short pulse to change, with an audible click. It is readable in full sun, where screens wash out, and it keeps showing the picture all night with no energy at all.
-- **The sticker wall.** A spent sticker has no value, but it is kept: stuck on a wall panel beside the flip-dot panel. The wall becomes a **public ledger of spending,** each round sticker with its serial, readable by anyone.
+- **The token column.** Spent tokens drop into a tall perspex tube beside the panel: the day's spending, stacked in view. At the round they go back to the gettoneria and into circulation again (5).
 - **Daylight only,** like all SUNSET business: flipping runs from sunrise to sunset. The picture stays up all night.
 
 ### Where it sits in SUNSET
@@ -23,28 +23,28 @@ It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar 
 | Wall (message nodes) | walk | earn |
 | Arm game ([interactive-arm-game.md](interactive-arm-game.md)) | skill | earn |
 | Street auction ([interactive-auction.md](interactive-auction.md)) | bid | transfer; listing fee is a sink |
-| Print node ([interactive-print.md](interactive-print.md)) | print | convert digital ⇄ paper; souvenir is a sink |
-| **Flip-dot wall** | **mark** | **spend, paper only:** a sink |
+| Gettoneria ([interactive-token.md](interactive-token.md)) | mint | convert digital ⇄ tokens; souvenir is a sink |
+| **Flip-dot wall** | **mark** | **spend, tokens only:** a sink |
 
 ---
 
 ## 2. A flip, step by step
 
-1. **Pay.** Hold a redeem sticker up to the scanner window. The node reads the QR, checks the signature and that the sticker is unspent (2.1), and marks it spent. A sticker's value is its number of flips: a 5-stamp sticker buys 5 flips.
+1. **Pay.** Drop a token into the slot. The **coin reader** checks it is a token and sees it pass; the **NFC reader** in the chute reads its tag on the way down. The node checks it is genuine (the gettoneria's signature), *issued* and within its date (2.1), marks it spent, and the token falls into the column. **One token, one flip;** drop more for more.
 2. **Choose.** A **cursor dot** starts blinking on the panel. Two knobs move it, one across and one up and down, like an Etch A Sketch.
-3. **Flip.** Press the button: the dot under the cursor flips. Repeat until the sticker's flips are used.
-4. **Stick.** Peel the spent sticker and put it on the sticker wall.
+3. **Flip.** Press the button: the dot under the cursor flips. Repeat until the flips paid for are used.
 
-A sticker that has already been spent is refused: the scanner light shows red, and nothing flips.
+**There is no return chute.** A token that fails the check (unknown, already spent, a souvenir, expired, or a clone of a token already used) is **kept**: the light shows red, nothing flips, and the token falls into a separate locked box, out of circulation. The page explains why. An expired genuine token goes back into circulation from there at the round; a clone does not.
 
 ### 2.1 No double spending, without a phone
 
-A paper sticker can be copied. If the flip-dot wall and the print node each kept their own spent list, a photocopy could be spent here and redeemed at the print node before couriers carried the news between them.
+A token's cheap NFC tag can be cloned. If the flip-dot wall and the gettoneria each kept their own ledger, a clone could be spent here and the original redeemed at the gettoneria before couriers carried the news between them.
 
-**The fix: the two nodes share one spent list in real time,** over **ESP-NOW**, the ESP32's own board-to-board radio link. It needs no access point, uses little power, and reaches tens of metres along a street (more in line of sight). Every spend at either node is known to the other within a second, so nothing can be spent twice.
+**The fix: the two nodes share one ledger in real time,** over **ESP-NOW**, the ESP32's own board-to-board radio link. It needs no access point, uses little power, and reaches tens of metres along a street (more in line of sight). Every spend at either node is known to the other within a second, so nothing can be spent twice.
 
-- **This sets the site:** the flip-dot wall must stand within ESP-NOW range of the print node. Placing them as a pair (the mint, and the wall where its paper is spent) suits the story anyway.
-- **Signatures are still checked locally:** the stickers carry a public-key signature (interactive-print.md 3.3), so the wall knows a sticker is genuine without asking anyone. The shared list only answers "has it been spent?".
+- **This sets the site:** the flip-dot wall must stand within ESP-NOW range of the gettoneria. Placing them as a pair (the mint, and the wall where its tokens are spent) suits the story anyway.
+- **Signatures are still checked locally:** each token's tag carries the gettoneria's Ed25519 signature over its ID (interactive-token.md 2.1), so the wall knows a token is genuine without asking anyone. The shared ledger answers "is it live, and until when?".
+- **Clones remain possible, and accepted** as part of SUNSET's recognised bug: the first use wins, and the other copy is kept by the machine that refuses it (interactive-token.md 2.4).
 - ESP-NOW and the node's own Wi-Fi access point work together as long as both use the same radio channel.
 
 ---
@@ -58,18 +58,20 @@ A paper sticker can be copied. If the flip-dot wall and the print node each kept
 | **Flip-dot panel** | **Two Alfa-Zeta XY5 14 × 28 panels, stacked to make a 28 × 28 square: 784 dots, yellow on black (like the sun).** 13.5 mm dots; four 7 × 28 modules, each with its controller (RS-485). **€880** (2 × €440) plus €25 shipping; in stock or 1–4 weeks (quote, 23 Oct 2026). A reclaimed bus-sign panel is the later "reuse" version |
 | **24 V supply for the panel** | A **fixed-output, regulated** 12 V → 24 V DC-DC converter (industrial, about 2 A out for the two panels, for example Mean Well SD-50A-24 class; its input fused for about 5 A peaks from the battery) from the battery, through its own fuse, with an enable or a switch in its input. Fixed, not an adjustable boost module: the panel's **maximum is 25 V**, only 1 V above nominal. Alfa-Zeta warns that panels fed straight from solar suffer from the unstable voltage; on the battery tier the converter sees a steady 12.8–14.4 V |
 | **RS-485 transceiver** | 3.3 V (MAX3485 class), carrier to panel |
-| **QR scanner** | Small fixed-mount module (GM65 class), behind a window in the enclosure, reading the sticker held up to it. Its light shows green (paid) or red (refused) |
+| **Coin reader** | A slot sized to the token with a coin acceptor or optical sensor that confirms a token-shaped object passed (one that handles the token's material: interactive-token.md 6). A light beside it shows green (paid) or red (kept) |
+| **NFC reader** | PN532 class, its antenna on the chute just below the slot, reading each token as it falls; on the I2C header J13 |
+| **Token column and kept-token box** | A tall perspex tube for spent tokens, in view; a small locked box for refused ones. Both emptied at the round |
 | **Two knobs and a button** | Rotary encoders with vandal-resistant metal knobs, and a large push button |
-| **Sticker wall** | A panel beside the flip-dot panel for spent stickers: smooth, weatherproof, easy to stick to (enamelled steel, aluminium or acrylic, chosen in the pilot) |
 
 ### 3.2 Pins
 
-One serial port serves both the panel and the scanner: the panel only listens and the scanner only talks, so the ESP32's second UART sends to the panel on its TX pin and receives from the scanner on its RX pin, both at the same speed (for example 9600 baud, set on both devices).
+The panel only listens, so it needs only the TX pin of the ESP32's second UART. The coin reader's signal takes the RX pin's place as a plain input; the NFC reader sits on the I2C header.
 
 | Use | GPIO | Header | Notes |
 | --- | --- | --- | --- |
 | Panel data (RS-485, UART1 TX) | 32 | J9 | Transceiver's driver permanently enabled: the carrier is the only sender on the bus |
-| Scanner data (UART1 RX) | 33 | J9 | Scanner set to the same speed as the panel |
+| Coin reader signal | 33 | J9 | A pulse per token passing |
+| NFC reader | I2C 21 / 22 | J13 | Shared with the DS3231 (different addresses) |
 | Knob 1 (across), A / B | 26, 13 | J9 | |
 | Knob 2 (up and down), A / B | 14, 36 | J9 | 36 is input only and needs an external pull-up |
 | Flip button | 27 | J9 | **Remove R19** on the carrier (gives up the switched 5 V output, unused here) |
@@ -88,7 +90,7 @@ Every J9 pin is in use; the panel's power switch takes GPIO 17 from J10 instead 
 | Flip-dot pulses | peak 680 mA at 24 V per 14 × 28 panel, so about 1.4 A for the square, while flipping | A complete 14 × 28 redraw takes 160 ms at 680 mA: about **2.6 J**, so about 5 J for the square. Negligible, even for hundreds of flips |
 | Panel controllers, idle | **40 mA at 24 V per 14 × 28**, 80 mA for the square: about 2 W | 46 Wh a day if left on, four times the ESP32. So the panels are **powered only while someone is flipping** (3.4) |
 | Daily exercise | about 32 W for 5 minutes (both panels) | about 2.7 Wh a day: the largest single load (3.7) |
-| QR scanner | about 0.5–1 W while on | only in business hours |
+| Coin and NFC readers | about 0.3–0.5 W while on | only in business hours |
 
 Holding the picture costs nothing: the dots stay where they are with no power.
 
@@ -98,7 +100,7 @@ Holding the picture costs nothing: the dots stay where they are with no power.
 
 Alfa-Zeta: "You can safely switch off everything between updates to reduce power to zero."
 
-- **A session powers it up:** a valid sticker switches the 24 V converter on (GPIO 17); the cursor blinks while the visitor turns the knobs and flips; a minute after the last flip (or when the sticker's flips are used) the converter switches off.
+- **A session powers it up:** a valid token switches the 24 V converter on (GPIO 17); the cursor blinks while the visitor turns the knobs and flips; a minute after the last flip (or when the flips paid for are used) the converter switches off.
 - **After power-up, resend the picture.** The ESP32 keeps the canvas in flash and sends the whole frame each time the panel wakes, in case the controller clears or tests the dots on start-up (to confirm with Alfa-Zeta).
 - **Daily energy:** a few minutes of idle per session plus the flips: well under 1 Wh a day.
 
@@ -126,7 +128,7 @@ From Alfa-Zeta's *Flipdots display control protocols* (October 2023). One-way se
 
 - **Data:** one byte per column of 7 dots, 28 bytes per module. Bit 0 (LSB) is the top dot, bit 6 the bottom; bit 7 is ignored and set to 0.
 - **Address:** set on each module's DIP switch DS#1, positions 0–5 (up to 64); 255 (`0xFF`) is broadcast. For the 28 × 28 square: **modules 1–4, top to bottom,** on one RS-485 line. Each frame addresses one 7-dot band of the square.
-- **Speed:** DIP switch DS#2: 9600, 19200, 38400 or 57600 baud. **9600**, the QR scanner's default, so both share UART1 as 3.2 describes.
+- **Speed:** DIP switch DS#2: 9600, 19200, 38400 or 57600 baud. **9600.**
 - **No single-dot command.** A flip sends the module's whole 28-byte frame with the one dot changed. The ESP32 keeps the canvas, so this is simple: 32 bytes per flip.
 - **Updating both modules together:** send each with `0x84` (store), then one `0x80 0x82 0x8F`, so the whole picture changes at once (used for the morning exercise and redraws, 3.7).
 - **No reply, so no fault detection.** The controller cannot report a stuck dot. A dot that fails to turn is visible only to the eye, and found at the round (3.7).
@@ -138,8 +140,8 @@ The manual is clear that flip-dots outdoors need **exercise and cleaning**:
 
 - **Daily exercise at noon.** After a period without use, dots can become "lazy" or blocked. The manual's remedy is a black–white flip-flop routine: **at least 5 minutes a day,** 10 minutes after more than two days idle. The node runs it **every day at solar noon** (from the clock, `sunTimes`, as SUNDIAL's dial keeps solar time), then redraws the town's picture from flash. It costs about 32 W for 5 minutes, **about 2.7 Wh a day**, more than everything else the panel uses. It is part of the work: *the wall marks noon.*
 - **Noon overrides everything on the panel.**
-  - **Before:** from 5 minutes before noon, no new sticker is accepted. The scanner shows red and the page says when flipping resumes.
-  - **During:** a session still running at noon is paused. Its sticker is already spent, so its **remaining flips are kept** (written to flash) and the cursor comes back for them after the exercise, for 10 minutes; unused flips then lapse, as any unused flips do.
+  - **Before:** from 5 minutes before noon, the slot is closed (a shutter, or the light shows red and the page says when flipping resumes), so no token is taken.
+  - **During:** a session still running at noon is paused. Its tokens are already spent, so its **remaining flips are kept** (written to flash) and the cursor comes back for them after the exercise, for 10 minutes; unused flips then lapse, as any unused flips do.
   - **Nothing else drives the panel** during the exercise: no flips, no redraws, no knob input.
   - **After:** the picture is redrawn exactly as it was, and flipping reopens.
   - After more than two days without power (a dark spell, a repair), the first noon runs 10 minutes, as the manual asks.
@@ -156,12 +158,11 @@ The manual is clear that flip-dots outdoors need **exercise and cleaning**:
 
 ---
 
-## 5. The sticker wall
+## 5. The token column
 
-- **What it is:** a wall panel beside the flip-dot panel where spent stickers are stuck, by hand, by the people who spent them.
-- **Why:** a spent sticker has no value, so it can be shown in public. Each carries its serial, so the wall is a **readable ledger:** every flip on the panel paid for by a sticker on the wall.
-- **Not enforced.** People may keep their spent stickers; the node's spent list is the real record. The wall is an invitation.
-- **Upkeep:** photographed at each round as part of the record; cleared or kept as an artwork at the yearly visit (5, open).
+- **What it is:** a tall perspex tube beside the panel, where every spent token lands: the day's spending, stacked in view.
+- **Why:** a spent token has no value until it is back in the hopper, so it can be shown in public. The column grows through the day; its height is the town's spending.
+- **The round:** PVA empties the column and the kept-token box, and takes the tokens back to the gettoneria (interactive-token.md 3.7). A photograph of the column before emptying goes in the round log.
 
 ---
 
@@ -171,20 +172,19 @@ The manual is clear that flip-dots outdoors need **exercise and cleaning**:
 | --- | --- |
 | Start-up behaviour | Does the controller flip or test dots at power-up? Asked of Alfa-Zeta (3.4) |
 | Partial updates | Does a frame re-pulse every dot, or only the dots that change? Sets the energy and the noise per flip. Asked of Alfa-Zeta |
-| Flips per sticker | Value = flips (one stamp, one flip), or another rate |
+| Flips per token | One token, one flip (decided with the gettoneria: every token is worth one stamp) |
 | Canvas policy | Never reset, reset yearly, or kept as a permanent record of the town |
 | Cursor | Blinking cursor dot on the panel, or a small separate indicator |
-| Site | Within ESP-NOW range of the print node; shade for the electronics |
-| Sticker wall | Material, size, and what happens when it is full |
+| Site | Within ESP-NOW range of the gettoneria; shade for the electronics |
+| Token column | Height and capacity, so it holds a busy day |
 | Phone flips | Whether digital stamps should ever flip dots (currently no: cash only) |
 
 ## 7. Pilot tasks
 
 | Task | What to settle |
 | --- | --- |
-| ESP-NOW link | Range and reliability between the print node and the wall on the chosen street, alongside the access point |
-| Double spend | Copy a sticker, spend it here and redeem the original at the print node: the second must be refused |
-| Scanner | Reading small QR codes on stickers held at different angles, in bright sun |
+| ESP-NOW link | Range and reliability between the gettoneria and the wall on the chosen street, alongside the access point |
+| Double spend | Clone a token, spend the clone here and redeem the original at the gettoneria: the second must be refused and kept |
+| Readers | Every token seen by the coin reader and read by the NFC reader as it falls |
 | Panel controller | Idle draw at 24 V; whether to switch it off at night |
 | Controls | Knobs and button usable by first-time visitors without instructions |
-| Sticker wall | Stickers stay on in sun and rain; how easily they come off at clearing |

@@ -22,7 +22,7 @@ Every wall opens on its **dial tone:** a simple picture that says the network is
 - **The network:** the other nodes, each with the **time of its last update** from this wall's point of view. A wall that hasn't heard from another for a long time shows it, so the network's gaps are visible, and so is where to walk.
 - **The three shouts:** the town's current news (2.2).
 - **Service notices,** on their own line: the installation asking for upkeep, in public (SUNSET.md 7.1).
-- **The rules on one screen** (SUNSET.md 5): earn by walking messages or by skill; spend at the auction, the print node or the flip-dot wall; paper works without a phone; everything closes at sunset.
+- **The rules on one screen** (SUNSET.md 5): earn by walking messages or by skill; spend at the auction, the gettoneria or the flip-dot wall; tokens work without a phone; everything closes at sunset.
 
 ### 1.3 Reading and writing
 
@@ -131,7 +131,7 @@ Specified in **[stamp-format.md](stamp-format.md)**, shared by every node. In sh
 
 - A page on the visitor's phone, a grid of boxes **filled by stamps** as they are earned, each showing the logo of the node that paid it.
 - **Saved as images,** so the passport can be shown or shared with nothing installed. The images are a picture of the stamps; the stamps themselves, and their keys, live in the browser (stamp-format.md 8).
-- Tokens from the auction and paper-stamp receipts are kept here too.
+- The auction's collection claims are kept here too.
 
 ---
 

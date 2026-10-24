@@ -92,9 +92,9 @@ Each door has one job a day, so a seller can list at any hour of daylight, and t
 | Day N, sunrise to sunset | The lot is on the **stage**. Anyone at the node can bid in stamps |
 | Day N, sunset | **The hammer.** Bidding ends; no further bids. The highest bid wins |
 | Day N, sunset to four hours after | Business is closed. The stage locker shows *sold* or *unsold* in its light |
-| Day N+1, sunrise to midday | The locker is now **wings out**. The winner collects with their winning-bid token |
+| Day N+1, sunrise to midday | The locker is now **wings out**. The winner collects with their winning-bid claim |
 | Day N+1, from sunrise | The seller can redeem the winning stamps at any time in daylight (no locker needed; the node holds them) |
-| Day N+1, midday to sunset | If not collected, the winner forfeits: the seller keeps the stamps **and** can take the goods back with their seller token. The node posts an automatic **shout** ("Locker A uncollected"), which couriers carry to every wall |
+| Day N+1, midday to sunset | If not collected, the winner forfeits: the seller keeps the stamps **and** can take the goods back with their seller claim. The node posts an automatic **shout** ("Locker A uncollected"), which couriers carry to every wall |
 | Day N+1, still full at sunset | The lot is abandoned. At the next sunrise it **goes back on stage**, relisted automatically; its proceeds are burned |
 
 A lot with no bids at the hammer goes to wings out for the seller to take back, under the same timings, and is relisted the same way if still there at sunset.
@@ -107,12 +107,12 @@ A lot with no bids at the hammer goes to wings out for the seller to take back, 
 | --- | --- | --- |
 | Empty (wings in) | (dim or off) | A seller, for 1 stamp |
 | On stage | for sale | Nobody |
-| Sold, awaiting collection | sold | The winner's token, until midday |
-| Uncollected or unsold | return to seller | The seller's token, until sunset |
+| Sold, awaiting collection | sold | The winner's claim, until midday |
+| Uncollected or unsold | return to seller | The seller's claim, until sunset |
 | Listed, waiting in wings in | coming tomorrow | Nobody |
 | Relisted | for sale (next day) | Nobody |
 
-**The light is the message.** Without accounts or contact details, the node cannot tell anyone anything directly; the colour of each locker, readable from the street, is the status. The seller token also shows the lot's status on the node's page, and uncollected lots are announced by shout.
+**The light is the message.** Without accounts or contact details, the node cannot tell anyone anything directly; the colour of each locker, readable from the street, is the status. The seller claim also shows the lot's status on the node's page, and uncollected lots are announced by shout.
 
 After sunset the lights can show the day's result to the evening street (1); the colours and routine are set in the pilot (6).
 
@@ -128,16 +128,16 @@ A door switch on each locker confirms that the door was opened and closed again,
 
 No separate escrow is needed: **the firmware is the escrow.** Every lot ends with the seller holding either the stamps or the goods (or, if the winner never comes, both).
 
-### 3.5 Tokens on an open network
+### 3.5 Claims on an open network
 
-The node's Wi-Fi is open and plain HTTP: anything sent can be read by anyone in range (SUNDIAL.md 4.3). A token sent in clear could be copied by a bystander, who would reach the locker first. So tokens are **commit and reveal**:
+The node's Wi-Fi is open and plain HTTP: anything sent can be read by anyone in range (SUNDIAL.md 4.3). A claim sent in clear could be copied by a bystander, who would reach the locker first. So claims are **commit and reveal**:
 
-1. **At bid time** (or at listing, for the seller), the phone makes its own random secret and sends only its hash. The node records the hash against the bid or lot and signs the receipt (HMAC-SHA256 with a key only the node holds: only this node ever checks it). **Stamps themselves are not tokens:** they use holder keys and Ed25519 ([stamp-format.md](stamp-format.md) 3).
-2. **At collection,** the phone reveals the secret. The node checks it against the hash, opens the door at once and marks the token used.
+1. **At bid time** (or at listing, for the seller), the phone makes its own random secret and sends only its hash. The node records the hash against the bid or lot and signs the receipt (HMAC-SHA256 with a key only the node holds: only this node ever checks it). **Stamps themselves are not claims:** they use holder keys and Ed25519 ([stamp-format.md](stamp-format.md) 3).
+2. **At collection,** the phone reveals the secret. The node checks it against the hash, opens the door at once and marks the claim used.
 
-Anyone listening sees the secret only at the moment it stops being worth anything. Tokens are bearer: whoever holds the phone's secret holds the claim. Tokens are saved in the visitor's passport page beside their stamps.
+Anyone listening sees the secret only at the moment it stops being worth anything. Claims are bearer: whoever holds the phone's secret holds the claim. Claims are saved in the visitor's passport page beside their stamps.
 
-**On the node:** flash encryption on, so a stolen board does not give up the signing key. Every state change (bids, tokens issued and used, locker states) is written to flash before it is acted on, so a reboot or brown-out resumes exactly where it was and no door ever opens twice.
+**On the node:** flash encryption on, so a stolen board does not give up the signing key. Every state change (bids, claims issued and used, locker states) is written to flash before it is acted on, so a reboot or brown-out resumes exactly where it was and no door ever opens twice.
 
 ### 3.6 Practical rules
 
@@ -171,7 +171,7 @@ Same firmware family as the wall nodes, built with:
 | Close of the day | dusk from panel voltage | Bosa's sunset from the clock: Wi-Fi closes, the evening lighting routine runs, then deep sleep until sunrise |
 | Node role | wall | auction (locks, door switches, lights) |
 
-New for the auction: the three-locker rotation (3.1) and locker states (3.3), bid handling and stamp issue (3.4), commit-and-reveal tokens (3.5), the automatic shout, and the colour code on the lights.
+New for the auction: the three-locker rotation (3.1) and locker states (3.3), bid handling and stamp issue (3.4), commit-and-reveal claims (3.5), the automatic shout, and the colour code on the lights.
 
 ---
 

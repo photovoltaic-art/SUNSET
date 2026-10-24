@@ -6,7 +6,7 @@ Nine end-of-life solar panels on the walls of a town, forming a small offline ne
 
 SUNSET is the second work of **PVA (Photovoltaic Art)**, a manifesto for new uses of end-of-life PV panels: [photovoltaic.art](https://photovoltaic.art). The first is [SUNDIAL](https://github.com/photovoltaic-art/sundial). **A PVA work is nine panels;** that is its one rule. SUNSET grew from GO TO BED, a group chat that goes to bed at sunset ([gtb/](gtb/GO-TO-BED.md)).
 
-People earn **stamps** by walking messages between walls and by skill, and spend them at an auction, a mint and a wall of mechanical pixels. Paper stamps pass from hand to hand, so anyone can take part, with or without a phone. Every panel runs on its own sun; everything is unattended, anonymous and over by sunset.
+People earn **stamps** by walking messages between walls and by skill, and spend them at an auction, a mint and a wall of mechanical pixels. Tokens (printed coins with an NFC tag) pass from hand to hand, so anyone can take part, with or without a phone. Every panel runs on its own sun; everything is unattended, anonymous and over by sunset.
 
 Start with **[SUNSET.md](SUNSET.md)**: the nine panels, the stamp economy, a day of SUNSET, the layout, the pages and the operations.
 
@@ -16,8 +16,8 @@ Start with **[SUNSET.md](SUNSET.md)**: the nine panels, the stamp economy, a day
 | --- | --- | --- |
 | Walls 1–4 | Message walls: read, write, shout; couriers carry messages between walls and earn stamps (*proof of walk*) | [wall-node.md](wall-node.md) |
 | (any wall) | A wall node on a post where there is no wall, watering its own flower bed from a closed tank | [garden-node.md](garden-node.md) |
-| Print node | **The gateway.** Turns digital stamps into paper stamps and back; sells the artwork stamp as a souvenir | [interactive-print.md](interactive-print.md) |
-| Flip-dot wall | Also the gateway. Mechanical pixels flipped only with paper stamps; a sticker wall for the spent ones | [interactive-flipdot.md](interactive-flipdot.md) |
+| Gettoneria (token node) | **The gateway.** Turns digital stamps into tokens and back, from a coin hopper; sells a token as a souvenir | [interactive-token.md](interactive-token.md) |
+| Flip-dot wall | Also the gateway. A 28 × 28 square of yellow mechanical pixels flipped only with tokens; a column of the spent ones | [interactive-flipdot.md](interactive-flipdot.md) |
 | Street auction | One lot a day in three lit lockers; the hammer falls at sunset | [interactive-auction.md](interactive-auction.md) |
 | Arm game | A robot arm behind perspex; drop a peg in a hole, earn a stamp (*proof of skill*) | [interactive-arm-game.md](interactive-arm-game.md) |
 | The SUNSET set | Music at sunset to a registered Bluetooth speaker, only on days the sun has filled its battery | [interactive-audio.md](interactive-audio.md) |
@@ -34,7 +34,7 @@ garden-node.md               a wall node on a post, for a place with no wall: IB
 battery-tier.md              carrier v1 on a battery: the tier every interactive node uses
 interactive-auction.md       the street auction
 interactive-arm-game.md      the arm game
-interactive-print.md         the print node (proof of print)
+interactive-token.md         la gettoneria, the token node (proof of mint)
 interactive-flipdot.md       the flip-dot wall (cash only)
 interactive-audio.md         the SUNSET set
 gtb/                         GO TO BED, the concept SUNSET grew from (moved from the PVA repo with its history)
