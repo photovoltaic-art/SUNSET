@@ -68,17 +68,6 @@ Each token ID has one state at a time, recorded by the gettoneria and the flip-d
 
 **The ledger can't grow beyond the token stock.** It has one line per token ever made, and no more: however many stamps are minted, however long a token is kept, the ledger is as large as the batch list and never larger. That is what lets a token live for a year at no cost to the nodes. It is a fundamental of the design: **the physical stock bounds the ledger, and the ledger bounds the money that can be kept.**
 
-### 2.8 One ledger, held by every node
-
-Because the ledger is only 1,000 lines (about 12 KB), **every SUNSET node keeps the whole coin table**, not only the gateway pair.
-
-- **How it spreads:** every change of state is written into the gettoneria's or the flip-dot wall's sealed block (`tokens`, stamp-format.md 6). Couriers carry those blocks to every node, as they carry everything else, and each node updates its own copy of the table. Nothing new travels and nothing goes online.
-- **Where the final answer is:** the gettoneria and the flip-dot wall hold the **live** state, shared within a second over ESP-NOW. They are the only places a coin can be used, so theirs is the answer that counts.
-- **Everywhere else, honestly delayed:** any node can answer *"live, as far as this node has heard"*, with the date of its latest news from the gateway, the same honest wording the walls already use for news.
-- **Online, as of the last round:** after each round, PVA publishes the coin table on the website: numbers and states only, which identify no one. Anyone with internet can look a coin up, clearly marked *as of* that date (SUNSET.md 6.2).
-
-**Three answers, each honest about its age:** live at the gateway; as far as this node has heard at any wall; as of the last round online. That is the compromise: a transparent ledger, copied across every node and published, while SUNSET itself stays offline, always.
-
 ### 2.4 Its weaknesses, stated
 
 - **Cheap tags can be cloned.** A copy of a token's tag, set into another coin, is as good as the original until one of them is used. SUNSET accepts this as part of its **recognised bug** (stamp-format.md 5): the first to be used wins, and the other is refused and kept by the machine that refuses it, which takes it out of circulation.
@@ -122,6 +111,17 @@ Because tokens last the year and digital stamps don't, SUNSET has two kinds of m
 - **Where the coins are:** the hopper holds a few hundred (to confirm with Slomatic for these tokens: 4.1). The rest wait in a **reserve tube** inside the enclosure, which PVA tips into the hopper when *tokens running low* appears, and in PVA's own store for fresh batches.
 - **The ledger stays tiny:** 1,000 lines, whatever happens (2.3).
 - **The cost:** at very roughly €0.50–1.50 a token (tag, plastic, printing, assembly), **€500–1,500** for the stock, in the budget (TASKS.md).
+
+### 2.8 One ledger, held by every node
+
+Because the ledger is only 1,000 lines (about 12 KB), **every SUNSET node keeps the whole coin table**, not only the gateway pair.
+
+- **How it spreads:** every change of state is written into the gettoneria's or the flip-dot wall's sealed block (`tokens`, stamp-format.md 6). Couriers carry those blocks to every node, as they carry everything else, and each node updates its own copy of the table. Nothing new travels and nothing goes online.
+- **Where the final answer is:** the gettoneria and the flip-dot wall hold the **live** state, shared within a second over ESP-NOW. They are the only places a coin can be used, so theirs is the answer that counts.
+- **Everywhere else, honestly delayed:** any node can answer *"live, as far as this node has heard"*, with the date of its latest news from the gateway, the same honest wording the walls already use for news.
+- **Online, as of the last round:** after each round, PVA publishes the coin table on the website: numbers and states only, which identify no one. Anyone with internet can look a coin up, clearly marked *as of* that date (SUNSET.md 6.2).
+
+**Three answers, each honest about its age:** live at the gateway; as far as this node has heard at any wall; as of the last round online. That is the compromise: a transparent ledger, copied across every node and published, while SUNSET itself stays offline, always.
 
 ## 3. The flows
 
