@@ -113,7 +113,7 @@ Alfa-Zeta: "You can safely switch off everything between updates to reduce power
 - **The risk is heat, not cold.** Black dots behind a window, in the Sardinian sun, can pass 70 °C inside a closed box. Site the wall facing **north or in shade** (it needs no sun of its own: the node's PV panel is separate), use a light-coloured, ventilated enclosure and a breather vent against condensation. **Alfa-Zeta's recommendation: a steel housing with a glass window** (glass for scratch and UV resistance; the steel painted light against heat).
 - The enclosure probe (J4/J5) pauses flipping above a set temperature and posts a service notice (SUNSET.md 7.1).
 - The manual gives **−40 to +80 °C** and 5–95 % humidity, non-condensing (the email said 70 °C: design for 70). It also asks for a **housing against dust and humidity, ventilated against sun load**. On the coast, the vents need filters against dust and salt.
-- **Handling (manual):** the dots are delicate and sensitive to static and dust, especially metal particles. Never drill with the boards fitted; handle modules by their edges; store them dots-down only with all dots turned white. Fixing is by brass threaded tubes on each module (mechanical drawing received from Alfa-Zeta, 25 Oct 2026).
+- **Handling (manual):** the dots are delicate and sensitive to static and dust, especially metal particles. Never drill with the boards fitted; handle modules by their edges; store them dots-down only with all dots turned white. Fixing is by brass threaded tubes on each module (Alfa-Zeta sent a drawing with its 25 Oct reply; confirm it is the 14 × 28 panel's).
 
 ### 3.6 The protocol
 
