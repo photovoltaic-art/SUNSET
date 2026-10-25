@@ -137,7 +137,7 @@ If a token passes the reader unread, the node pays one more and records the miss
 ### 3.2 Tokens to stamps (redeeming)
 
 1. The holder joins the gettoneria's Wi-Fi and opens the redeem page on their phone.
-2. They **drop the tokens into the slot,** one at a time. Each passes an NFC reader in the chute.
+2. They **drop the tokens into the slot,** one at a time. The coin acceptor turns away anything that isn't a token, straight back to the return cup (euro coins, foreign coins, washers); each token it accepts rests on the reader's flap and its tag is read (4.5).
 3. For each token the node checks: genuine (the signature), *issued*, not past its date.
 4. **Valid:** the node issues one digital stamp to a holder key the phone makes, with a **fresh** valid-until date from today (stamp-format.md 3.5): the token was the store, and the minting fee paid for it. A flap sends the token **back into the hopper**, *in the hopper* again. **The gettoneria refills itself** from what is redeemed.
 5. **Expired** (genuine, issued in an earlier year): back into the hopper, no stamp (2.6).
@@ -198,7 +198,7 @@ Useful to anyone accepting tokens, such as a bar near the gettoneria (SUNSET.md 
 | **Coin hopper** | **Slomatic X3 EXP**, 12 V version: coins 21–29 mm across, 1.5–3.1 mm thick; about 850 €1 coins (fewer plastic tokens, by volume); pays 3–8 coins a second; **ccTalk** serial interface. **To confirm with Slomatic:** that it pays plastic tokens of this weight reliably (6) |
 | **Exit chute reader** | NFC reader (PN532 class) at the hopper's exit, reading each token as it leaves |
 | **Status pad** | A third NFC reader behind a marked spot on the front, with a light: touch a token to see whether it is live (3.6) |
-| **Redeem slot** | A slot sized to the token, a sensor that sees each token pass (optical or a coin validator that handles the token's material), an NFC reader in the chute, and a **solenoid flap**: to the hopper, or to the reject box |
+| **Redeem path** | Mounted **above the hopper:** slot, a **programmable coin acceptor** taught on sample tokens (non-tokens to a **return cup**), then an NFC reader under a **two-way flap** that holds the coin while its tag is read and tips it to the hopper or the reject box (4.5) |
 | **Reject box** | Locked, inside the enclosure; emptied at the round |
 | **Tokens** | **1,000**: 500 core, 500 buffer (2.7). Those not in the hopper wait in a reserve tube inside the enclosure, or in PVA's store |
 | **Batch writer** | On the bench, not in the node: a USB NFC writer and a script that writes, signs, locks and lists each tag |
@@ -210,13 +210,14 @@ Useful to anyone accepting tokens, such as a bar near the gettoneria (SUNSET.md 
 | Hopper ccTalk TX | 32 | J9 | UART1; ccTalk is one shared data line, so TX and RX meet through a small open-collector interface |
 | Hopper ccTalk RX | 33 | J9 | |
 | Hopper power | 26 | J9 | MOSFET or relay on the hopper's 12 V; off at boot (pull-down) and between payouts |
-| Redeem slot sensor | 36 | J9 | Input only, external pull-up |
+| Coin acceptor: token accepted | 36 | J9 | Input only, external pull-up; a pulse per accepted token |
+| Coin acceptor: inhibit | 17 | J10 | J10's TX line, free with VE.Direct receive-only. While set, the acceptor refuses everything to the return cup: out of hours, while paying out, on any fault. Unpowered, it returns every coin |
 | Redeem flap | 14 | J9 | Solenoid through a MOSFET, with a flyback diode. GPIO 14 toggles at boot: the flap's rest position is *to the reject box*, so a boot glitch can never send a token into the hopper |
 | NFC readers (three) | I2C 21 / 22 | J13 | Exit chute, redeem chute and status pad: three PN532 behind an I2C multiplexer (TCA9548A class), shared with the DS3231 (different addresses) |
 | Status light | 13 | J9 | Two-colour LED, green or red |
 | VE.Direct | 16 RX | J10 | Text mode, receive only |
 | Enclosure temperature probe | 4 | J4 / J5 | Heat check |
-| Spare | 27, 17 | J9 / J10 | 27 via R19 to the switched 5 V output, unchanged |
+| Spare | 27 | J9 | Via R19 to the switched 5 V output, unchanged |
 
 ### 4.3 Power
 
@@ -236,6 +237,28 @@ One of the lightest interactive nodes.
 - *Reject box full* is posted the same way (SUNSET.md 7.1).
 - **Tokens out in town:** issued and not yet back, shown on the gettoneria's page: the town's savings (2.5). Live ledger states reset on 1 January (2.6).
 
+### 4.5 The redeem path, top to bottom
+
+```
+            slot  (sized to the token)
+              │
+     programmable coin acceptor ── not a token ──► return cup  (back to the visitor)
+              │ token
+              ▼
+     two-way flap over the NFC reader   (the coin rests while its tag is read)
+         │                     │
+   valid, or expired     not valid: spent, souvenir,
+   (earlier year)        clone already used, unreadable
+         ▼                     ▼
+       HOPPER             reject box (locked)
+```
+
+- **Real money never reaches the reject box.** A €1 coin (23.25 mm) is almost exactly the size of a trolley token, and 20c and 50c are close, so a sized slot alone would take them. The acceptor, taught on sample tokens, sends every non-token back to the return cup before the reader.
+- **Out of hours, at a fault, or without power,** the acceptor refuses everything: every coin comes back.
+- **Reading at rest, not in flight:** the flap holds the coin over the antenna for the read, then tips. Simpler and more reliable than reading a falling coin.
+- **Rejects should be few.** Tokens last the year, so the reject box sees only clones, souvenirs and the odd unreadable tag. Expired tokens from an earlier year go into the hopper.
+- **The flap's rest position is towards the reject box,** so a boot glitch never sends a token into the hopper (4.2). If anything that isn't a token ever does reach the reject box, it is logged at the round.
+
 ---
 
 ## 5. Firmware: the interactive build, gettoneria role
@@ -253,7 +276,7 @@ One of the lightest interactive nodes.
 
 | Question | Notes |
 | --- | --- |
-| **Plastic in a hopper** | Hoppers are built for metal coins; light plastic tokens can jam or double-feed. Ask Slomatic for its tested range; the alternative is a heavier token (a brass ring or a metal insert around the tag), which also suits coin validators |
+| **Token material: hopper, acceptor and NFC together** | The first thing to settle. Hoppers want weight, and coin acceptors recognise coins mainly by their metal, **but metal near an NFC tag detunes it, and a metal ring around the tag stops it working.** Options: plastic only, with a size-and-optical acceptor (not inductive); or a metal weight behind the tag with a ferrite layer and an *on-metal* NFC tag. Ask Slomatic for the hopper's tested range; test acceptor and tag together in the pilot |
 | **Artwork** | The design of both faces of the token |
 | Tag size | A tag small enough for a 23 mm coin that still reads reliably at the chutes and with phones |
 | Souvenir price | How many stamps a token to keep costs (3.5) |

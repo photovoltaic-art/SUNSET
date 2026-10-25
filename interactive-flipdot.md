@@ -30,11 +30,11 @@ It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar 
 
 ## 2. A flip, step by step
 
-1. **Pay.** Drop a token into the slot. The **coin reader** checks it is a token and sees it pass; the **NFC reader** in the chute reads its tag on the way down. The node checks it is genuine (the gettoneria's signature), *issued* and within its date (2.1), marks it spent, and the token falls into the column. **One token, one flip;** drop more for more.
+1. **Pay.** Drop a token into the slot. The **coin acceptor** turns away anything that isn't a token (euro coins, foreign coins, washers) straight back to a return cup; a token it accepts rests on a flap over the **NFC reader** while its tag is read, as at the gettoneria (interactive-token.md 4.5). The node checks it is genuine (the gettoneria's signature), *issued* and within its date (2.1), marks it spent, and the token falls into the column. **One token, one flip;** drop more for more.
 2. **Choose.** A **cursor dot** starts blinking on the panel. Two knobs move it, one across and one up and down, like an Etch A Sketch.
 3. **Flip.** Press the button: the dot under the cursor flips. Repeat until the flips paid for are used.
 
-**There is no return chute.** A token that fails the check (unknown, already spent, a souvenir, expired, or a clone of a token already used) is **kept**: the light shows red, nothing flips, and the token falls into a separate locked box, out of circulation. The page explains why. An expired genuine token goes back into circulation from there at the round; a clone does not.
+**Non-tokens come back; bad tokens are kept.** The acceptor returns anything that isn't a token, so real money is never kept. A token that fails the NFC check (unknown, already spent, a souvenir, expired, or a clone of a token already used) is **kept**: the light shows red, nothing flips, and the token falls into a separate locked box, out of circulation. The page explains why. An expired genuine token goes back into circulation from there at the round; a clone does not.
 
 ### 2.1 No double spending, without a phone
 
@@ -58,7 +58,7 @@ A token's cheap NFC tag can be cloned. If the flip-dot wall and the gettoneria e
 | **Flip-dot panel** | **Two Alfa-Zeta XY5 14 × 28 panels, stacked to make a 28 × 28 square: 784 dots, yellow on black (like the sun).** 13.5 mm dots; four 7 × 28 modules, each with its controller (RS-485). **€880** (2 × €440) plus €25 shipping; in stock or 1–4 weeks (quote, 23 Oct 2026). A reclaimed bus-sign panel is the later "reuse" version |
 | **24 V supply for the panel** | A **fixed-output, regulated** 12 V → 24 V DC-DC converter (industrial, about 2 A out for the two panels, for example Mean Well SD-50A-24 class; its input fused for about 5 A peaks from the battery) from the battery, through its own fuse, with an enable or a switch in its input. Fixed, not an adjustable boost module: the panel's **maximum is 25 V**, only 1 V above nominal. Alfa-Zeta warns that panels fed straight from solar suffer from the unstable voltage; on the battery tier the converter sees a steady 12.8–14.4 V |
 | **RS-485 transceiver** | 3.3 V (MAX3485 class), carrier to panel |
-| **Coin reader** | A slot sized to the token with a coin acceptor or optical sensor that confirms a token-shaped object passed (one that handles the token's material: interactive-token.md 6). A light beside it shows green (paid) or red (kept) |
+| **Coin acceptor** | A programmable coin acceptor taught on sample tokens, the same model as the gettoneria's: tokens go on to the reader, everything else to a **return cup**. Refuses everything while inhibited (out of hours, at noon, on a fault, unpowered). A light beside it shows green (paid) or red (kept) |
 | **NFC reader** | PN532 class, its antenna on the chute just below the slot, reading each token as it falls; on the I2C header J13 |
 | **Token column and kept-token box** | A tall perspex tube for spent tokens, in view; a small locked box for refused ones. Both emptied at the round |
 | **Two knobs and a button** | Rotary encoders with vandal-resistant metal knobs, and a large push button |
@@ -70,7 +70,8 @@ The panel only listens, so it needs only the TX pin of the ESP32's second UART. 
 | Use | GPIO | Header | Notes |
 | --- | --- | --- | --- |
 | Panel data (RS-485, UART1 TX) | 32 | J9 | Transceiver's driver permanently enabled: the carrier is the only sender on the bus |
-| Coin reader signal | 33 | J9 | A pulse per token passing |
+| Coin acceptor: token accepted | 33 | J9 | A pulse per accepted token |
+| Coin acceptor inhibit, flap | I2C 21 / 22 | J13 | Every J9 pin is in use: an I2C port expander (PCF8574 class) beside the NFC reader drives the acceptor's inhibit and the two-way flap (column or kept-token box) |
 | NFC reader | I2C 21 / 22 | J13 | Shared with the DS3231 (different addresses) |
 | Knob 1 (across), A / B | 26, 13 | J9 | |
 | Knob 2 (up and down), A / B | 14, 36 | J9 | 36 is input only and needs an external pull-up |
@@ -143,7 +144,7 @@ The manual is clear that flip-dots outdoors need **exercise and cleaning**:
 
 - **Daily exercise at noon.** After a period without use, dots can become "lazy" or blocked. The manual's remedy is a black–white flip-flop routine: **at least 5 minutes a day,** 10 minutes after more than two days idle. The node runs it **every day at solar noon** (from the clock, `sunTimes`, as SUNDIAL's dial keeps solar time), then redraws the town's picture from flash. It costs about 32 W for 5 minutes, **about 2.7 Wh a day**, more than everything else the panel uses. It is part of the work: *the wall marks noon.*
 - **Noon overrides everything on the panel.**
-  - **Before:** from 5 minutes before noon, the slot is closed (a shutter, or the light shows red and the page says when flipping resumes), so no token is taken.
+  - **Before:** from 5 minutes before noon, the coin acceptor is inhibited: any coin dropped comes straight back to the return cup, the light shows red, and the page says when flipping resumes.
   - **During:** a session still running at noon is paused. Its tokens are already spent, so its **remaining flips are kept** (written to flash) and the cursor comes back for them after the exercise, for 10 minutes; unused flips then lapse, as any unused flips do.
   - **Nothing else drives the panel** during the exercise: no flips, no redraws, no knob input.
   - **After:** the picture is redrawn exactly as it was, and flipping reopens.
