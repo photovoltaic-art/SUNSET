@@ -19,7 +19,7 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 
 - [ ] Choose the phone-side Ed25519 and SHA-256 library; measure its size on the node and its speed on an old phone (stamp-format.md 3.1).
 - [ ] Publish the node public keys in `keys/` once nodes are keyed (stamp-format.md 2).
-- [ ] Decide: stamps at season's end; passport backup; how double spends are shown (stamp-format.md 9).
+- [ ] Decide: how many days a digital stamp is valid (7 proposed); passport backup; how double spends are shown (stamp-format.md 9).
 
 ## Hardware to source
 

@@ -2,7 +2,7 @@
 
 How every SUNSET node seals its day, issues stamps, checks them and records them spent. Every node depends on it: the walls pay stamps for walking, the arm game for skill, the auction moves them between people, the gettoneria turns them into tokens, and the flip-dot wall burns tokens.
 
-> Status: draft 1, 22 Oct 2026. **Builds on GO TO BED's format v0** ([gtb/FORMAT.md](gtb/FORMAT.md)), whose blocks, seals and receipts were exercised in the [test bed](gtb/testbed/README.md): sizes, chains and six attacks. Everything v0 settled is kept unless this document says otherwise. Nothing built.
+> Status: draft 2, 25 Oct 2026 (valid-until dates; tokens replace paper; the coin ledger held by every node). **Builds on GO TO BED's format v0** ([gtb/FORMAT.md](gtb/FORMAT.md)), whose blocks, seals and receipts were exercised in the [test bed](gtb/testbed/README.md): sizes, chains and six attacks. Everything v0 settled is kept unless this document says otherwise. Nothing built.
 
 ---
 

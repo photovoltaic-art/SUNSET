@@ -70,3 +70,4 @@ The VE.Direct text protocol sends a block of values about once a second (19200 b
 - **Supercapacitors:** harmless with a battery; fit them or leave them out.
 - **Heavy loads stay off the carrier.** Solenoids and lights run from their own fused 12 V line through a small off-board driver, specified per node. The carrier's take-offs (F2 0.5 A at 5 V, F3 0.2 A at 3.3 V) are for small sensors, not locks.
 - **AUX (J12)** is not used on this tier: the battery and load output replace it.
+- **VE.Direct is read in text mode, receive only.** The Victron broadcasts its readings every second, so the carrier needs only GPIO 16. Several nodes reuse GPIO 17 (J10's TX line) for a switch of their own: the arm's power, the flip-dot panel's 24 V, the gettoneria's coin acceptor. None of them sends commands to the Victron.

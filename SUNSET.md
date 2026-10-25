@@ -4,7 +4,7 @@ SUNSET is the second work of **PVA (Photovoltaic Art)**, after [SUNDIAL](https:/
 
 SUNSET is **nine recycled solar panels** on the walls of a town, forming a small offline network with its own currency. People earn **stamps** by walking messages between walls and by skill, and spend them at an auction, a mint and a wall of mechanical pixels. Every panel runs on its own sun, on the same carrier board as SUNDIAL, and everything that happens is unattended, anonymous and over by sunset.
 
-> Status: draft 2, 22 Oct 2026. The five interactive nodes are specified in their own documents, the wall nodes in [wall-node.md](wall-node.md), and the stamps and blocks shared by all of them in [stamp-format.md](stamp-format.md). Tasks: [TASKS.md](TASKS.md). Nothing is built. **SUNSET is planned for the second year, after SUNDIAL's first season.**
+> Status: draft 3, 25 Oct 2026 (reviewed after the gettoneria, tokens, expiry, the sun's purse and the shared coin ledger). The five interactive nodes are specified in their own documents, the wall nodes in [wall-node.md](wall-node.md), and the stamps and blocks shared by all of them in [stamp-format.md](stamp-format.md). Tasks: [TASKS.md](TASKS.md). Nothing is built. **SUNSET is planned for the second year, after SUNDIAL's first season.**
 
 ---
 
@@ -37,14 +37,14 @@ Every panel uses the **PVA carrier board v1** ([CARRIER.md](https://github.com/p
 
 ## 2. The stamp economy
 
-**One stamp type** everywhere. Each stamp carries the **5 × 5 logo** of the node that issued it, so its origin is visible, but every stamp spends the same. **Every node's logo is unique, and no node's logo is ever the same as the Photovoltaic Art logo:** the PVA mark stands for the project, never for a node or a stamp. Stamps are **bearer**: no accounts, no names. They live in the visitor's **passport page** on their phone, or on paper.
+**One stamp type** everywhere. Each stamp carries the **5 × 5 logo** of the node that issued it, so its origin is visible, but every stamp spends the same. **Every node's logo is unique, and no node's logo is ever the same as the Photovoltaic Art logo:** the PVA mark stands for the project, never for a node or a stamp. Stamps are **bearer**: no accounts, no names. They live in the visitor's **passport page** on their phone, or as **tokens**, coins in the hand (2.3).
 
 ### 2.1 Every node is a proof
 
 | Node | Proof | Direction | Notes |
 | --- | --- | --- | --- |
 | Wall nodes | **walk** | earn, and spend | Stamps for carrying messages between walls; **shouts are paid for**, a sink |
-| Arm game | **skill** | earn | Stamps for a peg dropped cleanly; harder holes pay more |
+| Arm game | **skill** | earn | Stamps for a peg dropped cleanly, paid from the **sun's purse**; harder holes pay more |
 | Street auction | **bid** | transfer | Buyer's stamps go to the seller; the listing fee is a sink |
 | Gettoneria | **mint** | convert, and spend | Digital ⇄ tokens; the minting fee and the souvenir are sinks |
 | Flip-dot wall | **mark** | spend, **tokens only** | Each flip spends a token |
@@ -59,7 +59,7 @@ Every panel uses the **PVA carrier board v1** ([CARRIER.md](https://github.com/p
 
 ### 2.3 Token money
 
-The gettoneria turns digital stamps into **tokens**: printed coins the size of a trolley token, each with an NFC tag, each worth one stamp. Tokens pass from hand to hand like cash, so **people without a phone can take part:** someone hands them a token, and they spend it at the flip-dot wall, which accepts only tokens. Tokens are reused: spent ones come back to the hopper at the round. **Tokens are valid until 31 December; digital stamps fade within days.** So SUNSET has two kinds of money: **stamps to spend, coins to keep.** Saving costs the minting fee, and the town's savings can never exceed the number of coins made: the ledger can't grow beyond the token stock (interactive-token.md 2.5). The print node and the flip-dot wall share one spent list over ESP-NOW, so a copied sticker can never be spent twice.
+The gettoneria turns digital stamps into **tokens**: printed coins the size of a trolley token, each with an NFC tag, each worth one stamp. Tokens pass from hand to hand like cash, so **people without a phone can take part:** someone hands them a token, and they spend it at the flip-dot wall, which accepts only tokens. Tokens are reused: spent ones go back to the hopper every day. **Tokens are valid until 31 December; digital stamps fade within days.** So SUNSET has two kinds of money: **stamps to spend, coins to keep.** Saving costs the minting fee, and the town's savings can never exceed the number of coins made: the ledger can't grow beyond the token stock (interactive-token.md 2.5). Tokens can be used in only two places, the gettoneria and the flip-dot wall, which share one live ledger over ESP-NOW, so a token is honoured once at most; every other node keeps a delayed copy (interactive-token.md 2.8).
 
 ---
 
@@ -71,7 +71,7 @@ Tokens pass from hand to hand, so nothing stops people trading with them outside
 - **What a trader can do with stamps taken:** spend tokens at the flip-dot wall, hand them on, or redeem them at the gettoneria and bid, list a lot, buy souvenirs or pay for shouts. The auction is the only place stamps buy *things* from other people.
 - **Coins suit trade.** Tokens last until 31 December, so a trader taking them needn't worry about a date for months. And when the hopper runs dry, a token is the only way to keep value, so a token may come to trade for more than a stamp: a market finding the price of durability (interactive-token.md 2.5).
 - **What it would mean:** stamps would find a price in the real town, and walking and skill would be worth more. The sun-limited issuance would become the currency's real monetary policy.
-- **The trader's risks are the trader's:** a token can be checked as **genuine** with the gettoneria's public key, but only the gettoneria and the flip-dot wall know whether it is **live**, so prompt redemption is the protection. Any sale for stamps is the trader's own business, receipts and tax included.
+- **The trader's risks are the trader's:** a token can be checked as **genuine** with the gettoneria's public key, and checked as live *as far as a wall has heard* or *as of the last weekly visit* online, but only the gettoneria and the flip-dot wall know for certain, so prompt redemption is the protection. Any sale for stamps is the trader's own business, receipts and tax included.
 
 ## 3. A day of SUNSET
 
@@ -82,8 +82,8 @@ Tokens pass from hand to hand, so nothing stops people trading with them outside
 | **Through the day** | Walking wall to wall earns stamps. The arm game is the playful detour: a queue, a peg, a cheer when it drops. The lit lockers show today's lot on stage and tomorrow's in the wings, so people come back to check the bids |
 | **Solar noon** | The flip-dot wall marks noon: five minutes of every dot flipping black and white (the panel's daily exercise), then the town's picture comes back. Nothing can be flipped while it runs |
 | **Afternoon** | If the SUNSET set's battery is full, its shout goes round the walls: *the set plays tonight*. People spend at the gettoneria, for a souvenir or for tokens to take to the flip-dot wall. Spent tokens stack up in the wall's column |
-| **Sunset** | **The moment.** The auction's hammer falls. All business stops on every node. If the sun has earned it, the set begins at the wall |
-| **Evening** | The lockers glow in their state colours for a few hours; the flip-dot picture holds with no power; the set plays out. Nothing can be bought or sold until sunrise |
+| **Sunset** | **The moment.** The auction's hammer falls. All business stops on every node. If the sun has earned it, the set begins at the sunset spot |
+| **Evening** | The lockers glow in their state colours for a few hours; the flip-dot picture holds with no power; the set plays out. The gateway's host empties the flip-dot column into the gettoneria. Nothing can be bought or sold until sunrise |
 | **Night** | Dark and silent. The wall nodes are off; the interactive nodes sleep |
 
 ### 3.1 How much a day can hold
@@ -97,7 +97,7 @@ A first sketch of capacity, from the node specifications: design maximums for a 
 | Arm game | **1 player** (queue of up to ~9) | 20–30 turns | ~150–250 turns; **up to `C` skill stamps** (about 30–40), released by the sun through the day | Turn timer, battery, and the sun's purse (interactive-arm-game.md 3.3.1) |
 | Street auction: bidding | 10 phones | dozens of bids | Unlimited bidders | Wi-Fi only |
 | Street auction: selling | — | — | **1 lot sold, 1 listed, 1 collected** | Three lockers, one stage |
-| Gettoneria | **1 at a time** | 30–60 mints or redeems | ~300–500 | One hopper; the **tokens in it** (refilled by redemptions and at the round) |
+| Gettoneria | **1 at a time** | 30–60 mints or redeems | ~300–500 | One hopper; the **tokens in it** (refilled by redemptions and the daily return; 1,000 in stock) |
 | Flip-dot wall | **1 at a time** (one cursor) | 20–40 sessions | ~300–500 sessions; a few hundred to ~1,000 flips | One cursor; noon blocks 5–10 minutes; 784 dots |
 | The SUNSET set | Everyone in earshot | — | **1 set**, on days the battery is full | Sun |
 | **Whole town** | **~90 phones** | — | Several thousand visits; 1 auction; ~100–110 new stamps on a clear day | Footfall |
@@ -120,9 +120,10 @@ The positions are chosen on site, framed for the best possible outcomes. The log
 | --- | --- | --- |
 | **Gettoneria + flip-dot wall: the gateway** | **As a pair (a hard requirement),** within ESP-NOW range of each other, at the **entrance** to the installation, **near businesses that already have footfall** | The way in to SUNSET (4.1). They share one ledger; the mint, and the wall where its money is spent |
 | **Walls 1–4** | Spread to the edges of the installation | Distance is what makes proof of walk mean something: the walls set the shape of the walk |
-| **Street auction** | Where people already pass | Its catalogue is the street itself |
+| **Street auction** | Where people already pass; **within ESP-NOW range of the gateway if possible** | Its catalogue is the street itself; near the gateway, its spends join the live list (stamp-format.md 5.2) |
 | **The SUNSET set** | The town's **sunset spot,** a west-facing place where people already gather to watch the sun go down | The set starts at sunset; choose neighbours who can live with an hour of music |
 | **Arm game** | In shade | Servos and electronics in a perspex case |
+| **Garden node** | In place of a wall, where the layout needs one and there is no wall: private ground, such as a café terrace | A wall node on a post, watering its own bed (garden-node.md) |
 
 The walls and the interactive nodes are interleaved across the area, so walks between walls pass the places to spend. There is no set route (4.3).
 
@@ -140,8 +141,9 @@ Every panel needs a wall, and the owner's consent. Hosting is a fair exchange: w
 
 | Host of | What the host gets |
 | --- | --- |
-| **The gateway** (gettoneria, flip-dot wall) | The installation's entrance at the door: footfall, and, within the gettoneria's Wi-Fi range (roughly 30–50 m outdoors, less through walls), **live settlement** of tokens from the counter: redeem a token the moment it is handed over, or check whether it is live (interactive-token.md 3.6) |
-| **A wall node** | Couriers arriving all day; the town's shouts on the wall; spends known "as far as this wall has heard" |
+| **The gateway** (gettoneria, flip-dot wall) | Two small tasks if they agree: the **daily** return of the flip-dot column, and the **weekly** coin-table download (7.2). In return, the installation's entrance at the door: footfall, and, within the gettoneria's Wi-Fi range (roughly 30–50 m outdoors, less through walls), **live settlement** of tokens from the counter: redeem a token the moment it is handed over, or check whether it is live (interactive-token.md 3.6) |
+| **A wall node** | Couriers arriving all day; the town's shouts on the wall; spends and coins known "as far as this wall has heard" |
+| **A garden node** | A flower bed that waters itself, and a wall node at their tables; the tank filled from their tap in spring |
 | **Any node** | A place on people's daily routes, and the shouts that point people to it |
 
 Hosts are chosen because their wall fits the layout, not the other way round: walls stay spread, and the gateway pair stays together.
@@ -160,7 +162,7 @@ SUNDIAL is a trail; SUNSET is a town to move through.
 
 ## 5. The first five minutes
 
-A visitor meets five kinds of node in one day. Each needs one obvious first step. **The gateway explains the whole economy on one screen** when people arrive, and every wall repeats it for those who start elsewhere:
+A visitor meets six kinds of node in one day (walls, the auction, the arm, the gettoneria, the flip-dot wall, the set). Each needs one obvious first step. **The gateway explains the whole economy on one screen** when people arrive, and every wall repeats it for those who start elsewhere:
 
 1. **Earn** by walking messages between walls, or by skill at the arm game.
 2. **Spend** at the auction, the gettoneria or the flip-dot wall.
@@ -182,7 +184,7 @@ The real dashboard of SUNSET, seen only standing at a node, on its own Wi-Fi:
 | Wall nodes | The dial tone, messages, paid shouts, the courier ticker, the passport page, and a **coin check** by printed number: *live, as far as this wall has heard* (wall-node.md; interactive-token.md 2.8) |
 | Gateway: gettoneria | The one-screen rules; mint, souvenir, redeem; a token's status (interactive-token.md) |
 | Gateway: flip-dot wall | The picture and its history (interactive-flipdot.md) |
-| Street auction | Today's lot, bidding, tokens, the lockers' states (interactive-auction.md) |
+| Street auction | Today's lot, bidding, claims, the lockers' states (interactive-auction.md) |
 | Arm game | The queue and the controls (interactive-arm-game.md) |
 | The SUNSET set | Whether tonight's set plays, and past sets (interactive-audio.md) |
 
@@ -194,7 +196,7 @@ Published like SUNDIAL's website (GitHub Pages), in Italian and English:
 | --- | --- |
 | **The map** | The nine panels with their type, the gateway marked as the way in, and the visitor's own position. **Nodes only, no route** (4.3). Can reuse SUNDIAL's map code |
 | **Today** | Sunrise and sunset for the town, computed in the browser: when business opens and closes today |
-| **How it works** | The economy in plain words: earn, spend, tokens, sunset; the five kinds of node; hosts |
+| **How it works** | The economy in plain words: earn, spend, tokens, sunset; the six kinds of node; hosts |
 | **Verify** | The token check: tap a token with an NFC phone and confirm it is **genuine** with the gettoneria's public key. The token's link opens this page with its ID and signature in the part of the address that is never sent anywhere; the check runs entirely on the phone, and the page can be saved to work offline. It also looks the coin up in the **coin table published after each weekly gateway visit** (numbers and states only, identifying no one), and says so: *live as of* that date. The live answer is at the gateway (interactive-token.md 2.8) |
 | **Archive** | Only what is collected from the nodes: the flip-dot picture at each sunset (the season's time-lapse) and simple counts (lots auctioned, stamps minted, dots flipped). **Never messages, and nothing attributable** |
 
@@ -212,6 +214,8 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 | --- | --- | --- |
 | Gettoneria | *Tokens running low* · *Out of tokens* · *Reject box full* | Counts tokens in and out of the hopper; the hopper's own status as a backstop (interactive-token.md 4.4) |
 | Flip-dot wall | *Token column full* | Counts tokens taken |
+| Arm game | *Arm resting* | A stall, a joint error or heat, from the arm's own feedback (interactive-arm-game.md 3.5) |
+| Garden node | *Tank low* · *Tank empty* · *Soil probe fault* | Its float switches and soil probe (garden-node.md 3.3) |
 | Street auction | *Locker B out of service* | Lock or door-switch faults, a door left open, repeated restarts (interactive-auction.md 3.7) |
 | Any interactive node | *Battery low* · *Too hot, paused* | The Victron's figures; the enclosure temperature probe |
 | Any node | *Not heard from in N days* | Seen at the walls: a node whose updates stop arriving (wall-node.md 1.2) |
@@ -238,8 +242,8 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 | --- | --- |
 | Business only in daylight; sunset from the clock, as SUNDIAL's seal | battery-tier.md 1.2 |
 | **Stamps are created only by proof of walk or the sun's allowance;** every other node moves, converts or burns them | stamp-format.md 3.2 |
-| Every digital stamp has a valid-until date of days; tokens are valid until 31 December, and turning stamps into tokens is the one way to keep value, at the price of the minting fee | stamp-format.md 3.5, 4 |
-| The ledger can't grow beyond the token stock | stamp-format.md 4 |
+| Every digital stamp has a valid-until date a few days ahead (7 proposed); tokens are valid until 31 December, and turning stamps into tokens is the one way to keep value, at the price of the minting fee | stamp-format.md 3.5, 4 |
+| The ledger can't grow beyond the token stock; tokens are used only at the gateway pair, which holds the live ledger; every node keeps a copy | stamp-format.md 4; interactive-token.md 2.8 |
 | Every node's 5 × 5 logo is unique, and never the same as the Photovoltaic Art logo | stamp-format.md 3.2 |
 | Every node seals one signed block a day at sunset, chained to the day before | stamp-format.md 6 |
 | All signatures Ed25519; the nine public keys published | stamp-format.md 2 |
@@ -267,7 +271,7 @@ Each of these fits SUNSET's design and is kept for a later season or a fork:
 
 | Question | Notes |
 | --- | --- |
-| Stamp format | Drafted in [stamp-format.md](stamp-format.md); its own open questions (season's end, passport backup) are listed there |
+| Stamp format | Drafted in [stamp-format.md](stamp-format.md); its own open questions (how many days a stamp is valid, passport backup) are listed there |
 | Onboarding | The one-screen explanation at the first wall; the first stamp |
 | Site plan | Where each of the nine panels goes, against section 4 |
 | Permissions | Comune, wall owners, amplified sound, an unattended street auction |
@@ -276,3 +280,4 @@ Each of these fits SUNSET's design and is kept for a later season or a fork:
 | **The auction slot** | One seller a day (3.1): keep it as the day's event, auction tomorrow's listing slot for stamps, or add a second stage later |
 | The arm's daily cap | Decided: released by the sun through the day (interactive-arm-game.md 3.3.1); its size, about 30–40, set in the pilot |
 | Stamps in and out | Whether the sinks absorb a busy day's new stamps; prices tuned in the pilot (3.1) |
+| **Token material** | Hopper weight, coin acceptor and NFC together: plastic with an optical acceptor, or a metal weight behind ferrite with an on-metal tag (interactive-token.md 6) |
