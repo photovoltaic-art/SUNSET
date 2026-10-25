@@ -119,9 +119,9 @@ Because the ledger is only 1,000 lines (about 12 KB), **every SUNSET node keeps 
 - **How it spreads:** every change of state is written into the gettoneria's or the flip-dot wall's sealed block (`tokens`, stamp-format.md 6). Couriers carry those blocks to every node, as they carry everything else, and each node updates its own copy of the table. Nothing new travels and nothing goes online.
 - **Where the final answer is:** the gettoneria and the flip-dot wall hold the **live** state, shared within a second over ESP-NOW. They are the only places a coin can be used, so theirs is the answer that counts.
 - **Everywhere else, honestly delayed:** any node can answer *"live, as far as this node has heard"*, with the date of its latest news from the gateway, the same honest wording the walls already use for news.
-- **Online, as of the last round:** after each round, PVA publishes the coin table on the website: numbers and states only, which identify no one. Anyone with internet can look a coin up, clearly marked *as of* that date (SUNSET.md 6.2).
+- **Online, as of the last weekly visit:** once a week, PVA (or the gateway's host) makes a **dedicated visit to the gettoneria**, downloads the coin table over its Wi-Fi in a few seconds, and publishes it on the website: numbers and states only, which identify no one. Anyone with internet can look a coin up, clearly marked *as of* that date (SUNSET.md 6.2).
 
-**Three answers, each honest about its age:** live at the gateway; as far as this node has heard at any wall; as of the last round online. That is the compromise: a transparent ledger, copied across every node and published, while SUNSET itself stays offline, always.
+**Three answers, each honest about its age:** live at the gateway; as far as this node has heard at any wall; as of the last weekly visit online (never more than a week old). That is the compromise: a transparent ledger, copied across every node and published, while SUNSET itself stays offline, always.
 
 ## 3. The flows
 
@@ -167,7 +167,7 @@ A visitor can **buy a token to keep,** for a price in stamps set in the pilot. I
 
 **Touch a token on the gettoneria's status pad,** a marked spot on its front with a reader behind it. The light shows green (live) or red (not), and the gettoneria's page shows the token's state and valid-until date to anyone on its Wi-Fi. No phone is needed to check, only to read the date on the page.
 
-**At any other node:** type the coin's printed number on the node's page: *live, as far as this node has heard* (2.8). **Online:** the Verify page looks the coin up in the table published after the last round, *as of* that date.
+**At any other node:** type the coin's printed number on the node's page: *live, as far as this node has heard* (2.8). **Online:** the Verify page looks the coin up in the table published after the last weekly gateway visit, *as of* that date.
 
 Useful to anyone accepting tokens, such as a bar near the gettoneria (SUNSET.md 4.2). A bar can also **redeem a token on the spot** the moment it is handed over: a token redeemed this second cannot have been used elsewhere.
 
