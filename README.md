@@ -37,6 +37,7 @@ interactive-arm-game.md      the arm game
 interactive-token.md         la gettoneria, the token node (proof of mint)
 interactive-flipdot.md       the flip-dot wall (cash only)
 interactive-audio.md         the SUNSET set
+budget/                      SUNSET-budget.xlsx: the cost of the nine panels (draft), and the script that builds it
 gtb/                         GO TO BED, the concept SUNSET grew from (moved from the PVA repo with its history)
   GO-TO-BED.md               the concept note and its decisions (21 Oct 2026)
   FORMAT.md                  block and receipt format v0

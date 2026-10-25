@@ -276,7 +276,7 @@ Each of these fits SUNSET's design and is kept for a later season or a fork:
 | Site plan | Where each of the nine panels goes, against section 4 |
 | Permissions | Comune, wall owners, amplified sound, an unattended street auction |
 | Build order | Which nodes are piloted first, and in which order the nine are built |
-| Budget | The cost of all nine nodes, to set the build order (TASKS.md) |
+| Budget | First draft: about €12,300 to build with contingency, €12,800 with the first year ([budget/SUNSET-budget.xlsx](budget/SUNSET-budget.xlsx)); estimates to firm up with quotes |
 | **The auction slot** | One seller a day (3.1): keep it as the day's event, auction tomorrow's listing slot for stamps, or add a second stage later |
 | The arm's daily cap | Decided: released by the sun through the day (interactive-arm-game.md 3.3.1); its size, about 30–40, set in the pilot |
 | Stamps in and out | Whether the sinks absorb a busy day's new stamps; prices tuned in the pilot (3.1) |

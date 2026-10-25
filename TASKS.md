@@ -23,7 +23,7 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 
 ## Hardware to source
 
-- [ ] **Budget for building all nine nodes:** per node (panel, carrier, battery tier, enclosure, the node's own hardware, fixings), plus spares and shipping; to set the build order and funding for SUNSET's year.
+- [x] **Budget for building all nine nodes:** first draft 25 Oct 2026, [budget/SUNSET-budget.xlsx](budget/SUNSET-budget.xlsx): about €10,700 of hardware, €12,300 with 15 % contingency, €12,800 with the first year's running costs. Firm up the estimates with quotes (lockers, steel housings, hopper, tokens, carrier boards).
 
 - [ ] **Arm:** Waveshare RoArm-M2-S (interactive-arm-game.md 2.1). Check the servos' and UART's voltage limits before wiring.
 - [ ] **Flip-dot panel:** Alfa-Zeta quoted 23 Oct 2026: 14 × 28 €440, 7 × 28 €220, controller included, shipping €25, 1–4 weeks (interactive-flipdot.md 3). Protocol and manual received; second reply 25 Oct: controller does nothing at power-up, flips only changed dots (first frame after power-up energises all), steel housing with glass window, 14 × 28 dimension drawing received (proprietary: kept privately, envelope in interactive-flipdot.md 3.8), spare dots €0.50 each. 1 × 7 strips €20 each (RS-485; the strip's manual says 10–16 V, the email 24 V: confirm) for BINARY: two make a row of 14. Consider one extra 7 × 28 (€220) as bench piece and spare. **Decided: two 14 × 28, stacked as a 28 × 28 square, yellow on black (€880 + €25 shipping).** Tell Alfa-Zeta when ordering (the follow-up said one panel, colour to confirm). Order for SUNSET's year (after SUNDIAL's first).
