@@ -4,7 +4,7 @@ A SUNSET interactive node with a **flip-dot panel**: a grid of mechanical pixels
 
 It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar MPPT 75/15 and a 12 V LiFePO₄ battery, with JP1 off and the sun sensor compiled out. The tier is specified in [battery-tier.md](battery-tier.md); the tokens in [interactive-token.md](interactive-token.md).
 
-> Status: draft 5, 24 Oct 2026. Paid with **tokens** from the gettoneria (coin reader and NFC reader), no longer paper stickers. Sized: two 14 × 28 panels as a 28 × 28 square, yellow on black. Alfa-Zeta's quote, power data, serial protocol (rev. Oct 2023) and user manual (rev. 11.0) are in (3.1, 3.3, 3.6, 3.7). Nothing built. **Nothing here changes the carrier board.**
+> Status: draft 6, 25 Oct 2026 (Alfa-Zeta's second reply: start-up, partial updates, housing, spares). Paid with **tokens** from the gettoneria (coin reader and NFC reader), no longer paper stickers. Sized: two 14 × 28 panels as a 28 × 28 square, yellow on black. Alfa-Zeta's quote, power data, serial protocol (rev. Oct 2023) and user manual (rev. 11.0) are in (3.1, 3.3, 3.6, 3.7). Nothing built. **Nothing here changes the carrier board.**
 
 ---
 
@@ -101,16 +101,19 @@ Holding the picture costs nothing: the dots stay where they are with no power.
 Alfa-Zeta: "You can safely switch off everything between updates to reduce power to zero."
 
 - **A session powers it up:** a valid token switches the 24 V converter on (GPIO 17); the cursor blinks while the visitor turns the knobs and flips; a minute after the last flip (or when the flips paid for are used) the converter switches off.
-- **After power-up, resend the picture.** The ESP32 keeps the canvas in flash and sends the whole frame each time the panel wakes, in case the controller clears or tests the dots on start-up (to confirm with Alfa-Zeta).
+- **At power-up the controller does nothing** but wait for data: no flipping, no test (Alfa-Zeta, 25 Oct 2026). The picture stays exactly as it was.
+- **But it forgets which way each dot points.** So the **first frame after power-up energises every dot** in its correct direction. Dots already in place don't move, so nothing visible happens, but that first frame costs more energy. **After that, a frame only flips the dots that change.**
+- **So on each wake the ESP32 first sends the whole stored canvas** (from flash): invisible, and it puts the controller back in step. Every flip after it moves one dot.
+- **A second controller exists** with a shift register, which pulses truly one dot at a time even after power-up. Not needed: on the battery tier the extra energy of the first frame is negligible (about 5 J for the square, 3.3), and the standard controller already moves only the dots that change.
 - **Daily energy:** a few minutes of idle per session plus the flips: well under 1 Wh a day.
 
 ### 3.5 Heat and the enclosure
 
 - Alfa-Zeta: operating **−40 to +70 °C**, humidity up to 90 % **without condensation**; outdoors it must be **closed and ventilated.**
-- **The risk is heat, not cold.** Black dots behind a window, in the Sardinian sun, can pass 70 °C inside a closed box. Site the wall facing **north or in shade** (it needs no sun of its own: the node's PV panel is separate), use a light-coloured, ventilated enclosure with a UV-stable polycarbonate front, and a breather vent against condensation.
+- **The risk is heat, not cold.** Black dots behind a window, in the Sardinian sun, can pass 70 °C inside a closed box. Site the wall facing **north or in shade** (it needs no sun of its own: the node's PV panel is separate), use a light-coloured, ventilated enclosure and a breather vent against condensation. **Alfa-Zeta's recommendation: a steel housing with a glass window** (glass for scratch and UV resistance; the steel painted light against heat).
 - The enclosure probe (J4/J5) pauses flipping above a set temperature and posts a service notice (SUNSET.md 7.1).
 - The manual gives **−40 to +80 °C** and 5–95 % humidity, non-condensing (the email said 70 °C: design for 70). It also asks for a **housing against dust and humidity, ventilated against sun load**. On the coast, the vents need filters against dust and salt.
-- **Handling (manual):** the dots are delicate and sensitive to static and dust, especially metal particles. Never drill with the boards fitted; handle modules by their edges; store them dots-down only with all dots turned white. Fixing is by brass threaded tubes on each module (drawings on request).
+- **Handling (manual):** the dots are delicate and sensitive to static and dust, especially metal particles. Never drill with the boards fitted; handle modules by their edges; store them dots-down only with all dots turned white. Fixing is by brass threaded tubes on each module (mechanical drawing received from Alfa-Zeta, 25 Oct 2026).
 
 ### 3.6 The protocol
 
@@ -145,7 +148,7 @@ The manual is clear that flip-dots outdoors need **exercise and cleaning**:
   - **Nothing else drives the panel** during the exercise: no flips, no redraws, no knob input.
   - **After:** the picture is redrawn exactly as it was, and flipping reopens.
   - After more than two days without power (a dark spell, a repair), the first noon runs 10 minutes, as the manual asks.
-- **Cleaning every round.** The manual's preventive cleaning is **at least every 4 weeks**: compressed air at about 3 cm, then a vacuum at minimum suction from at least 5 cm, never closer. **Never any lubricant.** SUNSET's fortnightly round is within that (SUNSET.md 7.2). Lazy or stuck dots are cleaned or replaced from the spare dots supplied.
+- **Cleaning every round.** The manual's preventive cleaning is **at least every 4 weeks**: compressed air at about 3 cm, then a vacuum at minimum suction from at least 5 cm, never closer. **Never any lubricant.** SUNSET's fortnightly round is within that (SUNSET.md 7.2). Lazy or stuck dots are cleaned or replaced. **Spare dots:** none come with a panel, but Alfa-Zeta gives a few and keeps yellow-on-black in stock at **€0.50 a dot**; keep a box of spares with PVA's kit.
 - **Visitors can't be told when a dot sticks** (3.6), so a paid flip on a stuck dot fails silently. The daily exercise and the fortnightly cleaning keep this rare; the round log records any dot that needed attention.
 
 ---
@@ -171,8 +174,7 @@ The manual is clear that flip-dots outdoors need **exercise and cleaning**:
 
 | Question | Notes |
 | --- | --- |
-| Start-up behaviour | Does the controller flip or test dots at power-up? Asked of Alfa-Zeta (3.4) |
-| Partial updates | Does a frame re-pulse every dot, or only the dots that change? Sets the energy and the noise per flip. Asked of Alfa-Zeta |
+| Bench and spare module | One extra 7 × 28 module (€220): the bench piece for all the firmware now, and the installation's spare later (a fifth module for the four of the square) |
 | Flips per token | One token, one flip (decided with the gettoneria: every token is worth one stamp) |
 | Canvas policy | Never reset, reset yearly, or kept as a permanent record of the town |
 | Cursor | Blinking cursor dot on the panel, or a small separate indicator |
