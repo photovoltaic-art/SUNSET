@@ -113,7 +113,7 @@ Alfa-Zeta: "You can safely switch off everything between updates to reduce power
 - **The risk is heat, not cold.** Black dots behind a window, in the Sardinian sun, can pass 70 °C inside a closed box. Site the wall facing **north or in shade** (it needs no sun of its own: the node's PV panel is separate), use a light-coloured, ventilated enclosure and a breather vent against condensation. **Alfa-Zeta's recommendation: a steel housing with a glass window** (glass for scratch and UV resistance; the steel painted light against heat).
 - The enclosure probe (J4/J5) pauses flipping above a set temperature and posts a service notice (SUNSET.md 7.1).
 - The manual gives **−40 to +80 °C** and 5–95 % humidity, non-condensing (the email said 70 °C: design for 70). It also asks for a **housing against dust and humidity, ventilated against sun load**. On the coast, the vents need filters against dust and salt.
-- **Handling (manual):** the dots are delicate and sensitive to static and dust, especially metal particles. Never drill with the boards fitted; handle modules by their edges; store them dots-down only with all dots turned white. Fixing is by brass threaded tubes on each module (Alfa-Zeta sent a drawing with its 25 Oct reply; confirm it is the 14 × 28 panel's).
+- **Handling (manual):** the dots are delicate and sensitive to static and dust, especially metal particles. Never drill with the boards fitted; handle modules by their edges; store them dots-down only with all dots turned white. Fixing is by brass threaded tubes on each module (3.8).
 
 ### 3.6 The protocol
 
@@ -150,6 +150,21 @@ The manual is clear that flip-dots outdoors need **exercise and cleaning**:
   - After more than two days without power (a dark spell, a repair), the first noon runs 10 minutes, as the manual asks.
 - **Cleaning every round.** The manual's preventive cleaning is **at least every 4 weeks**: compressed air at about 3 cm, then a vacuum at minimum suction from at least 5 cm, never closer. **Never any lubricant.** SUNSET's fortnightly round is within that (SUNSET.md 7.2). Lazy or stuck dots are cleaned or replaced. **Spare dots:** none come with a panel, but Alfa-Zeta gives a few and keeps yellow-on-black in stock at **€0.50 a dot**; keep a box of spares with PVA's kit.
 - **Visitors can't be told when a dot sticks** (3.6), so a paid flip on a stuck dot fails silently. The daily exercise and the fortnightly cleaning keep this rare; the round log records any dot that needed attention.
+
+### 3.8 Size and fixing
+
+From Alfa-Zeta's dimension drawing for the 14 × 28 panel (rev. 2, received 25 Oct 2026). **The drawing is proprietary and issued in confidence:** PVA keeps it privately; only the envelope SUNSET needs is recorded here.
+
+| | One 14 × 28 panel | The 28 × 28 square (two stacked) |
+| --- | --- | --- |
+| Face | about **432 × 213 mm** | about **432 × 427 mm** |
+| Depth | about **67 mm**, dots to the back of the controllers | the same |
+| Dot pitch | about 15.4 mm across (13.5 mm dots) | |
+| Fixing | **24 × M3 threaded tubes, 12 mm**, on the back; the drawing marks the suggested fixing points and the alignment of the mounting structure | |
+| Clearance | a **15 mm zone** at the controller side for plugging in the connectors | |
+
+- **The enclosure** for the square is therefore roughly **480 × 470 × 100 mm** inside, before the converter, the readers and the board: a steel box with a glass window (3.5), the panels on a flat plate fixed through the M3 tubes, connector side kept clear.
+- **The drawing's own notes:** orientation arrows face up; store with all dots set; the panels must be in a weatherproof enclosure that keeps them within their operating temperature.
 
 ---
 
