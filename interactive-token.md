@@ -38,7 +38,7 @@ The gettoneria **creates no stamps.** Tokens are only ever paid out against digi
 
 | | |
 | --- | --- |
-| **Coin** | Printed plastic, the size of a trolley token: about 23 mm across, 2–3 mm thick. Printed both sides: the artwork (to be designed, 6) and the gettoneria's 5 × 5 logo |
+| **Coin** | Printed plastic, the size of a trolley token: about 23 mm across, 2–3 mm thick. Printed both sides: the artwork (to be designed, 6), the gettoneria's 5 × 5 logo, and the coin's **number, 0001–1000**, like a banknote's serial: the number to check it by anywhere (2.8) |
 | **Tag** | A small round NFC tag (NTAG213 class) set into a recess in the coin, under the print |
 | **Value** | **Every token is worth one stamp**, as every digital stamp is. A hopper pays out one kind of coin, so there are no denominations: five stamps are five tokens |
 | **Assembly** | By PVA, in batches before the season: write each tag, record it, assemble, load the hopper (2.2) |
@@ -49,7 +49,7 @@ The gettoneria **creates no stamps.** Tokens are only ever paid out against digi
 ### 2.2 The batch
 
 1. A roll of NFC tags is written on the bench: each tag gets its link and signature, and is locked so no phone can rewrite it.
-2. Each tag's ID is recorded in the batch list, state *in the hopper*.
+2. Each tag's ID is recorded in the batch list against the coin's printed number, state *in the hopper*.
 3. Tags are set into the coins; the coins are loaded into the hopper.
 4. The batch list goes into the gettoneria's flash, and from there into its sealed block (`tokens`, stamp-format.md 6), so every node learns which IDs exist.
 
@@ -67,6 +67,17 @@ Each token ID has one state at a time, recorded by the gettoneria and the flip-d
 **Valid until 31 December.** Digital stamps fade within days (stamp-format.md 3.5); **a token is valid until 31 December of the year it was issued.** Coins are SUNSET's way to keep value.
 
 **The ledger can't grow beyond the token stock.** It has one line per token ever made, and no more: however many stamps are minted, however long a token is kept, the ledger is as large as the batch list and never larger. That is what lets a token live for a year at no cost to the nodes. It is a fundamental of the design: **the physical stock bounds the ledger, and the ledger bounds the money that can be kept.**
+
+### 2.8 One ledger, held by every node
+
+Because the ledger is only 1,000 lines (about 12 KB), **every SUNSET node keeps the whole coin table**, not only the gateway pair.
+
+- **How it spreads:** every change of state is written into the gettoneria's or the flip-dot wall's sealed block (`tokens`, stamp-format.md 6). Couriers carry those blocks to every node, as they carry everything else, and each node updates its own copy of the table. Nothing new travels and nothing goes online.
+- **Where the final answer is:** the gettoneria and the flip-dot wall hold the **live** state, shared within a second over ESP-NOW. They are the only places a coin can be used, so theirs is the answer that counts.
+- **Everywhere else, honestly delayed:** any node can answer *"live, as far as this node has heard"*, with the date of its latest news from the gateway, the same honest wording the walls already use for news.
+- **Online, as of the last round:** after each round, PVA publishes the coin table on the website: numbers and states only, which identify no one. Anyone with internet can look a coin up, clearly marked *as of* that date (SUNSET.md 6.2).
+
+**Three answers, each honest about its age:** live at the gateway; as far as this node has heard at any wall; as of the last round online. That is the compromise: a transparent ledger, copied across every node and published, while SUNSET itself stays offline, always.
 
 ### 2.4 Its weaknesses, stated
 
@@ -137,7 +148,7 @@ If a token passes the reader unread, the node pays one more and records the miss
 
 SUNSET nodes learn of each other's spends only when couriers carry blocks. **Tokens are redeemed only at the gettoneria, and spent only at the flip-dot wall,** and those two share their ledger live over ESP-NOW. So the two places a token can be used always agree, and a token is honoured once at most.
 
-**Checking is everywhere.** Any NFC phone can check that a token is **genuine**: tapping it opens the website's Verify page, which checks the signature against the gettoneria's public key on the phone itself, offline once the page has been saved (SUNSET.md 6.2). Whether it is **live** only the gettoneria and the flip-dot wall know (3.6).
+**Checking is everywhere.** Any NFC phone can check that a token is **genuine**: tapping it opens the website's Verify page, which checks the signature against the gettoneria's public key on the phone itself, offline once the page has been saved (SUNSET.md 6.2). Whether it is **live** is known for certain at the gettoneria and the flip-dot wall, as far as it has heard at any other node, and as of the last round online (2.8, 3.6).
 
 ### 3.4 The minting fee
 
@@ -155,6 +166,8 @@ A visitor can **buy a token to keep,** for a price in stamps set in the pilot. I
 ### 3.6 Status by token
 
 **Touch a token on the gettoneria's status pad,** a marked spot on its front with a reader behind it. The light shows green (live) or red (not), and the gettoneria's page shows the token's state and valid-until date to anyone on its Wi-Fi. No phone is needed to check, only to read the date on the page.
+
+**At any other node:** type the coin's printed number on the node's page: *live, as far as this node has heard* (2.8). **Online:** the Verify page looks the coin up in the table published after the last round, *as of* that date.
 
 Useful to anyone accepting tokens, such as a bar near the gettoneria (SUNSET.md 4.2). A bar can also **redeem a token on the spot** the moment it is handed over: a token redeemed this second cannot have been used elsewhere.
 

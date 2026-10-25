@@ -179,7 +179,7 @@ The real dashboard of SUNSET, seen only standing at a node, on its own Wi-Fi:
 
 | Node | Pages |
 | --- | --- |
-| Wall nodes | The dial tone, messages, paid shouts, the courier ticker, the passport page (wall-node.md) |
+| Wall nodes | The dial tone, messages, paid shouts, the courier ticker, the passport page, and a **coin check** by printed number: *live, as far as this wall has heard* (wall-node.md; interactive-token.md 2.8) |
 | Gateway: gettoneria | The one-screen rules; mint, souvenir, redeem; a token's status (interactive-token.md) |
 | Gateway: flip-dot wall | The picture and its history (interactive-flipdot.md) |
 | Street auction | Today's lot, bidding, tokens, the lockers' states (interactive-auction.md) |
@@ -195,7 +195,7 @@ Published like SUNDIAL's website (GitHub Pages), in Italian and English:
 | **The map** | The nine panels with their type, the gateway marked as the way in, and the visitor's own position. **Nodes only, no route** (4.3). Can reuse SUNDIAL's map code |
 | **Today** | Sunrise and sunset for the town, computed in the browser: when business opens and closes today |
 | **How it works** | The economy in plain words: earn, spend, tokens, sunset; the five kinds of node; hosts |
-| **Verify** | The token check: tap a token with an NFC phone and confirm it is **genuine** with the gettoneria's public key. The token's link opens this page with its ID and signature in the part of the address that is never sent anywhere; the check runs entirely on the phone, and the page can be saved to work offline. It cannot say whether a token is **live**; only the gettoneria and the flip-dot wall can (interactive-token.md 3.6) |
+| **Verify** | The token check: tap a token with an NFC phone and confirm it is **genuine** with the gettoneria's public key. The token's link opens this page with its ID and signature in the part of the address that is never sent anywhere; the check runs entirely on the phone, and the page can be saved to work offline. It also looks the coin up in the **coin table published after each round** (numbers and states only, identifying no one), and says so: *live as of* that date. The live answer is at the gateway (interactive-token.md 2.8) |
 | **Archive** | Only what is collected from the nodes: the flip-dot picture at each sunset (the season's time-lapse) and simple counts (lots auctioned, stamps minted, dots flipped). **Never messages, and nothing attributable** |
 
 **The honest limit:** the website shows nothing live. The nodes have no internet, so it cannot know today's bids, tonight's set or the current shouts. The map says so: *the network is in the street; this is only the map.*
@@ -224,7 +224,7 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 
 | Task | Rhythm |
 | --- | --- |
-| Data collection (archive, counts) | **Fortnightly**, with SUNDIAL's round when both are in the same town. SUNSET produces very little data: a day's flip-dot picture is under 50 bytes, so even a monthly round would lose nothing |
+| Data collection (archive, counts, the coin table) | **Fortnightly**, with SUNDIAL's round when both are in the same town. SUNSET produces very little data: a day's flip-dot picture is under 50 bytes, so even a monthly round would lose nothing |
 | Battery, Victron, heat and enclosure checks | Fortnightly, on the same round |
 | Flip-dot panel | Every round: compressed air, then a vacuum at minimum suction; replace stuck dots. The manual asks for at least every 4 weeks (interactive-flipdot.md 3.7) |
 | **Tokens** | **Daily:** the host empties the flip-dot wall's column into the gettoneria in return mode (photograph it first). **Every round:** empty the kept-token box and the reject box, check those on a bench reader (removing duplicate IDs, which are clones), load them back; top up the hopper from the reserve tube (interactive-token.md 2.7, 3.7) |
