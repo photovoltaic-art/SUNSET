@@ -36,7 +36,7 @@ All from the spare-pins header J9 and the UART header J10. Nothing on the ESP32 
 | Door switch, locker B | 33 | J9 | Same |
 | Door switch, locker C | 36 | J9 | Same; input only, and has no internal pull-up, so the external pull-up is required |
 | Interior lights (LED data) | 14 | J9 | One data line for all three lockers (addressable strips chain). Through a 3.3 → 5 V level shifter on the driver board. GPIO 14 toggles briefly at boot: the lights may flicker on reset, the locks never do |
-| VE.Direct | 16 RX, 17 TX | J10 | Divider on RX if the Victron sends 5 V |
+| VE.Direct | 16 RX (receive only; 17 free) | J10 | Divider on RX if the Victron sends 5 V (battery-tier.md 2.1) |
 | Clock | 21 / 22 | on board | DS3231, already fitted |
 | Temperature probe | 4 | J4 | Inside the locker housing: the heat check (3.6) |
 

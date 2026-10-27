@@ -53,7 +53,7 @@ In v1 **the phone makes a key for each stamp:**
 2. The node issues the stamp to that public key and signs it.
 3. To spend, the phone **signs** the spend with the private half, which never leaves the phone (3.4).
 
-A bystander sees public keys and signatures, and a signature is good for one spend at one node at one moment. **There is nothing to steal on the air.**
+A bystander sees public keys and signatures, and a signature is good for one spend at one node at one moment. **There is nothing to steal by listening.** An *active* attacker, a fake network at the same address, can read the passport itself: see [SECURITY.md](SECURITY.md) 4.1.
 
 **On the phone:** the node's pages are plain HTTP, so the browser's built-in cryptography (WebCrypto `subtle`) is not available: browsers only offer it on secure (HTTPS) pages. The node serves a small Ed25519 and SHA-256 library with the page (a TweetNaCl-class library, about 7 KB minified). Random numbers come from `crypto.getRandomValues`, which browsers do allow on plain HTTP. To check in the carry test (8).
 
@@ -159,7 +159,7 @@ Tokens are specified in [interactive-token.md](interactive-token.md); this is th
 
 Preventing the last case would need a live link between all spending nodes, which SUNSET doesn't have by design. So v1 accepts it, and makes it **bounded, provable and public:**
 
-- **Bounded.** Every node merges every `spent` record that couriers bring into its own spent list. A copied stamp works only at a node that hasn't yet heard of the first spend, and only until the news arrives: in a busy town, within a day. It takes deliberate effort (copying a browser's storage to a second device) and gains at most one extra use per stamp, of a currency with no cash value.
+- **Bounded.** Every node merges every `spent` record that couriers bring into its own spent list. A copied stamp works only at a node that hasn't yet heard of the first spend, and only until the news arrives: in a busy town, within a day. It takes deliberate effort (copying a browser's storage to a second device) and gains at most one extra use per stamp *at each spending node that hasn't yet heard*: up to about five, of a currency with no cash value. The gettoneria, which turns stamps into year-long coins, is the one to guard (SECURITY.md 4.4).
 - **Proved.** Two spend records for the same stamp, each carrying the holder's signature, sealed into two nodes' blocks: that is a cryptographic proof of a double spend. No accusation is needed, and none can be made, because there are no identities.
 - **Shown.** Walls show the count on the dial tone ("2 stamps spent twice this week"), and the website's archive keeps the season's total. The installation runs its own honesty in public (SUNSET.md 7).
 - **Live where it matters.** Any spending nodes within ESP-NOW range of each other share their spent list live, as the gateway pair already does. When siting the auction, prefer a place within range of the gateway: that puts SUNSET's largest spends on the live list.

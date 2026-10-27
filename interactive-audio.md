@@ -60,7 +60,7 @@ The registered speaker can live **in a transparent locker under the panel**, the
 | Locker lock (locker option) | 26 | J9 | Through the lock driver, as on the auction node |
 | Locker door switch (locker option) | 33 | J9 | Reed switch to GND, pull-up to 3V3 |
 | microSD | 5, 18, 19, 23; card-detect 39 | on board (J8) | Already wired on carrier v1 |
-| VE.Direct | 16 RX, 17 TX | J10 | As on every interactive node |
+| VE.Direct | 16 RX (receive only; 17 free) | J10 | As on every interactive node (battery-tier.md 2.1) |
 | Clock | 21 / 22 | on board | Sunset time and the end-of-set time |
 | Locker temperature probe | 4 | J5 | Second probe terminal, already on the carrier |
 | Spare | 13, 14, 27, 36 | J9 | 36 is input only |

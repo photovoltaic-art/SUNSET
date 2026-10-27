@@ -249,7 +249,7 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 | Every node seals one signed block a day at sunset, chained to the day before | stamp-format.md 6 |
 | All signatures Ed25519; the nine public keys published | stamp-format.md 2 |
 | No identities: no accounts, no names; bearer stamps, tokens and the auction's claims | interactive-auction.md 3.5 |
-| Nothing worth copying crosses the open Wi-Fi: holder keys for stamps, commit and reveal for the auction's claims | stamp-format.md 3.1, interactive-auction.md 3.5 |
+| Nothing reusable crosses the open Wi-Fi to a listener: holder keys for stamps, commit and reveal for the auction's claims. A **fake network** is another matter: it can read a passport (SECURITY.md 4.1) | stamp-format.md 3.1, interactive-auction.md 3.5 |
 | A double spend that can't be stopped offline is bounded, proved and shown in public | stamp-format.md 5 |
 | Every state change written to flash before it is acted on | interactive-auction.md 3.5 |
 | Interactive nodes: JP1 off, sun sensor compiled out | battery-tier.md 1.1 |

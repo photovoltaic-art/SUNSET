@@ -27,6 +27,19 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 - [ ] **Conversion from SUNDIAL:** the SUNSET wall build includes Sole's logging; a reference sun sensor on each interactive node so Sole continues; revise the budget, since panels, boards, boxes and fixings already exist from year 1 (budget/SUNSET-budget.xlsx).
 - [ ] **Block explorer:** import and verify script (from gtb/testbed/verify.py), static explorer pages on the website, a GitHub Action that re-verifies on each push (tokenomics.md 4).
 
+## Security (SECURITY.md)
+
+- [x] Threat model and independent review, merged (27 Oct 2026).
+- [ ] **Decide D1–D5** (SECURITY.md 5): shared or per-node address; NTAG213 or NTAG 424 DNA coins; walk stamps by lottery and touch; arm by joystick; payout expiry.
+- [ ] **Spend checks** in the format: `day`/`exp`/role, in-network bounds, quarantine, equivocation proofs, k-of-n revocation, the gettoneria's mint gate (SECURITY.md 4.4). Before any firmware.
+- [ ] **Format hardening:** RFC 8785, strict Ed25519, actions bound into spend signatures, aggregated entries and per-role size limits; test vectors in the test bed (SECURITY.md 4.4).
+- [ ] **Passport:** PIN encryption, holding cap, inlined no-store page, node identity check (SECURITY.md 4.1).
+- [ ] **Gateway protocol** (gettoneria authoritative), **SUNSET admin section**, **clock rules**, **key handling** (Secure Boot v2, Release-mode flash encryption, chip v3) (SECURITY.md 4.2–4.5).
+- [ ] **Coins:** stop confiscating duplicates; reduce the lookup to genuine or not (SECURITY.md 4.6, 4.8).
+- [ ] **Battery-terminal fuse and temperature-aware charging** in battery-tier.md (SECURITY.md 4.7).
+- [ ] **Edit the documents** named in SECURITY.md 8.2 to remove the remaining contradictions.
+- [ ] **Lawyer and comune:** shouts, auction, token trade (SECURITY.md 4.9).
+
 ## Hardware to source
 
 - [x] **Budget for building all nine nodes:** first draft 25 Oct 2026, [budget/SUNSET-budget.xlsx](budget/SUNSET-budget.xlsx): about €10,700 of hardware, €12,300 with 15 % contingency, €12,800 with the first year's running costs. Firm up the estimates with quotes (lockers, steel housings, hopper, tokens, carrier boards).
