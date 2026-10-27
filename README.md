@@ -29,6 +29,7 @@ README.md                    this file
 SUNSET.md                    the whole work: nine panels, economy, the day, layout, pages, operations
 TASKS.md                     what to do next: tests, sourcing, design, site
 stamp-format.md              stamps and blocks shared by every node (v1, built on GO TO BED's v0)
+SECURITY.md                  threat model and audit: what is robust, the gaps and their fixes, accepted risks
 tokenomics.md                the economic design: two monies, issuance by walk and sun, frozen rules, the block explorer
 wall-node.md                 the four message walls: visitor experience, messages, couriers, proof of walk
 garden-node.md               a wall node on a post, for a place with no wall: IBC tank, flower bed, sun-only watering
