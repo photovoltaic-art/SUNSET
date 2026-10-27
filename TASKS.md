@@ -66,5 +66,7 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 
 ## Repository
 
+- [ ] **Forkable from the first line:** [FORK-TASKS.md](FORK-TASKS.md). Before any firmware: the two rules, towns kept apart (own keys, own address), `site.json` additions.
+
 - [x] Repository public (22 Oct 2026), "not yet licensed for reuse" (as SUNDIAL).
 - [ ] Licence, at release: match SUNDIAL.

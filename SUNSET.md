@@ -261,10 +261,11 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 
 Each of these fits SUNSET's design and is kept for a later season or a fork:
 
-- **A radio node** linking SUNSET to the next village over LoRa (868 MHz, licence-free; Bosa to Bosa Marina is about 2.5 km), and **relay panels** in between: a network of villages. News by radio earns no stamps; walkers still carry it inland (gtb/GO-TO-BED.md, the radio node).
 - **A miner node:** a Bitaxe on a panel's spare midday power (the SolarSats idea). It needs a pool over the internet, so it would be the one node that is not offline; to decide (gtb/GO-TO-BED.md, other specialized nodes).
 - **A second flip-dot wall,** or a reclaimed bus-sign panel instead of a new one.
 - **Distributed sound:** phones playing layers of the set (interactive-audio.md 4).
+
+**Set aside:** the **radio node** linking SUNSET to the next village over LoRa (gtb/GO-TO-BED.md). A SUNSET is never linked to another; towns grow by forking ([FORK-TASKS.md](FORK-TASKS.md); [GROWTH.md 5](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md)).
 
 ---
 
