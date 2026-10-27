@@ -4,7 +4,7 @@ SUNSET is the second work of **PVA (Photovoltaic Art)**, after [SUNDIAL](https:/
 
 SUNSET is **nine recycled solar panels** on the walls of a town, forming a small offline network with its own currency. People earn **stamps** by walking messages between walls and by skill, and spend them at an auction, a mint and a wall of mechanical pixels. Every panel runs on its own sun, on the same carrier board as SUNDIAL, and everything that happens is unattended, anonymous and over by sunset.
 
-> Status: draft 3, 25 Oct 2026 (reviewed after the gettoneria, tokens, expiry, the sun's purse and the shared coin ledger). The five interactive nodes are specified in their own documents, the wall nodes in [wall-node.md](wall-node.md), and the stamps and blocks shared by all of them in [stamp-format.md](stamp-format.md). Tasks: [TASKS.md](TASKS.md). Nothing is built. **SUNSET is planned for the second year, after SUNDIAL's first season.**
+> Status: draft 3, 25 Oct 2026 (reviewed after the gettoneria, tokens, expiry, the sun's purse and the shared coin ledger). The five interactive nodes are specified in their own documents, the wall nodes in [wall-node.md](wall-node.md), and the stamps and blocks shared by all of them in [stamp-format.md](stamp-format.md). Tasks: [TASKS.md](TASKS.md). Nothing is built. **SUNSET is year 2 of PVA's growth model: SUNDIAL's own nine panels become SUNSET's nodes** (4 walls by a firmware update, 5 interactive nodes on the battery tier), **each then owned separately** ([GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md)).
 
 ---
 
@@ -137,7 +137,7 @@ The gettoneria and the flip-dot wall together are **the entrance to the installa
 
 ### 4.2 Hosts
 
-Every panel needs a wall, and the owner's consent. Hosting is a fair exchange: wall space and consent for the node's presence. **No money and no endorsement;** PVA runs every node.
+Every panel needs a wall, and the owner's consent. Hosting is a fair exchange: wall space and consent for the node's presence. **No money and no endorsement.** From year 2 each node has its own **owner**, who may or may not be the host: anyone can own a node and hold its key, while PVA writes the firmware and rules and manages the website ([GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md) 3; tokenomics.md 5).
 
 | Host of | What the host gets |
 | --- | --- |
