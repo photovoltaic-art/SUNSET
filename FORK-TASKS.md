@@ -31,7 +31,7 @@ Everything else (the town, the sites, the languages, the logos, the coins' artwo
 
 **The fix, in one sentence:** extend SUNDIAL's `site/` folder with what SUNSET needs, make every part read from it, keep towns apart by keys and address, make each fork key, coin and calibrate itself, close the security gaps, prove it in Bosa for a season, and only then add the licences.
 
-**To decide (Carl):** whether a fork may choose its own five interactive nodes, or must build the reference five. The gettoneria and flip-dot wall (the gateway pair) are the only way into coins, so at least they are required if the fork has coins.
+**Decided: forks choose their nodes from a catalogue.** PVA builds and tests every node in [NODES.md](NODES.md); a fork picks its own nine from it, respecting each node's needs (no flip-dot wall without the gettoneria beside it). Bosa's nine are the reference set. Before SUNSET is licensed, PVA considers, builds and tests further nodes for the catalogue.
 
 ---
 
@@ -41,6 +41,14 @@ Everything else (the town, the sites, the languages, the logos, the coins' artwo
 
 - [x] README: *"Work in progress. Concept and specifications only; nothing is built yet. Not yet licensed for reuse."*
 
+### 1a. The node catalogue
+
+- [x] [NODES.md](NODES.md): what every node must be, the catalogue with each node's status and needs, the candidates, and how a fork chooses its nine (27 Oct 2026).
+- [ ] Each of Bosa's nine nodes taken from *specified* to *field-tested*.
+- [ ] **Candidates considered** (NODES.md 3): which to build; each specified, bench-tested and piloted before it enters the catalogue.
+- [ ] Decide whether a SUNSET needs a minimum number of walls (NODES.md 4).
+- [ ] The build, the budget script and `site.json` take any catalogue mix, not only Bosa's.
+
 ### 2. One site folder, shared with SUNDIAL
 
 A SUNSET fork reuses its SUNDIAL fork's `site/` folder and adds to it. A fork replaces this folder and nothing else.
@@ -48,7 +56,7 @@ A SUNSET fork reuses its SUNDIAL fork's `site/` folder and adds to it. A fork re
 - [ ] **`site/site.json`, SUNSET's additions** to SUNDIAL's schema:
   - **town ID** (short, unique, e.g. `bosa`): names the keys folder, the rules file, the coin list, the website paths
   - **the access point's address** for this town (4)
-  - **each panel's year-2 role:** wall 1–4 (on a wall or a post), gettoneria, flip-dot wall, auction, arm, the set
+  - **each panel's year-2 role,** any node from the catalogue ([NODES.md](NODES.md)); Bosa's: walls 1–4 (on a wall or a post), gettoneria, flip-dot wall, auction, arm, the set
   - **the season:** first and last day, the spring visit
   - **the website address** for the verify page, the explorer and the coins' links (5)
   - prices that are the town's choice: shout, souvenir, minting fee, listing fee (set in the pilot; stamp-format.md 9)
@@ -130,7 +138,7 @@ A fork inherits every gap, so the release waits for them.
 
 ### 12. Release: licences and the rules (last)
 
-Only when every item above is ticked and the season (11) is done. Matching SUNDIAL's:
+Only when every item above is ticked, the season (11) is done, and the catalogue has been reviewed for further nodes (1a). Matching SUNDIAL's:
 
 - [ ] `LICENSE`: **code** (firmware, tools, phone pages, explorer): **MIT**.
 - [ ] `hardware/LICENSE`: **hardware** (node builds, cabinets, coin design files): **CERN-OHL-P v2**.
@@ -153,7 +161,7 @@ Only when every item above is ticked and the season (11) is done. Matching SUNDI
 
 | Step | Tasks | Why in this order |
 | --- | --- | --- |
-| 1 | The two rules and the isolation design (summary, 4) | Decided before any code, so no code assumes one town |
+| 1 | The two rules, the isolation design and the catalogue's rules (summary, 1a, 4) | Decided before any code, so no code assumes one town or one set of nodes |
 | 2 | `site.json` additions and generated config (2, 3) | Every part reads from it from the start |
 | 3 | Security decisions and fixes (6) | A fork inherits them |
 | 4 | Keys, coins, rules per town; build (5, 7) | Safe, repeatable nodes for any town |
@@ -161,6 +169,7 @@ Only when every item above is ticked and the season (11) is done. Matching SUNDI
 | 6 | Guide and templates (9) | The town-facing part |
 | 7 | Automatic checks and fork rehearsal (10) | Proof that the structure works |
 | 8 | Bosa's 2028 season (11) | Proof that the system works |
+| 8a | Further catalogue nodes built and tested (1a) | Forks choose from tested nodes only |
 | 9 | **Release (12)** | Last: the licences are what make the repo forkable |
 
 Steps 1 and 2 cost almost nothing now and save retrofitting later: they are rules for how SUNSET's firmware is written from its first line.

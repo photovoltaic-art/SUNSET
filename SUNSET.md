@@ -10,7 +10,7 @@ SUNSET is **nine recycled solar panels** on the walls of a town, forming a small
 
 ## 1. Nine panels
 
-**A PVA work is always nine panels.** SUNSET has four wall nodes and five interactive nodes.
+**A PVA work is always nine panels.** Bosa's SUNSET has four wall nodes and five interactive nodes, the reference set; a fork chooses its own nine from the node catalogue ([NODES.md](NODES.md)).
 
 | Panel | Kind | What it does | Specification |
 | --- | --- | --- | --- |
@@ -259,7 +259,7 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 
 ## 9. Not in the first season
 
-Each of these fits SUNSET's design and is kept for a later season or a fork:
+Candidates for the node catalogue, to consider before SUNSET is licensed ([NODES.md](NODES.md) 3):
 
 - **A miner node:** a Bitaxe on a panel's spare midday power (the SolarSats idea). It needs a pool over the internet, so it would be the one node that is not offline; to decide (gtb/GO-TO-BED.md, other specialized nodes).
 - **A second flip-dot wall,** or a reclaimed bus-sign panel instead of a new one.
