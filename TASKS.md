@@ -20,6 +20,8 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 - [ ] Choose the phone-side Ed25519 and SHA-256 library; measure its size on the node and its speed on an old phone (stamp-format.md 3.1).
 - [ ] Publish the node public keys in `keys/` once nodes are keyed (stamp-format.md 2).
 - [ ] Decide: how many days a digital stamp is valid (7 proposed); passport backup; how double spends are shown (stamp-format.md 9).
+- [ ] **Tokenomics** ([tokenomics.md](tokenomics.md)): measure R (Wh per stamp) and calibrate the arm's reference sun sensor in the pilot; write the season's rules file (`rules-S1`); add the rules' fingerprint to the block format; decide the explorer's privacy (weekly totals, full blocks at the season's end).
+- [ ] **Block explorer:** import and verify script (from gtb/testbed/verify.py), static explorer pages on the website, a GitHub Action that re-verifies on each push (tokenomics.md 4).
 
 ## Hardware to source
 

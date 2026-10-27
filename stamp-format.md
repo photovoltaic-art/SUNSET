@@ -78,7 +78,7 @@ A bystander sees public keys and signatures, and a signature is good for one spe
 - **Every stamp is worth one.** A payout of 9 is nine stamps. Simple to count, to show in the passport and to spend in part.
 - **Stamps are created two ways only:**
   - **`walk`: proof of walk,** paid by any node for the first delivery of another node's sealed block: at most 72 a day across the town (7).
-  - **`skill`: the sun's allowance,** paid by the arm game from its sun's purse: at most `C` a day, released as its panel harvests (interactive-arm-game.md 3.3.1). Skill decides who wins a stamp; the sun decides how many exist.
+  - **`skill`: the sun's allowance,** paid by the arm game from its sun's purse at a fixed rate, one stamp per R Wh of sunlight, measured by a reference sensor (interactive-arm-game.md 3.3.1; tokenomics.md 2.2). Skill decides who wins a stamp; the sun decides how many exist.
 - **Everything else moves or burns stamps, never creates them.** `refund`, `payout` and `redeem` re-issue value that was first spent into the same node; tokens are only paid out against spent digital stamps. A node that issues `refund`, `payout` or `redeem` stamps can never issue more than it holds from earlier spends, and its block shows both sides.
 - **Any new way to earn** (a new node, a new proof) must draw from one of these two sources, or the rule is changed here first.
 
@@ -193,7 +193,7 @@ v0's limits stand, with these added or changed:
 | Limit | Value | Why |
 | --- | --- | --- |
 | Walk stamps | At most 72 a day across the town | One per first delivery of each node's block to each other node: 9 × 8. v0's cap, unchanged |
-| Skill stamps | At most `C` a day (about 30–40), released by the sun as the arm's panel harvests | The sun's purse (interactive-arm-game.md 3.3.1) |
+| Skill stamps | One per R Wh of sunlight at the arm (about 35 on a clear summer day), at a rate fixed per season | The sun's purse (interactive-arm-game.md 3.3.1) |
 | `issued` and `spent` entries per block | 100 each | An `issued` entry is about 110 bytes, a `spent` entry about 180 (the signature): at most about 29 KB of header. A wall issues at most 8 walk stamps a day; 100 is for the busiest interactive node |
 | Block size | 48 KB hard (v0: 16 KB) | Headers now carry stamps; words still limited to 60 messages |
 | Storage | A node keeps 7 days of every node's blocks **within 1.2 MB**, oldest out first; a phone carries 3 days **within 500 KB**, newest first | Budgeted, not worst-cased: nine full blocks a day for a week would not fit in the ESP32's flash. A typical block is a few KB (v0's test bed: under 5 KB), so the budget is rarely reached |

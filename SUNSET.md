@@ -52,7 +52,7 @@ Every panel uses the **PVA carrier board v1** ([CARRIER.md](https://github.com/p
 
 ### 2.2 Stamps in, stamps out
 
-- **In: two sources only.** **Proof of walk** (first deliveries between nodes, at most 72 a day) and **the sun's allowance** at the arm game (at most about 30–40 a day, released as its panel harvests). Both are limited by the sun: the walls are awake only in daylight, and the arm's stamps are released by its harvest. **Issuance is energy-backed.** Every other node moves, converts or burns stamps; none creates them (stamp-format.md 3.2).
+- **In: two sources only.** **Proof of walk** (first deliveries between nodes, at most 72 a day) and **the sun's allowance** at the arm game (one stamp per R watt-hours of sunlight, a rate fixed for the season: about 35 on a clear summer day). Both are limited by the sun: the walls are awake only in daylight, and the arm's stamps are released by the sunlight itself. The whole economic design is summarised in [tokenomics.md](tokenomics.md). **Issuance is energy-backed.** Every other node moves, converts or burns stamps; none creates them (stamp-format.md 3.2).
 - **Out (sinks):** paid shouts, the auction's listing fee and burned relists, the gettoneria's fee and souvenirs, every flip of a dot, and **time: every stamp has a valid-until date** (stamp-format.md 3.5), so unspent stamps leave circulation on their own, except those saved as tokens until 31 December.
 - **Moving:** auctions move stamps between people; tokens move them hand to hand, with no phone.
 - **No cash value, ever.** Stamps cannot be bought or redeemed for money. Their value is only in what they can be used for in the town.
@@ -94,7 +94,7 @@ A first sketch of capacity, from the node specifications: design maximums for a 
 | --- | --- | --- | --- | --- |
 | Walls 1–4 (incl. a garden node) | 10 phones each | ~120 visits each (3–5 minute stays) | ~1,500 visits each; **60 messages** sealed per wall | Wi-Fi; 60 messages per block |
 | Walk stamps (all nodes) | — | — | **72 across the town** | Hard cap: 9 nodes × 8 first deliveries (stamp-format.md 7) |
-| Arm game | **1 player** (queue of up to ~9) | 20–30 turns | ~150–250 turns; **up to `C` skill stamps** (about 30–40), released by the sun through the day | Turn timer, battery, and the sun's purse (interactive-arm-game.md 3.3.1) |
+| Arm game | **1 player** (queue of up to ~9) | 20–30 turns | ~150–250 turns; **one skill stamp per R Wh of sunlight** (about 35 on a clear day) | Turn timer, battery, and the sun's purse (interactive-arm-game.md 3.3.1) |
 | Street auction: bidding | 10 phones | dozens of bids | Unlimited bidders | Wi-Fi only |
 | Street auction: selling | — | — | **1 lot sold, 1 listed, 1 collected** | Three lockers, one stage |
 | Gettoneria | **1 at a time** | 30–60 mints or redeems | ~300–500 | One hopper; the **tokens in it** (refilled by redemptions and the daily return; 1,000 in stock) |
@@ -105,7 +105,7 @@ A first sketch of capacity, from the node specifications: design maximums for a 
 **What it shows:**
 
 - **The auction is the narrowest point, by design.** Bidding scales to anyone in range, but **one person sells each day**: about 180 sellers in a season. Ways to treat it are open (10): keep it as the day's event, with sellers queueing through the wings; **auction the slot**, sellers bidding stamps for tomorrow's listing, which turns scarcity into a sink; or a second stage (five lockers, two lots a day) in a later season.
-- **The arm could out-mint the walls,** so it has a **daily cap released by the sun:** stamps drop into a purse as the panel harvests, so a busy morning can't empty the afternoon, and walking stays the main way to earn (interactive-arm-game.md 3.3.1).
+- **The arm could out-mint the walls,** so its stamps are **released by the sun at a fixed rate:** one per R watt-hours of sunlight, into a purse that carries through the day, so a busy morning can't empty the afternoon and walking stays the main way to earn (interactive-arm-game.md 3.3.1).
 - **Stamps in against stamps out.** On a busy day the sinks (paid shouts, listing fees, minting fees, souvenirs, flips) may not absorb 100–110 new stamps; **every stamp also has a valid-until date** (stamp-format.md 3.5), so what is not spent leaves circulation on its own. Prices are tuned in the pilot to keep the two in balance.
 - **Three nodes serve one person at a time:** the arm, the gettoneria and the flip-dot wall. Each page shows its queue.
 - **The hopper's stock** is the gettoneria's real daily limit: redemptions refill it, and *tokens running low* covers the rest (7.1).
@@ -198,6 +198,7 @@ Published like SUNDIAL's website (GitHub Pages), in Italian and English:
 | **Today** | Sunrise and sunset for the town, computed in the browser: when business opens and closes today |
 | **How it works** | The economy in plain words: earn, spend, tokens, sunset; the six kinds of node; hosts |
 | **Verify** | The token check: tap a token with an NFC phone and confirm it is **genuine** with the gettoneria's public key. The token's link opens this page with its ID and signature in the part of the address that is never sent anywhere; the check runs entirely on the phone, and the page can be saved to work offline. It also looks the coin up in the **coin table published after each weekly gateway visit** (numbers and states only, identifying no one), and says so: *live as of* that date. The live answer is at the gateway (interactive-token.md 2.8) |
+| **Explorer** | The supply, the sun against stamps, the walk network, coins, chain health and double spends, all recomputed from the signed blocks; totals weekly, the full signed record at the season's end ([tokenomics.md](tokenomics.md) 4) |
 | **Archive** | Only what is collected from the nodes: the flip-dot picture at each sunset (the season's time-lapse) and simple counts (lots auctioned, stamps minted, dots flipped). **Never messages, and nothing attributable** |
 
 **The honest limit:** the website shows nothing live. The nodes have no internet, so it cannot know today's bids, tonight's set or the current shouts. The map says so: *the network is in the street; this is only the map.*
@@ -278,6 +279,7 @@ Each of these fits SUNSET's design and is kept for a later season or a fork:
 | Build order | Which nodes are piloted first, and in which order the nine are built |
 | Budget | First draft: about €12,300 to build with contingency, €12,800 with the first year ([budget/SUNSET-budget.xlsx](budget/SUNSET-budget.xlsx)); estimates to firm up with quotes |
 | **The auction slot** | One seller a day (3.1): keep it as the day's event, auction tomorrow's listing slot for stamps, or add a second stage later |
-| The arm's daily cap | Decided: released by the sun through the day (interactive-arm-game.md 3.3.1); its size, about 30–40, set in the pilot |
+| The arm's exchange rate R | Decided: one stamp per R Wh of sunlight, fixed per season; R measured in the pilot (tokenomics.md 2.2) |
+| Rules frozen per season, and the explorer's privacy | Proposed in [tokenomics.md](tokenomics.md) 3 and 4.3 |
 | Stamps in and out | Whether the sinks absorb a busy day's new stamps; prices tuned in the pilot (3.1) |
 | **Token material** | Hopper weight, coin acceptor and NFC together: plastic with an optical acceptor, or a metal weight behind ferrite with an on-metal tag (interactive-token.md 6) |
