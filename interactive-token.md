@@ -41,17 +41,26 @@ The gettoneria **creates no stamps.** Tokens are only ever paid out against digi
 | **Coin** | Printed plastic, the size of a trolley token: about 23 mm across, 2–3 mm thick. Printed both sides: the artwork (to be designed, 6), the gettoneria's 5 × 5 logo, and the coin's **number, 0001–1000**, like a banknote's serial: the number to check it by anywhere (2.8) |
 | **Tag** | A small round NFC tag (NTAG213 class) set into a recess in the coin, under the print |
 | **Value** | **Every token is worth one stamp**, as every digital stamp is. A hopper pays out one kind of coin, so there are no denominations: five stamps are five tokens |
-| **Assembly** | By PVA, in batches before the season: write each tag, record it, assemble, load the hopper (2.2) |
+| **Assembly** | By PVA, in **one batch a year,** before the season: write each tag, record it, assemble, load the hopper (2.2) |
 
 - **What the tag holds** (written once, then locked): a link to the website's **Verify** page, with the token's ID and the gettoneria's **Ed25519 signature** over that ID in the part of the address after `#`, which a browser never sends anywhere (stamp-format.md 4). Tapping a token with an NFC phone opens it.
 - **What the tag doesn't hold:** value, owner or date. Whether a token is live, and until when, is in the **ledger** (2.3), never on the coin.
 
-### 2.2 The batch
+### 2.2 The batch: once a year, then closed
 
 1. A roll of NFC tags is written on the bench: each tag gets its link and signature, and is locked so no phone can rewrite it.
 2. Each tag's ID is recorded in the batch list against the coin's printed number, state *in the hopper*.
 3. Tags are set into the coins; the coins are loaded into the hopper.
 4. The batch list goes into the gettoneria's flash, and from there into its sealed block (`tokens`, stamp-format.md 6), so every node learns which IDs exist.
+5. **The list's fingerprint goes into the season's rules** ([tokenomics.md](tokenomics.md) 3), compiled into the firmware of all nine nodes, and is published.
+
+**The coin press opens once a year, in public, and then closes.**
+
+- **Every node refuses any coin ID not on the year's list:** the flip-dot wall won't accept it, the gettoneria won't redeem it, a wall's coin check reports it *unknown*, and the explorer flags it.
+- **A redeemed stamp carries the coin's ID** (stamp-format.md 3.2), so even a tampered gettoneria redeeming coins that aren't on the list would show, at every node that checks it and in the explorer.
+- **The signature alone isn't enough:** whoever holds the gettoneria's key could sign new tags. What closes the press is the frozen list, checked by every node.
+- **No coins are added during the year,** by PVA or anyone: lost coins and souvenirs aren't replaced until the next year's batch. The stock can only shrink in a season; the buffer of 500 (2.7) is what absorbs it.
+- **Optionally co-signed:** if the nodes are held by separate keyholders, the year's list can need, say, 5 of 9 of their signatures before the rules accept it (tokenomics.md 5).
 
 ### 2.3 The ledger
 
@@ -84,7 +93,7 @@ Because tokens last the year and digital stamps don't, SUNSET has two kinds of m
 - **A coin may come to be worth more than a stamp.** When the hopper runs dry, a token is the only way to keep value, so people might trade one for more than a stamp in the street. SUNSET neither invites nor prevents it (SUNSET.md 2.4): a market finding the price of durability.
 - **Traders prefer coins.** A café taking tokens for coffee needn't worry about a date for months. The street economy runs on coins; play runs on stamps.
 - **The sink weakens, and the pilot watches it.** Expiry is SUNSET's main sink, and saved coins escape it until 31 December. Late in the season, savings may come back as large bids at the auction: drama, or a problem. Prices and the minting fee are tuned in the pilot.
-- **The loop thins.** Kept coins don't come back to the hopper, so the stock in the gettoneria falls over the season; *tokens running low* calls for a fresh batch (2.2).
+- **The loop thins.** Kept coins don't come back to the hopper, so the stock in the gettoneria falls over the season, and no coins are added until next year (2.2). *Tokens running low* is a public sign that the town is saving.
 
 ### 2.6 The end of the year
 
@@ -108,7 +117,7 @@ Because tokens last the year and digital stamps don't, SUNSET has two kinds of m
 | **Buffer** | 500 | Everything beyond the core: **non-core activity** in the town (trading, saving, coins held by businesses), busy weeks, and a reserve so the hopper never runs dry |
 
 - **Redemption can never fail.** Redeeming re-issues digital stamps, which need no reserve, so a rush to redeem is just a busy hour, never a run on the bank. The only shortage possible is the opposite: the hopper running out of coins to mint with, which is what the buffer is for.
-- **Where the coins are:** the hopper holds a few hundred (to confirm with Slomatic for these tokens: 4.1). The rest wait in a **reserve tube** inside the enclosure, which PVA tips into the hopper when *tokens running low* appears, and in PVA's own store for fresh batches.
+- **Where the coins are:** the hopper holds a few hundred (to confirm with Slomatic for these tokens: 4.1). The rest wait in a **reserve tube** inside the enclosure, which PVA tips into the hopper when *tokens running low* appears. All 1,000 are made in the year's one batch (2.2): there is no store of extra coins.
 - **The ledger stays tiny:** 1,000 lines, whatever happens (2.3).
 - **The cost:** at very roughly €0.50–1.50 a token (tag, plastic, printing, assembly), **€500–1,500** for the stock, in the budget (TASKS.md).
 
@@ -139,7 +148,7 @@ If a token passes the reader unread, the node pays one more and records the miss
 1. The holder joins the gettoneria's Wi-Fi and opens the redeem page on their phone.
 2. They **drop the tokens into the slot,** one at a time. The coin acceptor turns away anything that isn't a token, straight back to the return cup (euro coins, foreign coins, washers); each token it accepts rests on the reader's flap and its tag is read (4.5).
 3. For each token the node checks: genuine (the signature), *issued*, not past its date.
-4. **Valid:** the node issues one digital stamp to a holder key the phone makes, with a **fresh** valid-until date from today (stamp-format.md 3.5): the token was the store, and the minting fee paid for it. A flap sends the token **back into the hopper**, *in the hopper* again. **The gettoneria refills itself** from what is redeemed.
+4. **Valid:** the node issues one digital stamp, carrying the coin's ID, to a holder key the phone makes, with a **fresh** valid-until date from today (stamp-format.md 3.5): the token was the store, and the minting fee paid for it. A flap sends the token **back into the hopper**, *in the hopper* again. **The gettoneria refills itself** from what is redeemed.
 5. **Expired** (genuine, issued in an earlier year): back into the hopper, no stamp (2.6).
 6. **Not valid** (unknown, spent, souvenir, or a clone already used): the flap sends it to the **reject box**, where it stays until the round. The page says why.
 7. **Return mode** (opened from the admin page, by PVA or the gateway's host): spent tokens from the flip-dot wall's column go **back into the hopper**, *in the hopper* again, with no stamp. That is how the column is emptied each day (3.7).
@@ -156,7 +165,7 @@ Minting costs a small fee in stamps (for example 1 per mint, whatever the number
 
 ### 3.5 The souvenir
 
-A visitor can **buy a token to keep,** for a price in stamps set in the pilot. It is paid out like any other, recorded as *souvenir*, and is worth nothing: the stamps spent leave circulation (a sink). The hopper loses one token, replaced at the next batch.
+A visitor can **buy a token to keep,** for a price in stamps set in the pilot. It is paid out like any other, recorded as *souvenir*, and is worth nothing: the stamps spent leave circulation (a sink). The hopper loses one token, not replaced until next year (2.2). **Option:** a separate souvenir coin, of its own design and never on the ledger, so souvenirs don't draw down the hard money.
 
 | Mode | The visitor spends | The hopper pays | Value leaves digital circulation? |
 | --- | --- | --- | --- |
@@ -282,7 +291,8 @@ One of the lightest interactive nodes.
 | Souvenir price | How many stamps a token to keep costs (3.5) |
 | Minting fee | How many stamps per mint (3.4) |
 | Reject box | What happens to its contents: counted and shown, like the double-spend count (stamp-format.md 5.2) |
-| Stock size | **Decided: 1,000** (2.7). The pilot shows how the buffer is used, and whether the hopper and reserve tube hold enough |
+| Stock size | **Decided: 1,000**, made in one batch a year and closed (2.2, 2.7). The pilot shows how the buffer is used, and whether the hopper and reserve tube hold enough |
+| Souvenirs | From the stock (a sink of hard money), or a separate coin never on the ledger (3.5) |
 | Late-season savings | Whether saved coins returning as big auction bids is drama or a problem; minting fee tuned in the pilot (2.5) |
 
 ## 7. Pilot tasks

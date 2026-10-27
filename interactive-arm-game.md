@@ -148,6 +148,9 @@ Without a limit, the arm could pay 50–150 stamps on a busy sunny day, more tha
 - **An empty purse doesn't stop play.** The arm plays for skill alone, and the page says when the next stamp will drop, from the current sunlight: *"the sun's purse is empty · next stamp in about 12 minutes"*.
 - **On the page:** the purse, the stamps released this hour, and the day's sunlight as a small curve.
 - **Checkable:** each day's sunlight and stamps released go into the arm's sealed block, and the website's explorer checks *released = sunlight ÷ R* (tokenomics.md 4).
+- **The sun is the rule-maker, not the sensor.** Two limits stop a faulty or tampered sensor minting more than the sky allowed:
+  - **a clear-sky ceiling** in the rules: no day can release more than a cloudless day at that date could, whatever the sensor reads;
+  - **a cross-check against the walls:** the wall nodes measure real sunlight (the panel's short-circuit current, as SUNDIAL does), and the explorer compares the arm's claim with its neighbours'. A claim well above them is flagged.
 
 This is the sun gate made exact: **issuance is energy-backed, stamp by stamp, at a rate nobody can change during a season.**
 

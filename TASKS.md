@@ -21,6 +21,9 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 - [ ] Publish the node public keys in `keys/` once nodes are keyed (stamp-format.md 2).
 - [ ] Decide: how many days a digital stamp is valid (7 proposed); passport backup; how double spends are shown (stamp-format.md 9).
 - [ ] **Tokenomics** ([tokenomics.md](tokenomics.md)): measure R (Wh per stamp) and calibrate the arm's reference sun sensor in the pilot; write the season's rules file (`rules-S1`); add the rules' fingerprint to the block format; decide the explorer's privacy (weekly totals, full blocks at the season's end).
+- [ ] **Issuance checks** (stamp-format.md 3.2): walk stamps matched to real deliveries, sun stamps against sunlight ÷ R, the clear-sky ceiling and the walls' sun readings, redemptions against the year's coin list; the clear-sky model from the pilot.
+- [ ] **The year's coin list:** batch script that writes, signs, locks and lists the tags and outputs the list's fingerprint for the rules file; coin ID carried in `redeem` stamps (interactive-token.md 2.2).
+- [ ] **Governance (proposal, tokenomics.md 5):** decide on nine keyholders; keys generated on each node; co-signed coin list; reproducible firmware builds.
 - [ ] **Block explorer:** import and verify script (from gtb/testbed/verify.py), static explorer pages on the website, a GitHub Action that re-verifies on each push (tokenomics.md 4).
 
 ## Hardware to source

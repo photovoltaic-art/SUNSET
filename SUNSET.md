@@ -234,7 +234,7 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 | Battery, Victron, heat and enclosure checks | Fortnightly, on the same round |
 | Flip-dot panel | Every round: compressed air, then a vacuum at minimum suction; replace stuck dots. The manual asks for at least every 4 weeks (interactive-flipdot.md 3.7) |
 | **Tokens** | **Daily:** the host empties the flip-dot wall's column into the gettoneria in return mode (photograph it first). **Every round:** empty the kept-token box and the reject box, check those on a bench reader (removing duplicate IDs, which are clones), load them back; top up the hopper from the reserve tube (interactive-token.md 2.7, 3.7) |
-| **Gettoneria stock** | **On demand,** when the node posts *tokens running low*: a fresh batch, written, assembled and loaded by PVA (interactive-token.md 2.2) |
+| **Gettoneria stock** | **Once a year, before the season:** the year's batch of 1,000 coins, written, assembled and loaded by PVA, its list's fingerprint in the rules. No coins are added during the year (interactive-token.md 2.2) |
 | Faults | On demand, from the service notice |
 
 ## 8. Rules shared by every node
@@ -244,7 +244,7 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 | Business only in daylight; sunset from the clock, as SUNDIAL's seal | battery-tier.md 1.2 |
 | **Stamps are created only by proof of walk or the sun's allowance;** every other node moves, converts or burns them | stamp-format.md 3.2 |
 | Every digital stamp has a valid-until date a few days ahead (7 proposed); tokens are valid until 31 December, and turning stamps into tokens is the one way to keep value, at the price of the minting fee | stamp-format.md 3.5, 4 |
-| The ledger can't grow beyond the token stock; tokens are used only at the gateway pair, which holds the live ledger; every node keeps a copy | stamp-format.md 4; interactive-token.md 2.8 |
+| The coin press opens once a year and closes: every node refuses coins not on the year's list. The ledger can't grow beyond the token stock; tokens are used only at the gateway pair, which holds the live ledger; every node keeps a copy | stamp-format.md 4; interactive-token.md 2.8 |
 | Every node's 5 × 5 logo is unique, and never the same as the Photovoltaic Art logo | stamp-format.md 3.2 |
 | Every node seals one signed block a day at sunset, chained to the day before | stamp-format.md 6 |
 | All signatures Ed25519; the nine public keys published | stamp-format.md 2 |

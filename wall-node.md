@@ -113,7 +113,7 @@ Every SUNSET node, wall or interactive, takes part: interactive nodes post their
 | Wi-Fi | Open access point, up to 10 phones at once, plain HTTP |
 | Clock | DS3231 with coin cell: every message and stamp is time-stamped by the panel |
 | Storage | LittleFS for messages (7 days), blocks and the stamp records |
-| Sun sensor | Available, as on SUNDIAL panels; not needed for the wall's role |
+| Sun sensor | **Used:** the panel's short-circuit current, as on SUNDIAL panels: the walls' record of real sunlight, against which the arm's sun claim is cross-checked ([tokenomics.md](tokenomics.md) 2.2) |
 
 A wall node draws well under 1 W. It needs nothing that a SUNDIAL panel doesn't already have.
 

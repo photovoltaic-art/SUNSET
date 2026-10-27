@@ -1,6 +1,6 @@
 # SUNSET tokenomics — two monies, the sun as the rule, a ledger anyone can check
 
-> Status: draft 1, 27 Oct 2026. Brings together the economic design spread across [SUNSET.md](SUNSET.md), [stamp-format.md](stamp-format.md), [interactive-token.md](interactive-token.md) and [interactive-arm-game.md](interactive-arm-game.md), and adds two decisions: **the arm's stamps at a fixed exchange rate to sunlight**, and **a public block explorer**. Nothing built.
+> Status: draft 2, 27 Oct 2026 (the coin press closed for the year; the sun as rule-maker; governance by nine keyholders proposed). Brings together the economic design spread across [SUNSET.md](SUNSET.md), [stamp-format.md](stamp-format.md), [interactive-token.md](interactive-token.md) and [interactive-arm-game.md](interactive-arm-game.md), and adds two decisions: **the arm's stamps at a fixed exchange rate to sunlight**, and **a public block explorer**. Nothing built.
 
 ---
 
@@ -9,12 +9,13 @@
 - **Two monies.** **Stamps** are digital, expire within days, and are for spending. **Tokens** are 1,000 physical coins, valid until 31 December, and are the only way to keep value.
 - **Stamps come from two sources only, both energy:**
   - **proof of walk:** a courier who first carries a node's sealed day to another node earns a stamp. At most **72 a day**, fixed by the network's shape (9 nodes × 8);
-  - **the sun's allowance:** the arm game pays from a purse that fills at a **fixed rate: one stamp per R watt-hours of sunlight**, measured by a reference sensor. No cap is needed; the sun is the cap.
+  - **the sun's allowance:** the arm game pays from a purse that fills at a **fixed rate: one stamp per R watt-hours of sunlight**, measured by a reference sensor. No cap is needed; **the sun is the rule-maker:** a clear-sky ceiling and a cross-check against the walls' own sun readings stop any sensor claiming more than the sky gave.
 - **Everything else moves, converts or burns stamps.** Expiry is the main sink; fees, shouts and flips are the rest.
+- **The coin press opens once a year and closes.** All 1,000 coins are made in one batch before the season; the list's fingerprint is in the rules, every node refuses any other coin, and no coins can be added during the year.
 - **Couriers are the miners.** The people who carry the chain are paid by it, like miners propagating blocks.
 - **The rules are frozen in firmware for each season.** No setting, key or admin page can change emission during a season; a change needs all nine nodes re-flashed at the spring visit, a visible fork.
 - **A block explorer on the website** rebuilds every total from the signed blocks, so anyone can check the supply. Live totals weekly; the full signed record once the trail has gone cold.
-- **What remains centralised:** PVA holds the nine node keys and writes the firmware. Its power shrinks to one public decision a year.
+- **What remains centralised:** PVA writes the firmware and, today, holds the nine node keys. Its power shrinks to one public decision a year. **Proposed:** nine separate keyholders, so keys and rule changes are shared (5).
 - **The closest relatives:** Bitcoin for issuance by energy and verification by anyone; Gesell's *Freigeld* (the 1932 Wörgl stamp scrip) for money that expires so that it circulates; Liquid's nine-member federation for blocks signed by authority.
 
 ---
@@ -52,6 +53,13 @@
 - **The purse:** released stamps drop into the arm's **sun's purse**, carry through the day and empty at sunset (interactive-arm-game.md 3.3.1).
 - **Checkable:** each day's sunlight and stamps released are in the arm's sealed block, so anyone can check *released = sunlight ÷ R*, to the stamp (4).
 
+**The sun is the ultimate rule-maker, not the sensor.** A sensor can fail or be tampered with, so two limits sit above it:
+
+- **A clear-sky ceiling** in the season's rules: no day can release more stamps than a cloudless sky at that date, at the arm's site, could give, whatever the sensor reads.
+- **A cross-check against the walls:** the four walls measure real sunlight (the panel's short-circuit current, as SUNDIAL's panels do). The explorer compares the arm's sunlight with its neighbours' each day, and flags a claim well above them.
+
+So the most anyone could mint at the arm is what the sky actually allowed that day.
+
 ### 2.3 Nothing else creates stamps
 
 Refunds, payouts and redemptions only re-issue value first spent into the same node; tokens are only paid out against spent stamps (stamp-format.md 3.2). Any new way to earn must draw from walk or sun, or the rule changes first.
@@ -66,7 +74,7 @@ Refunds, payouts and redemptions only re-issue value first spent into the same n
 | Sun rate R, and the reference constant | The season's rules | Firmware only, at the spring visit |
 | Stamp validity (days) | The season's rules | Firmware only |
 | Prices: shout, listing, minting, souvenir | The season's rules | Firmware only |
-| Token stock (1,000) | PVA's batches | Public: the batch list's fingerprint is published; new batches only replace retired coins, listed by ID |
+| Token stock (1,000) | **One batch a year,** made before the season | **Closed for the year:** the list's fingerprint is in the rules; every node refuses any other coin ID, and every redeemed stamp names its coin (interactive-token.md 2.2) |
 | The nine node keys | PVA | A replaced key is published with its date (stamp-format.md 2) |
 
 **How the rules are frozen:**
@@ -114,12 +122,43 @@ The full signed blocks are what make the audit independent, but they also show w
 
 ---
 
-## 5. Risks
+## 5. Governance: nine keyholders (proposal)
+
+If each node is held by a separate keyholder (most naturally its host), SUNSET moves from one central bank to a **federation of nine**, like Liquid's federation of functionaries.
+
+**The split, as in Bitcoin:**
+
+| Role | Who | What they hold |
+| --- | --- | --- |
+| **Writes the rules and firmware** | PVA | The rules file and firmware, published, with reproducible builds and a fingerprint for each release |
+| **Holds the keys and decides changes** | Nine keyholders | Each node's own signing key, generated on the node and never seen by PVA; a vote on rule changes and on the year's coin list |
+| **Carries, earns and verifies** | Anyone | Walk stamps, the sun's allowance at the arm, and the explorer's script |
+
+**Design tasks this needs:**
+
+1. **Keys generated on each node** at installation, the private half never leaving it; the public halves published.
+2. **The rules' fingerprint in every sealed block** (3): nodes refuse blocks and stamps made under other rules, so a change needs the keyholders to re-flash their own nodes, and a refusal is a real fork.
+3. **The year's coin list co-signed,** for example 5 of 9 keyholders, before the rules accept it.
+4. **Every created stamp checkable against its source** (stamp-format.md 3.2): walk stamps against real deliveries, at most 8 per node per day; sun stamps against sunlight ÷ R, the clear-sky ceiling and the walls' readings; redemptions against the coin list.
+5. **Reproducible builds:** a keyholder can rebuild the published firmware and get the same fingerprint before flashing it.
+
+**What it changes:**
+
+- **Better:** no single party can mint, add coins or change the rules; a stolen key affects one node; no one can switch SUNSET off; hosts have a stake.
+- **New risks:** collusion (with 5 of 9, five keyholders together can do what one PVA can today); coordination (the spring update and repairs need nine people); incentives (owning a node earns no cash, and paying keyholders in stamps would be a third source, so ownership is its own reward); liability (each keyholder answers for their node).
+- **The network stays a federation:** nine named keyholders, not an open network. The permissionless part of SUNSET is the couriers.
+- **The artwork question:** today SUNSET says *PVA runs every node*. Nine keyholders make the work partly a **commons**: a statement in itself, but it changes what the piece is. To decide.
+
+---
+
+## 6. Risks
 
 | Risk | What bounds it |
 | --- | --- |
-| **Discretion** by PVA (prices, rates, batches) | Rules frozen per season (3); token batches only replace retired coins, published |
-| **A stolen node key** minting stamps | Fails wherever the real chain has arrived; the explorer shows any issuance not in a node's chain |
+| **Discretion** by PVA (prices, rates, batches) | Rules frozen per season (3); one coin batch a year, then closed; shared keys if adopted (5) |
+| **A stolen node key** minting stamps | Fails wherever the real chain has arrived; every created stamp is checked against its source (stamp-format.md 3.2) |
+| **A faulty or tampered sun sensor** | The clear-sky ceiling and the cross-check against the walls (2.2) |
+| **Coins added during the year** | Refused everywhere: not on the year's list (3) |
 | **More stamps in than out** | Expiry is the backstop; prices tuned in the pilot, then frozen |
 | **Coins hoarded** (the hopper runs dry, coins trade above face) | The 1,000-coin ceiling; the buffer of 500; *tokens running low*; savings shown publicly |
 | **Farming** | Walk: the 72 cap. Sun: the fixed rate. Neither grows with effort |
@@ -128,12 +167,15 @@ The full signed blocks are what make the audit independent, but they also show w
 
 ---
 
-## 6. Open questions
+## 7. Open questions
 
 | Question | Notes |
 | --- | --- |
 | **R** | The watt-hours per stamp, from the pilot's clear-day measurements; frozen for the season |
 | Reference sensor | Which small reference cell and current monitor; its calibration to panel-equivalent watt-hours |
 | Rules in the block | The rules' fingerprint in each sealed block: a field for the stamp format's next version (3) |
+| Clear-sky ceiling | The model and its margin, from the pilot's measurements at the arm's site (2.2) |
+| Keyholders | Whether to adopt nine keyholders (5); who they are; the co-signing threshold for the coin list |
+| Souvenir coins | From the stock, or a separate coin never on the ledger (interactive-token.md 3.5) |
 | Explorer privacy | Weekly totals and full blocks at the season's end (4.3), or full blocks weekly |
 | Validity and prices | Set in the pilot, then frozen in `rules-S1` |

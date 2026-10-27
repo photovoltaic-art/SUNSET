@@ -72,6 +72,7 @@ A bystander sees public keys and signatures, and a signature is good for one spe
 | `t` | The hour of issue, by the node's clock |
 | `why` | `walk` (first delivery), `skill` (arm game), `refund` (auction outbid), `payout` (auction seller), `redeem` (a token turned back into digital) |
 | `exp` | **Valid until:** the last day the stamp can be spent, by the nodes' clocks (3.5) |
+| `coin` | `redeem` stamps only: the ID of the coin redeemed, so every redemption can be checked against the year's coin list (4) |
 | `hk` | The holder's public key |
 | `sig` | The node's signature over everything above |
 
@@ -81,6 +82,11 @@ A bystander sees public keys and signatures, and a signature is good for one spe
   - **`skill`: the sun's allowance,** paid by the arm game from its sun's purse at a fixed rate, one stamp per R Wh of sunlight, measured by a reference sensor (interactive-arm-game.md 3.3.1; tokenomics.md 2.2). Skill decides who wins a stamp; the sun decides how many exist.
 - **Everything else moves or burns stamps, never creates them.** `refund`, `payout` and `redeem` re-issue value that was first spent into the same node; tokens are only paid out against spent digital stamps. A node that issues `refund`, `payout` or `redeem` stamps can never issue more than it holds from earlier spends, and its block shows both sides.
 - **Any new way to earn** (a new node, a new proof) must draw from one of these two sources, or the rule is changed here first.
+- **Every created stamp is checkable against its source:**
+  - a `walk` stamp must match a `deliveries` entry in the same block, pointing at a real sealed block of another node, and a node pays at most 8 a day;
+  - `skill` stamps on a day can't exceed that day's sunlight ÷ R, nor the clear-sky ceiling, and the sunlight claimed is cross-checked against the walls' own sun readings (tokenomics.md 2.2);
+  - a `redeem` stamp must name a coin on the year's list (4).
+  Any node and the explorer can run these checks; a node that breaks them shows in its own signed chain.
 
 ### 3.3 Issuance is recorded
 
@@ -125,6 +131,7 @@ Tokens are specified in [interactive-token.md](interactive-token.md); this is th
 - **Genuine** is checkable anywhere, offline, from the gettoneria's public key: by any node, and by the website's Verify page on any NFC phone.
 - **Live, and until when,** is in the **ledger**, never on the coin: each ID is *in the hopper*, *issued* (with a valid-until date), *spent* or *souvenir* (interactive-token.md 2.3). The gettoneria and the flip-dot wall keep it live and share every change over ESP-NOW (interactive-flipdot.md 2.1). Redemption is at the gettoneria only; spending tokens is at the flip-dot wall only.
 - **Every node keeps the whole coin table** (about 12 KB for 1,000 coins), updated from the `tokens` records couriers bring, and answers *live, as far as this node has heard*. The table is published on the website after a **weekly visit to the gettoneria**, *as of* that date (interactive-token.md 2.8).
+- **One batch a year, then closed.** The year's coin list is fixed before the season; its fingerprint is in the season's rules, compiled into every node; **every node refuses any coin ID not on the list,** and a `redeem` stamp names its coin (3.2), so no coins can be added during the year (interactive-token.md 2.2).
 - **Valid until 31 December** of the year of issue. Digital stamps are for spending; **tokens are for keeping** (interactive-token.md 2.5).
 - **The ledger can't grow beyond the token stock.** It has one line per token made, whatever the minting and however long a token is kept. The physical stock bounds the ledger, and the ledger bounds the money that can be kept. This is a fundamental of the design.
 - **On 1 January** every live token's state resets: an expired token brought back goes into the hopper with no stamp (interactive-token.md 2.6).
@@ -142,6 +149,8 @@ Tokens are specified in [interactive-token.md](interactive-token.md); this is th
 | A bystander copies a stamp off the air | Impossible: only public keys and one-use signatures cross the air (3.1) |
 | A forged stamp | Fails the issuer's signature |
 | A stamp from a stolen node key | Fails check 4 wherever the real chain has arrived; the key is replaced (2) |
+| A node minting walk stamps without deliveries, or sun stamps beyond its sunlight | Shows in its own signed chain: each `walk` stamp must match a real delivery; `skill` stamps can't exceed sunlight ÷ R or the clear-sky ceiling (3.2) |
+| Coins added during the year | Refused everywhere: not on the year's coin list (4) |
 | The same stamp spent twice at one node | Refused: on that node's spent list |
 | A token cloned and used twice | The first use wins; the second is refused and kept, because the gateway pair shares its ledger live. Clones are accepted as possible (4) |
 | **A holder copies their own phone's storage and spends the same stamp at two distant nodes before couriers carry the news** | **Possible.** The one double spend v1 cannot prevent offline (5.2) |
