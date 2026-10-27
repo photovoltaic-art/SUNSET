@@ -82,7 +82,7 @@ No fork may be able to read, spend or confuse another town's stamps, coins or bl
 
 ### 5. Keys, coins and rules per town
 
-- [ ] **Keys:** generated on each node (SECURITY.md 4.3); the public halves published in the fork's `keys/`; the firmware **refuses to compile** with Bosa's keys, example keys or an empty key set.
+- [ ] **Keys:** generated on each node (SECURITY.md 4.3); the public halves published in the fork's `keys/`; the firmware **refuses to start** with Bosa's keys, example keys or an empty key set.
 - [ ] **The rules file:** `rules-<town>-S<n>` from a template, with the fork's R, ceiling, validity, prices and coin-list fingerprint; its fingerprint in the firmware (tokenomics.md 3).
 - [ ] **The coin batch tool:** reads the town ID and website address; the coins' links point to **the fork's own website**, never Bosa's; the batch signed by the fork's own gettoneria (SECURITY.md 4.3); the list's fingerprint out for the rules file.
 - [ ] **The website address for coins:** each fork keeps its own for as long as its coins exist (souvenirs last). Bosa's is to decide (for example a path under SUNDIAL's `bosa.photovoltaic.art`), kept by PVA (SECURITY.md M8).
@@ -98,8 +98,9 @@ A fork inherits every gap, so the release waits for them.
 
 ### 7. Reproducible build
 
-- [ ] One build script for every node role, sharing SUNDIAL's pinned toolchain; pinned and vendored libraries (SECURITY.md M8).
-- [ ] Signed images for Secure Boot; the signing keys held offline, by each fork for its own nodes.
+- [ ] **One image for all nine nodes,** as SUNDIAL: every catalogue role in one firmware, **the node's role and identity written to its flash at installation**, not compiled in. One build to check, one image to sign, and a year-2 conversion is the same flash for every panel. Check the image fits the carrier's flash with every role in it; split by tier (panel only, battery) only if it doesn't.
+- [ ] One build script, sharing SUNDIAL's pinned toolchain; pinned and vendored libraries (SECURITY.md M8).
+- [ ] The image signed for Secure Boot; the signing keys held offline, by each fork for its own nodes.
 - [ ] `firmware/VERSIONS.md` and a **tagged release** for each tested firmware (the first: Bosa's 2028 season).
 - [ ] Cross-implementation test vectors (Python, JavaScript, ESP32) in the test bed (SECURITY.md M3).
 
