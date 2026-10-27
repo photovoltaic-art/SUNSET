@@ -46,7 +46,7 @@ Everything else (the town, the sites, the languages, the logos, the coins' artwo
 - [x] [NODES.md](NODES.md): what every node must be, the catalogue with each node's status and needs, the candidates, and how a fork chooses its nine (27 Oct 2026).
 - [ ] Each of Bosa's nine nodes taken from *specified* to *field-tested*.
 - [ ] **Candidates considered** (NODES.md 3): which to build; each specified, bench-tested and piloted before it enters the catalogue.
-- [ ] Decide whether a SUNSET needs a minimum number of walls (NODES.md 4).
+- [x] No minimum of walls: any nine catalogue nodes (NODES.md 4, 27 Oct 2026).
 - [ ] The build, the budget script and `site.json` take any catalogue mix, not only Bosa's.
 
 ### 2. One site folder, shared with SUNDIAL

@@ -53,4 +53,4 @@ Considered for the catalogue before SUNSET is licensed. Each must meet section 1
 - **Nine panels,** never linked: SUNSET's two rules ([FORK-TASKS.md](FORK-TASKS.md)).
 - **Any mix of catalogue nodes,** respecting each node's *Needs*: no flip-dot wall without a gettoneria beside it; a fork **with coins** builds the gettoneria.
 - **The economy follows the choice,** and is written in the fork's rules file: without an arm game there is no sun's allowance, so walk stamps are the only source; the prices and sinks are set in the fork's pilot (tokenomics.md).
-- **To decide:** whether a SUNSET needs a minimum number of walls (the message network and the news), or whether any nine catalogue nodes will do. Every node seals and pays walk stamps, so the walk economy works with any mix.
+- **No minimum of walls:** any nine catalogue nodes will do (decided 27 Oct 2026). **Nine is the number that matters:** an edition of nine, tested and proven in Bosa before any town copies it, never more, never less. Every node seals and pays walk stamps, so the walk economy works with any mix.
