@@ -17,7 +17,7 @@ Every interactive node needs the same handful of parts around the carrier ([NODE
 | Flip-dot wall | 24 V converter switch; RS-485 transmitter; I²C port expander (acceptor inhibit, flap); NFC reader; pull-up on GPIO 36 |
 | Arm game | Arm 12 V power switch (up to 5 A); reference sun sensor (INA219 module); pull-up on GPIO 36; optional port expander |
 | SUNSET set, with speaker locker | Lock switch; speaker charger (12 V → 5 V USB) switch |
-| Garden node | Pump switch; pull-up on GPIO 36 |
+| Garden node | Pump switch (12 V, 5–15 W); float-switch inputs; soil-probe line; pull-up on GPIO 36 |
 | **All battery-tier nodes** | VE.Direct input with a divider in case the Victron sends 5 V |
 
 Designing these as one board, populated per node, keeps PVA's rule: **one board everywhere** (GROWTH.md 6). A fork builds one I/O board design and fits it differently for each node.
@@ -70,7 +70,7 @@ Wall nodes, and the SUNSET set without its locker, don't use the I/O board.
 
 ### 4.3 Inputs
 
-**6 protected inputs** for reed switches, float switches, coin-acceptor pulses, knobs and the button: series resistor, clamps, a 10 kΩ pull-up to the carrier's 3.3 V (fitted per input), and an optional 100 nF filter for switches. **GPIO 36 always gets its pull-up,** because it has no internal one.
+**6 protected inputs** for reed switches, float switches, coin-acceptor pulses, knobs and the button: series resistor, clamps **to the carrier's 3.3 V and GND** (from the cable), a 10 kΩ pull-up to the carrier's 3.3 V (fitted per input), and an optional 100 nF filter for switches. **GPIO 36 always gets its pull-up,** because it has no internal one. **Inputs work with the I/O board unpowered:** their pull-ups and clamps hang on the carrier's 3.3 V, so a node can read its switches while its 12 V side is off (the garden node's floats, any time of day).
 
 ### 4.4 Interfaces (fit what the node uses)
 

@@ -65,21 +65,22 @@ A drip-watered bed of about 1 m² needs roughly 3–6 litres a day in a Sardinia
 ### 3.1 Wiring
 
 ```
- PV panel ──► carrier J1 ──► F4 (3 A) ──► D5 ──► J12 AUX ──► 12 V buck (60 V+ in) ──► MOSFET ──► pump ──► drip lines
-                                                               ▲ EN                    ▲ gate
-                                       J11 "5V SW" (GPIO 27) ──┘           GPIO 26 ────┘
+ PV panel ──► carrier J1 ──► F4 (3 A) ──► D5 ──► J12 AUX ──► 12 V buck (60 V+ in) ──► I/O board VIN ──► LS1 ──► pump ──► drip lines
+                                                               ▲ EN                                 ▲
+                                       J11 "5V SW" (GPIO 27) ──┘                    GPIO 26 (J9 cable)
+ floats, soil probe ──► I/O board inputs ──► J9 cable ──► GPIO 33, 36, 32
 ```
 
 | Use | GPIO | Header | Notes |
 | --- | --- | --- | --- |
 | 12 V converter enable | 27 (U4) | J11 `5V SW` | Unchanged board: the converter is off whenever the board says so |
-| Pump on/off | 26 | J9 | Logic-level MOSFET (low side) with a flyback diode, off at boot (pull-down) |
-| Soil moisture | 32 | J9 | Capacitive probe (no exposed metal, so it doesn't corrode); analog, ADC1, works with Wi-Fi on |
+| Pump on/off | 26 | J9 | The I/O board's LS1 ([io-board.md](io-board.md)): low-side MOSFET with flyback diode, off at boot |
+| Soil moisture | 32 | J9 | Capacitive probe (no exposed metal, so it doesn't corrode), powered from the carrier's 3.3 V (a few mA); analog, ADC1, works with Wi-Fi on; through the I/O board's protection, without the filter |
 | Tank low (refill soon) | 33 | J9 | Float switch at about a fifth of the tank |
-| Tank empty (dry-run stop) | 36 | J9 | Float switch just above the pump's intake; input only, external pull-up |
+| Tank empty (dry-run stop) | 36 | J9 | Float switch just above the pump's intake; input only, the I/O board's pull-up |
 
 - **The pump:** a small 12 V diaphragm or brushless pump, about 5–15 W, inside the tank or beside it, feeding drip lines on the bed.
-- **No board change:** AUX, switched 5 V and the J9 spare pins are all on carrier v1 as built.
+- **No carrier change:** AUX, switched 5 V and the J9 spare pins are all on carrier v1 as built. The pump switch and the sensor inputs are on **the SUNSET I/O board** ([io-board.md](io-board.md)), as on every node that switches something: the garden node is the one wall-tier node that uses it. The I/O board is powered only while the 12 V converter is on; the floats and the soil probe are still read at any time, because their pull-ups and probe supply come from the carrier's 3.3 V.
 - **Water below, electronics above:** the board's box stays high on the panel's back; every cable to the tank gets a drip loop; the pump's connections are sealed (IP68 or potted).
 
 ### 3.2 When it waters
