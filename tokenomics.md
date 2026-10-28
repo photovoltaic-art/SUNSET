@@ -1,6 +1,6 @@
 # SUNSET tokenomics — two monies, the sun as the rule, a ledger anyone can check
 
-> Status: draft 2, 27 Oct 2026 (the coin press closed for the year; the sun as rule-maker; nine separate owners from year 2, as in PVA's growth model). Brings together the economic design spread across [SUNSET.md](SUNSET.md), [stamp-format.md](stamp-format.md), [interactive-token.md](interactive-token.md) and [interactive-arm-game.md](interactive-arm-game.md), and adds two decisions: **the arm's stamps at a fixed exchange rate to sunlight**, and **a public block explorer**. Nothing built.
+> Status: draft 2, 27 Oct 2026 (the coin press closed for the year; the sun as rule-maker; nine separate owners after the 2029 solstice auction, as in PVA's growth model). Brings together the economic design spread across [SUNSET.md](SUNSET.md), [stamp-format.md](stamp-format.md), [interactive-token.md](interactive-token.md) and [interactive-arm-game.md](interactive-arm-game.md), and adds two decisions: **the arm's stamps at a fixed exchange rate to sunlight**, and **a public block explorer**. Nothing built.
 
 ---
 
@@ -15,7 +15,7 @@
 - **Couriers are the miners.** The people who carry the chain are paid by it, like miners propagating blocks.
 - **The rules are frozen in firmware for each season.** No setting, key or admin page can change emission during a season; a change needs all nine nodes re-flashed at the spring visit (visible in the chain once blocks carry the rules' fingerprint, proposed in 3).
 - **A block explorer on the website** rebuilds every total from the signed blocks, so anyone can check the supply. Live totals weekly; the full signed record once the trail has gone cold.
-- **Who holds what:** in year 1 (SUNDIAL, no tokens) PVA owns everything. **From year 2 each node is owned separately, by anyone;** owners hold the keys and decide rule changes and the coin list together; PVA writes the firmware and rules and manages the website (5; [GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md)).
+- **Who holds what:** in year 1 (SUNDIAL, no tokens) PVA owns everything. **From the 2029 solstice auction each node is owned separately, by anyone;** (2028 is a trial season run by PVA) owners hold the keys and decide rule changes and the coin list together; PVA writes the firmware and rules and manages the website (5; [GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md)).
 - **The closest relatives:** Bitcoin for issuance by energy and verification by anyone; Gesell's *Freigeld* (the 1932 Wörgl stamp scrip) for money that expires so that it circulates; Liquid's nine-member federation for blocks signed by authority.
 
 ---
@@ -126,7 +126,7 @@ The full signed blocks are what make the audit independent, but they also show w
 
 > **How the owners vote and what binds them is now drafted as the owners' agreement: [GOVERNANCE.md](GOVERNANCE.md)** (28 Oct 2026). Voting is a signature made at the owner's own node and carried in its sealed block; five of nine is enforced by the firmware; PVA holds no key and no vote after handover.
 
-**Adopted for year 2** in PVA's growth model ([GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md)): from the conversion, **each node is owned separately, and anyone can own one** (a host, a sponsor, a local group); PVA writes the firmware and rules and manages the website. With each node held by its own keyholder, SUNSET moves from one central bank to a **federation of nine**, like Liquid's federation of functionaries.
+**Adopted** in PVA's growth model: after a trial season run by PVA (2028), the nodes are sold at auction at the summer solstice of 2029 ([GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md)): from the conversion, **each node is owned separately, and anyone can own one** (a host, a sponsor, a local group); PVA writes the firmware and rules and manages the website. With each node held by its own keyholder, SUNSET moves from one central bank to a **federation of nine**, like Liquid's federation of functionaries.
 
 **The split, as in Bitcoin:**
 
@@ -149,7 +149,7 @@ The full signed blocks are what make the audit independent, but they also show w
 - **Better:** no single party can mint, add coins or change the rules; a stolen key affects one node; no one can switch SUNSET off; hosts have a stake.
 - **New risks:** collusion (with 5 of 9, five keyholders together can do what one PVA can today); coordination (the spring update and repairs need nine people); incentives (owning a node earns no cash, and paying keyholders in stamps would be a third source, so ownership is its own reward); liability (each keyholder answers for their node).
 - **The network stays a federation:** nine named keyholders, not an open network. The permissionless part of SUNSET is the couriers.
-- **The artwork:** a PVA work becomes a **commons** in year 2, like the sun that powers it. How the work and PVA's authorship are described from then is open (GROWTH.md 3.4).
+- **The artwork:** a PVA work becomes a **commons** after the auction, like the sun that powers it. How the work and PVA's authorship are described from then is open (GROWTH.md 3.4).
 
 ---
 
@@ -177,7 +177,7 @@ The full signed blocks are what make the audit independent, but they also show w
 | Reference sensor | Which small reference cell and current monitor; its calibration to panel-equivalent watt-hours |
 | Rules in the block | The rules' fingerprint in each sealed block: a field for the stamp format's next version (3) |
 | Clear-sky ceiling | The model and its margin, from the pilot's measurements at the arm's site (2.2) |
-| Owners | Adopted for year 2 (5): the terms of ownership, and the co-signing threshold for the coin list |
+| Owners | Adopted, from the 2029 auction (5): the terms of ownership, and the co-signing threshold for the coin list |
 | Souvenir coins | From the stock, or a separate coin never on the ledger (interactive-token.md 3.5) |
 | Explorer privacy | Weekly totals and full blocks at the season's end (4.3), or full blocks weekly |
 | Validity and prices | Set in the pilot, then frozen in `rules-S1` |

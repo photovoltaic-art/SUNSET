@@ -2,7 +2,7 @@
 
 **First draft, 28 October 2026.** The private agreement between the owners of SUNSET's nine nodes, intended to become part of each node's future sales contract. Not yet reviewed by a lawyer or notary; nothing here is legal advice. Italian law is assumed and must be checked locally before anyone signs.
 
-SUNSET is year 2 of PVA's growth model: SUNDIAL's nine panels become SUNSET's nodes, and each node passes to its own owner ([GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md) 3). This document says how those owners run the work together. The technical design behind it is in [tokenomics.md](tokenomics.md) 3 and 5.
+SUNSET is year 2 of PVA's growth model: SUNDIAL's nine panels become SUNSET's nodes for a trial season run by PVA (2028), and **at the summer solstice of 2029 the nine nodes are sold at auction,** each to its own owner ([GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md) 3.0). This document says how those owners run the work together. The technical design behind it is in [tokenomics.md](tokenomics.md) 3 and 5.
 
 ---
 
@@ -43,6 +43,8 @@ SUNSET is year 2 of PVA's growth model: SUNDIAL's nine panels become SUNSET's no
 | **The manifesto** | PVA's manifesto ([MANIFESTO.md](https://github.com/photovoltaic-art/PVA/blob/main/MANIFESTO.md)) as it stands on the date this agreement is signed |
 
 ### 3. What an owner holds
+
+3.0 **Buying a node.** Nodes are first sold at auction at the summer solstice of 2029, one lot per node. Agreeing to this agreement is a condition of bidding, and a bidder may win only one lot (3.3). **Each lot comes with its provenance and condition report:** the node's public record from its installation as a SUNDIAL panel to the day of the sale (days awake, blocks sealed, stamps issued and spent, service notices and repairs), drawn from its signed daily blocks and checkable by anyone on the explorer. PVA aims to offer all nine nodes, repairing or rebuilding any that failed in the trial season.
 
 3.1 **The node:** its hardware, and the right to keep it in place under the host's consent.
 
@@ -113,7 +115,7 @@ SUNSET is year 2 of PVA's growth model: SUNDIAL's nine panels become SUNSET's no
 
 8.4 **A lost or broken key.** A node whose key is lost or whose board has failed cannot sign and counts as abstaining. A replacement key is admitted by five of the other eight owners.
 
-8.5 **Unclaimed nodes.** Until a node has its first owner, PVA keeps it running. **A node held by PVA always abstains:** its key never signs a proposal. The threshold therefore always means five owners.
+8.5 **Unclaimed nodes.** Until a node has its first owner (a lot that does not sell at the auction is offered again at the next solstice), PVA keeps it running. **A node held by PVA always abstains:** its key never signs a proposal. The threshold therefore always means five owners.
 
 ### 9. The host
 
@@ -195,7 +197,8 @@ These are the rules above that the work itself enforces, for the firmware specif
 
 | Question | Notes |
 | --- | --- |
-| The price of a node | This agreement assumes nodes are sold; the price and what it covers (the conversion, the battery tier, a share of the coin batch) are open |
+| The auction | Set by the 2029 solstice auction (3.0); still open: who runs it, reserves, currency (euros or bitcoin), VAT and the artist's resale right on later resales |
+| The first vote | The 2029 rules, written by PVA, run until spring 2030; the owners' first vote is on the 2030 rules |
 | Insurance and rounds | Section 11.2 |
 | Legal form | Section 13.2; a local lawyer or notary to review before the first sale |
 | Italian text | The agreement is signed in Italian; this English draft is the working copy |

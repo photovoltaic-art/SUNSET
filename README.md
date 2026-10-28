@@ -58,4 +58,4 @@ Every panel uses the **PVA carrier board v1**, unchanged, specified and drawn in
 
 ## Status
 
-Drafts, October 2026. Year 2 of PVA's growth model: SUNDIAL's nine panels become SUNSET's nodes, each owned separately ([GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md)). Still to come: the firmware, the site plan for a first town, and permissions ([TASKS.md](TASKS.md)). The history of these documents is kept here: SUNSET's were first written in the SUNDIAL repository, GO TO BED's in the PVA repository.
+Drafts, October 2026. Year 2 of PVA's growth model: SUNDIAL's nine panels become SUNSET's nodes for a trial season run by PVA (2028); at the summer solstice of 2029 the nine nodes are sold at auction, each to its own owner ([GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md)). Still to come: the firmware, the site plan for a first town, and permissions ([TASKS.md](TASKS.md)). The history of these documents is kept here: SUNSET's were first written in the SUNDIAL repository, GO TO BED's in the PVA repository.
