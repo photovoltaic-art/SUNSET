@@ -124,6 +124,8 @@ The full signed blocks are what make the audit independent, but they also show w
 
 ## 5. Governance: nine owners
 
+> **How the owners vote and what binds them is now drafted as the owners' agreement: [GOVERNANCE.md](GOVERNANCE.md)** (28 Oct 2026). Voting is a signature made at the owner's own node and carried in its sealed block; five of nine is enforced by the firmware; PVA holds no key and no vote after handover.
+
 **Adopted for year 2** in PVA's growth model ([GROWTH.md](https://github.com/photovoltaic-art/PVA/blob/main/GROWTH.md)): from the conversion, **each node is owned separately, and anyone can own one** (a host, a sponsor, a local group); PVA writes the firmware and rules and manages the website. With each node held by its own keyholder, SUNSET moves from one central bank to a **federation of nine**, like Liquid's federation of functionaries.
 
 **The split, as in Bitcoin:**

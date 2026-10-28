@@ -31,6 +31,7 @@ TASKS.md                     what to do next: tests, sourcing, design, site
 FORK-TASKS.md                making SUNSET forkable: nine panels per town, never linked
 NODES.md                     the node catalogue: what every node must be, the tested nodes, candidates
 stamp-format.md              stamps and blocks shared by every node (v1, built on GO TO BED's v0)
+GOVERNANCE.md                the owners' agreement, first draft: voting at the node, five of nine, the manifesto as constitution
 SECURITY.md                  threat model and audit: what is robust, the gaps and their fixes, decisions, accepted risks
 security/                    the independent review (Oct 2026), in full
 tokenomics.md                the economic design: two monies, issuance by walk and sun, frozen rules, the block explorer
