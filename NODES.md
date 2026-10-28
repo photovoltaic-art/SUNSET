@@ -10,7 +10,7 @@ The nodes a SUNSET can be built from. **PVA builds and tests every node in this 
 
 A node belongs in the catalogue only if it keeps SUNSET's design. Every node:
 
-1. **Runs on its own panel and its own sun,** on the PVA carrier board v1, unchanged; a battery only on the battery tier, storing its own sun ([battery-tier.md](battery-tier.md); the manifesto's principle 3).
+1. **Runs on its own panel and its own sun,** on the PVA carrier board v1, unchanged; a battery only on the battery tier, storing its own sun ([battery-tier.md](battery-tier.md); the manifesto's principle 3). Anything the node switches or powers goes through **the SUNSET I/O board** ([io-board.md](io-board.md)), one design populated per node, not a board of its own.
 2. **Seals one block a day at sunset,** in the shared format ([stamp-format.md](stamp-format.md)). **The seal is the same on every node;** no node changes it.
 3. **Creates no stamps except from walk or the sun.** Every node pays walk stamps for first deliveries; only a node measuring sunlight with a reference sensor may pay from the sun's allowance. Everything else moves, converts or burns stamps (tokenomics.md 2).
 4. **Is offline:** no internet, and no link to another town.

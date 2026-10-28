@@ -37,6 +37,7 @@ tokenomics.md                the economic design: two monies, issuance by walk a
 wall-node.md                 the four message walls: visitor experience, messages, couriers, proof of walk
 garden-node.md               a wall node on a post, for a place with no wall: IBC tank, flower bed, sun-only watering
 battery-tier.md              carrier v1 on a battery: the tier every interactive node uses
+io-board.md                  the SUNSET I/O board: one driver board beside the carrier, populated per interactive node
 interactive-auction.md       the street auction
 interactive-arm-game.md      the arm game
 interactive-token.md         la gettoneria, the token node (proof of mint)
@@ -52,7 +53,7 @@ gtb/                         GO TO BED, the concept SUNSET grew from (moved from
 
 ## Hardware
 
-Every panel uses the **PVA carrier board v1**, unchanged, specified and drawn in the SUNDIAL repository: [hardware/CARRIER.md](https://github.com/photovoltaic-art/sundial/blob/main/hardware/CARRIER.md) and [hardware/carrier/](https://github.com/photovoltaic-art/sundial/tree/main/hardware/carrier). Wall nodes use it exactly as a SUNDIAL panel does; interactive nodes use it on the battery tier ([battery-tier.md](battery-tier.md)).
+Every panel uses the **PVA carrier board v1**, unchanged, specified and drawn in the SUNDIAL repository: [hardware/CARRIER.md](https://github.com/photovoltaic-art/sundial/blob/main/hardware/CARRIER.md) and [hardware/carrier/](https://github.com/photovoltaic-art/sundial/tree/main/hardware/carrier). Wall nodes use it exactly as a SUNDIAL panel does; interactive nodes use it on the battery tier ([battery-tier.md](battery-tier.md)), with **the SUNSET I/O board** beside it for everything they switch or power ([io-board.md](io-board.md)).
 
 ## Status
 

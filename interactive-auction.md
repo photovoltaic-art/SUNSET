@@ -44,7 +44,7 @@ Every J9 pin is now in use. More lockers, or a switch for the light supply, woul
 
 ### 2.3 The off-board driver
 
-A small board beside the carrier, on the 12 V line:
+**Now the SUNSET I/O board ([io-board.md](io-board.md)), populated for the auction:** LS1–LS3 for the locks, the level shifter, the door-switch inputs and VE.Direct. What the auction needs from it:
 
 - 3 logic-level N-MOSFETs with flyback diodes and gate pull-downs, one per lock;
 - a 12 V → 5 V buck for the interior lights (addressable RGB, a short strip per locker);
