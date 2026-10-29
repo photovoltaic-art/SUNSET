@@ -61,7 +61,7 @@ A SUNSET fork reuses its SUNDIAL fork's `site/` folder and adds to it. A fork re
   - **the website address** for the verify page, the explorer and the coins' links (5)
   - prices that are the town's choice: shout, souvenir, minting fee, listing fee (set in the pilot; stamp-format.md 9)
 - [ ] `site/texts/`: the one-screen rules, the wall plates, the page texts, notices (*what can't be posted*, the contact for reports), in the town's languages.
-- [ ] `site/art/`: the nine 5 × 5 node logos; both faces of the coin.
+- [ ] `site/art/`: both faces of the coin, with the town's name in row 3 of the PVA logo on the face ([logos/](logos/README.md)). The nine node logos are shared by every town.
 - [ ] **No constants in code:** firmware, the phone page, the explorer, the coin batch tool and the budget script read `site.json` through generated files, as SUNDIAL's `site_build.py` (SUNDIAL FORK-TASKS 2.1).
 
 ### 3. The sun, calculated for the town

@@ -46,6 +46,12 @@ Each row as five bits, left to right (1 = filled), for the firmware and the pass
 
 `node-1.svg` … `node-9.svg`: each logo at the PVA avatar's size and grid (420 × 420, 70 px cells). `node-logos-sheet.svg` and `.png`: the set beside the PVA logo.
 
+## The coin face
+
+The coins carry **the Photovoltaic Art logo with row 3 replaced by the town's name** (BOSA), not a node logo: a coin is the whole network's money, not one node's. Rows 1, 2, 4 and 5 are the PVA logo's; the name fills the width of row 3. On a 23 mm coin the mark is 13 mm square, 2.6 mm cells. A fork puts its own town's name in row 3.
+
+![Coin face mock-up](coin-face-sheet.png)
+
 ## On the wall plates
 
 The logo is **a sign to be recognised, not a code:** a phone camera cannot read a 5 × 5 pattern, and it holds only the node number. On each wall plate the node's logo sits **in the centre of the plate's QR code**, which uses the highest error correction (level H, about 30% of the code can be covered) so it still scans. Panel N carries node N's logo from SUNDIAL onwards, so one plate serves both works.

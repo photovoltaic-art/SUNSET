@@ -67,7 +67,7 @@ A bystander sees public keys and signatures, and a signature is good for one spe
 
 | Field | Meaning |
 | --- | --- |
-| `node` | The issuing node, 1–9. Its 5 × 5 logo is drawn from this number ([logos/](logos/README.md)); the logo is not in the data. **Every node's logo is unique, and never the same as the Photovoltaic Art logo:** the PVA mark stands for the project, never for a node or a stamp |
+| `node` | The issuing node, 1–9. Its 5 × 5 logo is drawn from this number ([logos/](logos/README.md)); the logo is not in the data. **Every node's logo is unique, and never the same as the Photovoltaic Art logo:** the PVA mark stands for the project, never for a node or a stamp. The coins carry the PVA logo with the town's name in row 3, the network's money rather than any node's ([logos/](logos/README.md)) |
 | `day`, `n` | The node's day and the stamp's serial that day, from 1. **Stamp ID** = `node/day/n`, e.g. `3/2027-07-14/17` |
 | `t` | The hour of issue, by the node's clock |
 | `why` | `walk` (first delivery), `skill` (arm game), `refund` (auction outbid), `payout` (auction seller), `redeem` (a token turned back into digital) |
