@@ -30,7 +30,6 @@ Every wall opens on its **dial tone:** a simple picture that says the network is
 - **Write** a short message. No account, no login. A name is only what someone types into the message.
 - **Reply** to a message with one tap.
 - **Shout:** pay to promote any whisper to a shout (2.2).
-- **Check a coin:** type the number printed on a token: *live, as far as this wall has heard*, with the date of the wall's latest news from the gateway. Every node keeps the whole coin table (interactive-token.md 2.8).
 
 ### 1.4 Carrying, without trying
 

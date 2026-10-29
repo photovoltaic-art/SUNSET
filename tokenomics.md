@@ -106,7 +106,7 @@ A part of the website (SUNSET.md 6.2) that **rebuilds every number from the sign
 | **Supply** | Stamps issued by source (walk, sun), spent by sink (shouts, fees, flips), expired, **in circulation now**, and due to expire in the next few days |
 | **Sun against stamps** | Each day's sunlight at the arm, the stamps released, and the check *released = sunlight ÷ R* |
 | **The walk network** | Which pairs of nodes delivered to each other each day, and how much of the 72 was earned (*61 of 72*): where couriers are missing |
-| **Coins** | The 1,000: in the hopper, out in town (the town's savings), spent, souvenirs; the batch list's fingerprint; lookup by printed number (interactive-token.md 2.8) |
+| **Coins** | The 1,000: in the hopper, out in town (the town's savings), spent, souvenirs; the batch list's fingerprint. **Totals only, never one coin's state** (interactive-token.md 2.8) |
 | **Chain health** | Each node's chain unbroken, days asleep, the rules on every block, so a rule change shows as a fork |
 | **Honesty** | Double spends caught, each with its two signed spends (stamp-format.md 5) |
 | **Look up a stamp** | By its ID: issued where and when (to the hour), spent or not, expiry date |

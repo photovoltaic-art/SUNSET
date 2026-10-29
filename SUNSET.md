@@ -71,7 +71,7 @@ Tokens pass from hand to hand, so nothing stops people trading with them outside
 - **What a trader can do with stamps taken:** spend tokens at the flip-dot wall, hand them on, or redeem them at the gettoneria and bid, list a lot, buy souvenirs or pay for shouts. The auction is the only place stamps buy *things* from other people.
 - **Coins suit trade.** Tokens last until 31 December, so a trader taking them needn't worry about a date for months. And when the hopper runs dry, a token is the only way to keep value, so a token may come to trade for more than a stamp: a market finding the price of durability (interactive-token.md 2.5).
 - **What it would mean:** stamps would find a price in the real town, and walking and skill would be worth more. The sun-limited issuance would become the currency's real monetary policy.
-- **The trader's risks are the trader's:** a token can be checked as **genuine** with the gettoneria's public key, and checked as live *as far as a wall has heard* or *as of the last weekly visit* online, but only the gettoneria and the flip-dot wall know for certain, so prompt redemption is the protection. Any sale for stamps is the trader's own business, receipts and tax included.
+- **The trader's risks are the trader's:** a token can be checked as **genuine** with the gettoneria's public key, by tapping it with an NFC phone anywhere, but only the gettoneria and the flip-dot wall know whether it is live, so prompt redemption at the gettoneria is the protection. Any sale for stamps is the trader's own business, receipts and tax included.
 
 ## 3. A day of SUNSET
 
@@ -141,8 +141,8 @@ Every panel needs a wall, and the owner's consent. Hosting is a fair exchange: w
 
 | Host of | What the host gets |
 | --- | --- |
-| **The gateway** (gettoneria, flip-dot wall) | Two small tasks if they agree: the **daily** return of the flip-dot column, and the **weekly** coin-table download (7.2). In return, the installation's entrance at the door: footfall, and, within the gettoneria's Wi-Fi range (roughly 30–50 m outdoors, less through walls), **live settlement** of tokens from the counter: redeem a token the moment it is handed over, or check whether it is live (interactive-token.md 3.6) |
-| **A wall node** | Couriers arriving all day; the town's shouts on the wall; spends and coins known "as far as this wall has heard" |
+| **The gateway** (gettoneria, flip-dot wall) | Two small tasks if they agree: the **daily** return of the flip-dot column, and the **weekly** download of the gettoneria's sealed blocks for the explorer's totals (7.2). In return, the installation's entrance at the door: footfall, and, within the gettoneria's Wi-Fi range (roughly 30–50 m outdoors, less through walls), **live settlement** of tokens from the counter: redeem a token the moment it is handed over, or check whether it is live (interactive-token.md 3.6) |
+| **A wall node** | Couriers arriving all day; the town's shouts on the wall; spends known "as far as this wall has heard" |
 | **A garden node** | A flower bed that waters itself, and a wall node at their tables; the tank filled from their tap in spring |
 | **Any node** | A place on people's daily routes, and the shouts that point people to it |
 
@@ -181,7 +181,7 @@ The real dashboard of SUNSET, seen only standing at a node, on its own Wi-Fi:
 
 | Node | Pages |
 | --- | --- |
-| Wall nodes | The dial tone, messages, paid shouts, the courier ticker, the passport page, and a **coin check** by printed number: *live, as far as this wall has heard* (wall-node.md; interactive-token.md 2.8) |
+| Wall nodes | The dial tone, messages, paid shouts, the courier ticker, the passport page. **No coin check:** whether a coin is live is answered only at the gateway (interactive-token.md 2.8) |
 | Gateway: gettoneria | The one-screen rules; mint, souvenir, redeem; a token's status (interactive-token.md) |
 | Gateway: flip-dot wall | The picture and its history (interactive-flipdot.md) |
 | Street auction | Today's lot, bidding, claims, the lockers' states (interactive-auction.md) |
@@ -197,7 +197,7 @@ Published like SUNDIAL's website (GitHub Pages), in Italian and English:
 | **The map** | The nine panels with their type, the gateway marked as the way in, and the visitor's own position. **Nodes only, no route** (4.3). Can reuse SUNDIAL's map code |
 | **Today** | Sunrise and sunset for the town, computed in the browser: when business opens and closes today |
 | **How it works** | The economy in plain words: earn, spend, tokens, sunset; the six kinds of node; hosts |
-| **Verify** | The token check: tap a token with an NFC phone and confirm it is **genuine** with the gettoneria's public key. The token's link opens this page with its ID and signature in the part of the address that is never sent anywhere; the check runs entirely on the phone, and the page can be saved to work offline. It also looks the coin up in the **coin table published after each weekly gateway visit** (numbers and states only, identifying no one), and says so: *live as of* that date. The live answer is at the gateway (interactive-token.md 2.8) |
+| **Verify** | **Tap a coin with an NFC phone:** the coin's link opens this page with its ID and signature in the part of the address that is never sent anywhere, and the page confirms it is **genuine** with the gettoneria's public key. The check runs entirely on the phone, and the page can be saved to work offline. It says genuine, never live: whether a coin is live is answered only at the gateway (interactive-token.md 2.8) |
 | **Explorer** | The supply, the sun against stamps, the walk network, coins, chain health and double spends, all recomputed from the signed blocks; totals weekly, the full signed record at the season's end ([tokenomics.md](tokenomics.md) 4) |
 | **Archive** | Only what is collected from the nodes: the flip-dot picture at each sunset (the season's time-lapse) and simple counts (lots auctioned, stamps minted, dots flipped). **Never messages, and nothing attributable** |
 
@@ -229,7 +229,7 @@ Any node can post a **service notice:** a free node notice, carried by couriers 
 
 | Task | Rhythm |
 | --- | --- |
-| **Coin table** | **Weekly:** a dedicated visit to the gettoneria to download the coin table and publish it for the Verify page, never more than a week old. A few minutes; PVA or the gateway's host (interactive-token.md 2.8). Weekly at most: more often would make coin movements easier to link |
+| **Explorer totals** | **Weekly:** a short visit to the gettoneria to download the sealed blocks it holds (couriers bring every node's blocks there), so the explorer's totals are never more than a week old. Totals only, never one coin's state. PVA or the gateway's host (tokenomics.md 4) |
 | Data collection (archive, counts) | **Fortnightly**, with SUNDIAL's round when both are in the same town. SUNSET produces very little data: a day's flip-dot picture is under 50 bytes, so even a monthly round would lose nothing |
 | Battery, Victron, heat and enclosure checks | Fortnightly, on the same round |
 | Flip-dot panel | Every round: compressed air, then a vacuum at minimum suction; replace stuck dots. The manual asks for at least every 4 weeks (interactive-flipdot.md 3.7) |

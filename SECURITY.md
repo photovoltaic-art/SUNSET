@@ -158,7 +158,7 @@ All nine nodes answer at `http://192.168.4.1`. That shared address is what lets 
 
 | Threat | Status | Detail and fix |
 | --- | --- | --- |
-| **The live coin lookup tracks coins** (M6, contradiction 10) | **Gap** (with D2) | A lookup by printed number at any wall, any time, contradicts the weekly-only coin table. Fix: away from the gateway, answer only *genuine / not genuine*; per-coin state at the gettoneria only, for the coin in the slot |
+| **The live coin lookup tracks coins** (M6, contradiction 10) | **Fixed (29 Oct 2026):** no coin check at the walls and no printed number; live state only at the gateway, Verify by tap says genuine only, totals only online | A lookup by printed number at any wall, any time, contradicts the weekly-only coin table. Fix: away from the gateway, answer only *genuine / not genuine*; per-coin state at the gettoneria only, for the coin in the slot |
 | Stamp lookup by ID | **Gap** | Remove, or delay to the season's end |
 | Linking stamps spent together; routes from walk stamps (M6) | **Gap, mitigated** | Weekly totals only, full blocks at the season's end (tokenomics.md 4.3); consider publishing only totals and commitments |
 | A node owner logs what their radio sees (M6) | **Accepted, stated** | The rules say plainly that a node's owner can log anything their radio hears |
@@ -265,7 +265,7 @@ All nine nodes answer at `http://192.168.4.1`. That shared address is what lets 
 | 7 | Double spend "at most one extra use" | **Fixed** in stamp-format.md 5.2 |
 | 8 | Stolen-key stamps "fail check 4" vs check 4 skipped | Hard checks and the grace period (4.4). To edit stamp-format.md 3.3, 3.4, 5.1 |
 | 9 | Clear-sky ceiling enforced only by the explorer | **Fixed** in tokenomics.md's wording; enforcement in 4.4 |
-| 10 | Weekly coin table vs a live lookup at every node | Lookup reduced (4.8). To edit wall-node.md 1.3, interactive-token.md 3.6 |
+| 10 | Weekly coin table vs a live lookup at every node | **Resolved (29 Oct 2026):** both removed; live state only at the gateway, genuine by tap anywhere (interactive-token.md 2.8) |
 | 11 | The close of day: sunset vs dusk by panel voltage | **The seal is unchanged.** Only to write down, in wall-node.md, what a wall already does under GO TO BED when its light fails before sunset |
 | 12 | GPIO 17 still listed as VE.Direct TX | **Fixed** in interactive-auction.md and interactive-audio.md |
 | 13 | "Nothing worth copying crosses the open Wi-Fi" | **Fixed** in SUNSET.md and stamp-format.md 3.1: true for listeners, not for a fake network |

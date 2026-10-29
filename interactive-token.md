@@ -38,7 +38,7 @@ The gettoneria **creates no stamps.** Tokens are only ever paid out against digi
 
 | | |
 | --- | --- |
-| **Coin** | Printed plastic, the size of a trolley token: about 23 mm across, 2–3 mm thick. Printed both sides. **Face: nine squares from the Photovoltaic Art logo (one for each panel), a large B for Bosa, and the batch year either side of it: 20 B 28** ([logos/coin-face.svg](logos/coin-face.svg)), not a node logo: a coin belongs to the town's whole network, not to the gettoneria. Each year's batch carries its own year. **Back: an NTAG 424 DNA tag on a PET plastic sticker** (below), printed with the coin's **number, 0001–1000**, like a banknote's serial: the number to check it by anywhere (2.8) |
+| **Coin** | Printed plastic, the size of a trolley token: about 23 mm across, 2–3 mm thick. Printed both sides. **Face: nine squares from the Photovoltaic Art logo (one for each panel), a large B for Bosa, and the batch year either side of it: 20 B 28** ([logos/coin-face.svg](logos/coin-face.svg)), not a node logo: a coin belongs to the town's whole network, not to the gettoneria. Each year's batch carries its own year. **Back: an NTAG 424 DNA tag on a plain PET plastic sticker** (below). **No printed number:** a coin is identified by its tag, and a visible number would only make coins easier to follow from hand to hand |
 | **Tag** | **NTAG 424 DNA** on a round **PET plastic sticker** on the back of the coin (SECURITY.md D2, decided 29 Oct 2026). Each tag has its own AES key, so **it cannot be cloned**: the gettoneria and the flip-dot wall authenticate it before honouring the coin. **To check:** that the sticker's adhesive bonds to the coin's plastic (some plastics, such as PP and PE, need a primer or a different glue) and survives the hopper and the acceptor; that the sticker's thickness is allowed for in the coin's size for the hopper and acceptor |
 | **Value** | **Every token is worth one stamp**, as every digital stamp is. A hopper pays out one kind of coin, so there are no denominations: five stamps are five tokens |
 | **Assembly** | By PVA, in **one batch a year,** before the season: write each tag, record it, assemble, load the hopper (2.2) |
@@ -50,14 +50,14 @@ The gettoneria **creates no stamps.** Tokens are only ever paid out against digi
 ### 2.2 The batch: once a year, then closed
 
 1. A roll of NTAG 424 DNA stickers is written on the bench: each tag gets its link and signature and its own AES key, and is locked so no phone can rewrite it.
-2. Each tag's ID is recorded in the batch list against the coin's printed number, state *in the hopper*.
-3. The stickers are applied to the backs of the coins, matching each tag to its printed number; the coins are loaded into the hopper.
+2. Each tag's ID is recorded in the batch list, state *in the hopper*.
+3. The stickers are applied to the backs of the coins; the coins are loaded into the hopper.
 4. The batch list goes into the gettoneria's flash, and from there into its sealed block (`tokens`, stamp-format.md 6), so every node learns which IDs exist.
 5. **The list's fingerprint goes into the season's rules** ([tokenomics.md](tokenomics.md) 3), compiled into the firmware of all nine nodes, and is published.
 
 **The coin press opens once a year, in public, and then closes.**
 
-- **Every node refuses any coin ID not on the year's list:** the flip-dot wall won't accept it, the gettoneria won't redeem it, a wall's coin check reports it *unknown*, and the explorer flags it.
+- **Every node refuses any coin ID not on the year's list:** the flip-dot wall won't accept it, the gettoneria won't redeem it, a `redeem` stamp naming it is refused at every node, and the explorer flags it.
 - **A redeemed stamp carries the coin's ID** (stamp-format.md 3.2), so even a tampered gettoneria redeeming coins that aren't on the list would show, at every node that checks it and in the explorer.
 - **The signature alone isn't enough:** whoever holds the gettoneria's key could sign new tags. What closes the press is the frozen list, checked by every node.
 - **No coins are added during the year,** by PVA or anyone: lost coins and souvenirs aren't replaced until the next year's batch. The stock can only shrink in a season; the buffer of 500 (2.7) is what absorbs it.
@@ -120,18 +120,17 @@ Because tokens last the year and digital stamps don't, SUNSET has two kinds of m
 - **Redemption can never fail.** Redeeming re-issues digital stamps, which need no reserve, so a rush to redeem is just a busy hour, never a run on the bank. The only shortage possible is the opposite: the hopper running out of coins to mint with, which is what the buffer is for.
 - **Where the coins are:** the hopper holds a few hundred (to confirm with Slomatic for these tokens: 4.1). The rest wait in a **reserve tube** inside the enclosure, which PVA tips into the hopper when *tokens running low* appears. All 1,000 are made in the year's one batch (2.2): there is no store of extra coins.
 - **The ledger stays tiny:** 1,000 lines, whatever happens (2.3).
-- **The cost:** at very roughly €0.50–1.50 a token (tag, plastic, printing, assembly), **€500–1,500** for the stock, in the budget (TASKS.md).
+- **The cost:** at very roughly €1.75 a token (NTAG 424 DNA sticker, plastic, printing, assembly), **about €1,750** for the stock, in the budget (TASKS.md).
 
-### 2.8 One ledger, held by every node
+### 2.8 The ledger: live at the gateway, genuine anywhere
 
-Because the ledger is only 1,000 lines (about 12 KB), **every SUNSET node keeps the whole coin table**, not only the gateway pair.
+- **The live ledger is held only by the gateway pair.** The gettoneria and the flip-dot wall hold each coin's state, shared within a second over ESP-NOW. They are the only places a coin can be used, so they are the only places that say whether a coin is live.
+- **Every node holds the year's coin list** (the IDs and their fingerprint, not their states), so a `redeem` stamp naming a coin not on the list is refused everywhere. State changes still travel in the gateway's sealed blocks (`tokens`, stamp-format.md 6), so the explorer can count them.
+- **No coin check at the walls.** No wall, and no page online, answers whether a particular coin is live: a per-coin lookup lets anyone see which coins are out in town (SECURITY.md 4.6, M6).
+- **Verify by tap, anywhere:** tap a coin with an NFC phone and the website's **Verify** page, which works offline once saved, confirms it is **genuine** from the gettoneria's public key. Genuine, not live.
+- **Online, totals only:** the explorer publishes the coins in the hopper, out in town, spent and kept as souvenirs, recomputed from the sealed blocks; never one coin's state.
 
-- **How it spreads:** every change of state is written into the gettoneria's or the flip-dot wall's sealed block (`tokens`, stamp-format.md 6). Couriers carry those blocks to every node, as they carry everything else, and each node updates its own copy of the table. Nothing new travels and nothing goes online.
-- **Where the final answer is:** the gettoneria and the flip-dot wall hold the **live** state, shared within a second over ESP-NOW. They are the only places a coin can be used, so theirs is the answer that counts.
-- **Everywhere else, honestly delayed:** any node can answer *"live, as far as this node has heard"*, with the date of its latest news from the gateway, the same honest wording the walls already use for news.
-- **Online, as of the last weekly visit:** once a week, PVA (or the gateway's host) makes a **dedicated visit to the gettoneria**, downloads the coin table over its Wi-Fi in a few seconds, and publishes it on the website: numbers and states only, which identify no one. Anyone with internet can look a coin up, clearly marked *as of* that date (SUNSET.md 6.2).
-
-**Three answers, each honest about its age:** live at the gateway; as far as this node has heard at any wall; as of the last weekly visit online (never more than a week old). That is the compromise: a transparent ledger, copied across every node and published, while SUNSET itself stays offline, always.
+**Two answers:** genuine anywhere, by a tap; live only at the gateway, where a coin is used.
 
 ## 3. The flows
 
@@ -177,7 +176,7 @@ A visitor can **buy a token to keep,** for a price in stamps set in the pilot. I
 
 **Touch a token on the gettoneria's status pad,** a marked spot on its front with a reader behind it. The light shows green (live) or red (not), and the gettoneria's page shows the token's state and valid-until date to anyone on its Wi-Fi. No phone is needed to check, only to read the date on the page.
 
-**At any other node:** type the coin's printed number on the node's page: *live, as far as this node has heard* (2.8). **Online:** the Verify page looks the coin up in the table published after the last weekly gateway visit, *as of* that date.
+**Anywhere else:** tap the coin with an NFC phone to confirm it is genuine (2.8). Whether it is live is answered only here and at the flip-dot wall.
 
 Useful to anyone accepting tokens, such as a bar near the gettoneria (SUNSET.md 4.2). A bar can also **redeem a token on the spot** the moment it is handed over: a token redeemed this second cannot have been used elsewhere.
 
