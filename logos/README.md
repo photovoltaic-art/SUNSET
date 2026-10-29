@@ -51,7 +51,7 @@ Each row as five bits, left to right (1 = filled), for the firmware and the pass
 The coins carry **nine squares from the Photovoltaic Art logo, the town's initial and the batch year**, not a node logo: a coin is the whole network's money, not one node's.
 
 - **Nine squares, like the nine panels:** the PVA logo's rows 1, 2, 4 and 5, with the centre of row 2 left empty and row 3 cleared.
-- **B for Bosa,** large, in the white space at the centre, standing on row 3's baseline and rising into row 2. It has the same clear space (about 0.26 mm on the coin) below row 1's squares as above row 4's centre square.
+- **B for Bosa,** large, in the white space at the centre, standing on row 3's baseline and rising into row 2. **At least 0.5 mm of clear space everywhere:** between the B and row 1's squares above and row 4's centre square below, between the year and the squares of rows 2 and 4, and between the year and the B, so the print holds on plastic.
 - **The batch year either side of the B:** 20 and 28, centred in row 3. Each year's batch of 1,000 coins carries its own year, so last year's coins, no longer valid after 31 December, can be told apart at a glance. The first batch is for SUNSET's trial season, 2028.
 - **Size:** on a 23 mm coin the mark is 17 mm square (3.4 mm cells), as large as fits inside the rim.
 
