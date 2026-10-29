@@ -20,7 +20,7 @@ It does everything a wall node does (messages, shouts, couriers, walk stamps: [w
 
 ```
             ┌──────────┐  ← gnomon root, panel top, about 2.6 m
-            │  panel   │     (the gnomon and hour brackets as on every PVA panel)
+            │  panel   │     (the gnomon, hour lines and date marks as on every PVA panel)
             │  (south) │
             │          │
             └────┬─────┘  ← panel bottom edge
@@ -33,7 +33,7 @@ It does everything a wall node does (messages, shouts, couriers, walk stamps: [w
 
 | Part | Specification |
 | --- | --- |
-| Panel and sundial | As every PVA panel: vertical, due south, 50° gnomon, 13 hour brackets ([GNOMON.md](https://github.com/photovoltaic-art/SUNDIAL/blob/main/hardware/GNOMON.md)) |
+| Panel and sundial | As every PVA panel: vertical, due south, 45 cm gnomon at 50°, hour lines and date marks, no numbers ([GNOMON.md](https://github.com/photovoltaic-art/SUNDIAL/blob/main/hardware/GNOMON.md)) |
 | Post | Steel upright(s) rising from a base frame that also holds the IBC cage; heights as POST.md 3.1, raised as needed so the gnomon tip clears heads standing at the bed |
 | Tank | A standard **IBC** (intermediate bulk container): about 1000 L, about 1.2 × 1.0 × 1.15 m, a steel cage around an HDPE bottle |
 | Flower bed | A shallow planter on the cage top (about 1.2 × 1.0 m), or a bed around the base |
