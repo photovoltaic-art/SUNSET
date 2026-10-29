@@ -38,7 +38,7 @@ It runs on carrier v1 on the battery tier: the panel feeds a Victron SmartSolar 
 
 ### 2.1 No double spending, without a phone
 
-A token's cheap NFC tag can be cloned. If the flip-dot wall and the gettoneria each kept their own ledger, a clone could be spent here and the original redeemed at the gettoneria before couriers carried the news between them.
+The coins use unclonable NTAG 424 DNA tags (SECURITY.md D2), but a shared ledger is still needed: if the flip-dot wall and the gettoneria each kept their own ledger, a coin spent here (and dropped in the column) would still look live at the gettoneria until couriers carried the news between them.
 
 **The fix: the two nodes share one ledger in real time,** over **ESP-NOW**, the ESP32's own board-to-board radio link. It needs no access point, uses little power, and reaches tens of metres along a street (more in line of sight). Every spend at either node is known to the other within a second, so nothing can be spent twice.
 

@@ -47,7 +47,7 @@ lines=[
 ("Gettoneria","I2C multiplexer, ccTalk interface, status light",1,20,E,"","Yes"),
 ("Gettoneria","Two-way flap solenoid and driver",1,20,E,"","Yes"),
 ("Gettoneria","Steel housing with slot, cups, reject box, reserve tube",1,450,E,"Local fabrication","Yes"),
-("Gettoneria","Tokens: printed coin, NTAG213 tag, printed number, assembled",1000,1.0,E,"€0.50–1.50 each (interactive-token.md 2.7); 500 core + 500 buffer","Yes"),
+("Gettoneria","Tokens: printed coin, NTAG 424 DNA PET sticker with printed number, assembled",1000,1.75,E,"€0.50–1.50 for the coin and a cheap tag, plus €0.50–1 for NTAG 424 DNA (SECURITY.md D2); 500 core + 500 buffer","Yes"),
 ("Gettoneria","USB NFC writer for batches (bench)",1,45,E,"","Yes"),
 
 ("Flip-dot wall","Alfa-Zeta XY5 14 x 28 panel, yellow on black, controller included",2,440,Q,"Alfa-Zeta quote, 23 Oct 2026","Yes"),

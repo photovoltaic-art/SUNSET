@@ -30,7 +30,7 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 ## Security (SECURITY.md)
 
 - [x] Threat model and independent review, merged (27 Oct 2026).
-- [ ] **Decide D1–D5** (SECURITY.md 5): shared or per-node address; NTAG213 or NTAG 424 DNA coins; walk stamps by lottery and touch; arm by joystick; payout expiry.
+- [ ] **Decide D1, D3–D5** (SECURITY.md 5; **D2 decided 29 Oct 2026: NTAG 424 DNA coins**): shared or per-node address; walk stamps by lottery and touch; arm by joystick; payout expiry.
 - [ ] **Spend checks** in the format: `day`/`exp`/role, in-network bounds, quarantine, equivocation proofs, k-of-n revocation, the gettoneria's mint gate (SECURITY.md 4.4). Before any firmware.
 - [ ] **Format hardening:** RFC 8785, strict Ed25519, actions bound into spend signatures, aggregated entries and per-role size limits; test vectors in the test bed (SECURITY.md 4.4).
 - [ ] **Passport:** PIN encryption, holding cap, inlined no-store page, node identity check (SECURITY.md 4.1).
@@ -47,7 +47,7 @@ Carried over from GO TO BED (gtb/GO-TO-BED.md, "Tests, in order"), extended for 
 - [ ] **Arm:** Waveshare RoArm-M2-S (interactive-arm-game.md 2.1). Check the servos' and UART's voltage limits before wiring.
 - [ ] **Flip-dot panel:** Alfa-Zeta quoted 23 Oct 2026: 14 × 28 €440, 7 × 28 €220, controller included, shipping €25, 1–4 weeks (interactive-flipdot.md 3). Protocol and manual received; second reply 25 Oct: controller does nothing at power-up, flips only changed dots (first frame after power-up energises all), steel housing with glass window, 14 × 28 dimension drawing received (proprietary: kept privately, envelope in interactive-flipdot.md 3.8), spare dots €0.50 each. 1 × 7 strips €20 each (RS-485; the strip's manual says 10–16 V, the email 24 V: confirm) for BINARY: two make a row of 14. Consider one extra 7 × 28 (€220) as bench piece and spare. **Decided: two 14 × 28, stacked as a 28 × 28 square, yellow on black (€880 + €25 shipping).** Tell Alfa-Zeta when ordering (the follow-up said one panel, colour to confirm). Order for SUNSET's year (after SUNDIAL's first).
 - [ ] **Battery tier, per interactive node:** Victron SmartSolar MPPT 75/15, 12 V LiFePO₄, fuses, enclosure (battery-tier.md).
-- [ ] **Gettoneria:** Slomatic X3 EXP hopper, 12 V, ccTalk (interactive-token.md 4.1); **ask Slomatic whether it pays plastic tokens reliably**, or what token weight it needs. **1,000 tokens** (500 core, 500 buffer: interactive-token.md 2.7; about €500–1,500), about 23 mm, printed plastic, perhaps a metal insert; NTAG213 tags on a roll, a USB NFC writer for batches, PN532 readers.
+- [ ] **Gettoneria:** Slomatic X3 EXP hopper, 12 V, ccTalk (interactive-token.md 4.1); **ask Slomatic whether it pays plastic tokens reliably** (with an NTAG 424 DNA PET sticker on one face; **check the coin plastic is compatible with the sticker's glue**), or what token weight it needs. **1,000 tokens** (500 core, 500 buffer: interactive-token.md 2.7; about €1,750), about 23 mm, printed plastic, perhaps a metal insert; NTAG 424 DNA tags on PET stickers, a USB NFC writer for batches, PN532 readers.
 - [ ] **The SUNSET set:** a Bluetooth speaker for the speaker locker (interactive-audio.md).
 
 ## Design still open

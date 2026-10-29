@@ -38,19 +38,20 @@ The gettoneria **creates no stamps.** Tokens are only ever paid out against digi
 
 | | |
 | --- | --- |
-| **Coin** | Printed plastic, the size of a trolley token: about 23 mm across, 2–3 mm thick. Printed both sides. **Face: nine squares from the Photovoltaic Art logo (one for each panel), a large B for Bosa, and the batch year either side of it: 20 B 28** ([logos/coin-face.svg](logos/coin-face.svg)), not a node logo: a coin belongs to the town's whole network, not to the gettoneria. Each year's batch carries its own year. Other face: the coin's **number, 0001–1000**, and any further artwork (to be designed, 6). The number works like a banknote's serial: the number to check it by anywhere (2.8) |
-| **Tag** | A small round NFC tag (NTAG213 class) set into a recess in the coin, under the print |
+| **Coin** | Printed plastic, the size of a trolley token: about 23 mm across, 2–3 mm thick. Printed both sides. **Face: nine squares from the Photovoltaic Art logo (one for each panel), a large B for Bosa, and the batch year either side of it: 20 B 28** ([logos/coin-face.svg](logos/coin-face.svg)), not a node logo: a coin belongs to the town's whole network, not to the gettoneria. Each year's batch carries its own year. **Back: an NTAG 424 DNA tag on a PET plastic sticker** (below), printed with the coin's **number, 0001–1000**, like a banknote's serial: the number to check it by anywhere (2.8) |
+| **Tag** | **NTAG 424 DNA** on a round **PET plastic sticker** on the back of the coin (SECURITY.md D2, decided 29 Oct 2026). Each tag has its own AES key, so **it cannot be cloned**: the gettoneria and the flip-dot wall authenticate it before honouring the coin. **To check:** that the sticker's adhesive bonds to the coin's plastic (some plastics, such as PP and PE, need a primer or a different glue) and survives the hopper and the acceptor; that the sticker's thickness is allowed for in the coin's size for the hopper and acceptor |
 | **Value** | **Every token is worth one stamp**, as every digital stamp is. A hopper pays out one kind of coin, so there are no denominations: five stamps are five tokens |
 | **Assembly** | By PVA, in **one batch a year,** before the season: write each tag, record it, assemble, load the hopper (2.2) |
 
 - **What the tag holds** (written once, then locked): a link to the website's **Verify** page, with the token's ID and the gettoneria's **Ed25519 signature** over that ID in the part of the address after `#`, which a browser never sends anywhere (stamp-format.md 4). Tapping a token with an NFC phone opens it.
+- **Its AES key** (NTAG 424 DNA), set at the batch and never readable from the tag. The gettoneria and the flip-dot wall prove each coin is the original by an AES challenge before redeeming or spending it; a copied link alone fails. How the keys are derived and held (a batch master key in the two gateway nodes only) is to specify before firmware.
 - **What the tag doesn't hold:** value, owner or date. Whether a token is live, and until when, is in the **ledger** (2.3), never on the coin.
 
 ### 2.2 The batch: once a year, then closed
 
-1. A roll of NFC tags is written on the bench: each tag gets its link and signature, and is locked so no phone can rewrite it.
+1. A roll of NTAG 424 DNA stickers is written on the bench: each tag gets its link and signature and its own AES key, and is locked so no phone can rewrite it.
 2. Each tag's ID is recorded in the batch list against the coin's printed number, state *in the hopper*.
-3. Tags are set into the coins; the coins are loaded into the hopper.
+3. The stickers are applied to the backs of the coins, matching each tag to its printed number; the coins are loaded into the hopper.
 4. The batch list goes into the gettoneria's flash, and from there into its sealed block (`tokens`, stamp-format.md 6), so every node learns which IDs exist.
 5. **The list's fingerprint goes into the season's rules** ([tokenomics.md](tokenomics.md) 3), compiled into the firmware of all nine nodes, and is published.
 
@@ -287,7 +288,9 @@ One of the lightest interactive nodes.
 | --- | --- |
 | **Token material: hopper, acceptor and NFC together** | The first thing to settle. Hoppers want weight, and coin acceptors recognise coins mainly by their metal, **but metal near an NFC tag detunes it, and a metal ring around the tag stops it working.** Options: plastic only, with a size-and-optical acceptor (not inductive); or a metal weight behind the tag with a ferrite layer and an *on-metal* NFC tag. Ask Slomatic for the hopper's tested range; test acceptor and tag together in the pilot |
 | **Artwork** | The design of both faces of the token |
-| Tag size | A tag small enough for a 23 mm coin that still reads reliably at the chutes and with phones |
+| Tag size | An NTAG 424 DNA sticker small enough for a 23 mm coin (about 20 mm) that still reads reliably at the chutes and with phones |
+| **Sticker adhesive** | Check that the PET sticker's glue bonds to the coin plastic and survives the hopper; test samples before ordering 1,000 |
+| AES with PN532 readers | NTAG 424 DNA needs ISO 14443-4 commands and AES on the ESP32; confirm on the bench with the PN532 class readers already specified |
 | Souvenir price | How many stamps a token to keep costs (3.5) |
 | Minting fee | How many stamps per mint (3.4) |
 | Reject box | What happens to its contents: counted and shown, like the double-spend count (stamp-format.md 5.2) |

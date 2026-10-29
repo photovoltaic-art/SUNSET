@@ -126,8 +126,8 @@ Check 4 is skipped only when the issuer's block hasn't arrived yet: a fresh stam
 
 Tokens are specified in [interactive-token.md](interactive-token.md); this is their data.
 
-- **A token** is a printed plastic coin with a cheap NFC tag (NTAG213 class) inside. **Every token is worth one stamp.**
-- **The tag** is written once in a batch, then locked. It holds a link to the website's Verify page carrying the token's **ID** (the tag's own unique ID) and the gettoneria's **Ed25519 signature** over that ID, after the `#` so the browser never sends them. Nothing else: no value, no date, no secret.
+- **A token** is a printed plastic coin with an **NTAG 424 DNA** tag on a PET sticker on its back: each tag has its own AES key, so a coin cannot be cloned (SECURITY.md D2). **Every token is worth one stamp.**
+- **The tag** is written once in a batch, then locked. It holds a link to the website's Verify page carrying the token's **ID** (the tag's own unique ID) and the gettoneria's **Ed25519 signature** over that ID, after the `#` so the browser never sends them. Nothing else readable: no value, no date. Its AES key is set at the batch and never leaves the tag; the gettoneria and the flip-dot wall check it before honouring a coin.
 - **Genuine** is checkable anywhere, offline, from the gettoneria's public key: by any node, and by the website's Verify page on any NFC phone.
 - **Live, and until when,** is in the **ledger**, never on the coin: each ID is *in the hopper*, *issued* (with a valid-until date), *spent* or *souvenir* (interactive-token.md 2.3). The gettoneria and the flip-dot wall keep it live and share every change over ESP-NOW (interactive-flipdot.md 2.1). Redemption is at the gettoneria only; spending tokens is at the flip-dot wall only.
 - **Every node keeps the whole coin table** (about 12 KB for 1,000 coins), updated from the `tokens` records couriers bring, and answers *live, as far as this node has heard*. The table is published on the website after a **weekly visit to the gettoneria**, *as of* that date (interactive-token.md 2.8).
