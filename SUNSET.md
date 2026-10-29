@@ -37,7 +37,7 @@ Every panel uses the **PVA carrier board v1** ([CARRIER.md](https://github.com/p
 
 ## 2. The stamp economy
 
-**One stamp type** everywhere. Each stamp carries the **5 × 5 logo** of the node that issued it, so its origin is visible, but every stamp spends the same. **Every node's logo is unique, and no node's logo is ever the same as the Photovoltaic Art logo:** the PVA mark stands for the project, never for a node or a stamp. The coins carry the PVA logo with the town's name in row 3, the network's money rather than any node's ([logos/](logos/README.md)). Stamps are **bearer**: no accounts, no names. They live in the visitor's **passport page** on their phone, or as **tokens**, coins in the hand (2.3).
+**One stamp type** everywhere. Each stamp carries the **5 × 5 logo** of the node that issued it, so its origin is visible, but every stamp spends the same. **Every node's logo is unique, and no node's logo is ever the same as the Photovoltaic Art logo:** the PVA mark stands for the project, never for a node or a stamp. The coins carry nine squares from the PVA logo with the town's initial and the batch year (20 B 28), the network's money rather than any node's ([logos/](logos/README.md)). Stamps are **bearer**: no accounts, no names. They live in the visitor's **passport page** on their phone, or as **tokens**, coins in the hand (2.3).
 
 ### 2.1 Every node is a proof
 

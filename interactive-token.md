@@ -38,7 +38,7 @@ The gettoneria **creates no stamps.** Tokens are only ever paid out against digi
 
 | | |
 | --- | --- |
-| **Coin** | Printed plastic, the size of a trolley token: about 23 mm across, 2–3 mm thick. Printed both sides. **Face: the Photovoltaic Art logo with row 3 replaced by the town's name, BOSA, and the centre of row 2 left empty: nine squares, one for each panel** ([logos/coin-face.svg](logos/coin-face.svg)), not a node logo: a coin belongs to the town's whole network, not to the gettoneria. Other face: the coin's **number, 0001–1000**, and any further artwork (to be designed, 6). The number works like a banknote's serial: the number to check it by anywhere (2.8) |
+| **Coin** | Printed plastic, the size of a trolley token: about 23 mm across, 2–3 mm thick. Printed both sides. **Face: nine squares from the Photovoltaic Art logo (one for each panel), a large B for Bosa, and the batch year either side of it: 20 B 28** ([logos/coin-face.svg](logos/coin-face.svg)), not a node logo: a coin belongs to the town's whole network, not to the gettoneria. Each year's batch carries its own year. Other face: the coin's **number, 0001–1000**, and any further artwork (to be designed, 6). The number works like a banknote's serial: the number to check it by anywhere (2.8) |
 | **Tag** | A small round NFC tag (NTAG213 class) set into a recess in the coin, under the print |
 | **Value** | **Every token is worth one stamp**, as every digital stamp is. A hopper pays out one kind of coin, so there are no denominations: five stamps are five tokens |
 | **Assembly** | By PVA, in **one batch a year,** before the season: write each tag, record it, assemble, load the hopper (2.2) |

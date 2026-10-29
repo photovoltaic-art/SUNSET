@@ -48,7 +48,14 @@ Each row as five bits, left to right (1 = filled), for the firmware and the pass
 
 ## The coin face
 
-The coins carry **the Photovoltaic Art logo with row 3 replaced by the town's name** (BOSA) and nine squares, not a node logo: a coin is the whole network's money, not one node's. Rows 1, 2, 4 and 5 are the PVA logo's, except that **the centre of row 2 is left empty**, so the coin carries **nine squares, like the nine panels**; the name fills the width of row 3. On a 23 mm coin the mark is 17 mm square (3.4 mm cells), as large as fits inside the rim: its outer corners sit just inside it. A fork puts its own town's name in row 3.
+The coins carry **nine squares from the Photovoltaic Art logo, the town's initial and the batch year**, not a node logo: a coin is the whole network's money, not one node's.
+
+- **Nine squares, like the nine panels:** the PVA logo's rows 1, 2, 4 and 5, with the centre of row 2 left empty and row 3 cleared.
+- **B for Bosa,** large, in the white space at the centre, standing on row 3's baseline and rising into row 2. It has the same clear space (about 0.26 mm on the coin) below row 1's squares as above row 4's centre square.
+- **The batch year either side of the B:** 20 and 28, centred in row 3. Each year's batch of 1,000 coins carries its own year, so last year's coins, no longer valid after 31 December, can be told apart at a glance. The first batch is for SUNSET's trial season, 2028.
+- **Size:** on a 23 mm coin the mark is 17 mm square (3.4 mm cells), as large as fits inside the rim.
+
+A fork uses its own town's initial and its own batch years.
 
 ![Coin face mock-up](coin-face-sheet.png)
 
