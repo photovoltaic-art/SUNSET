@@ -48,7 +48,7 @@ Each row as five bits, left to right (1 = filled), for the firmware and the pass
 
 ## The coin face
 
-The coins carry **the Photovoltaic Art logo with row 3 replaced by the town's name** (BOSA), not a node logo: a coin is the whole network's money, not one node's. Rows 1, 2, 4 and 5 are the PVA logo's; the name fills the width of row 3. On a 23 mm coin the mark is 17 mm square (3.4 mm cells), as large as fits inside the rim: its outer corners sit just inside it. A fork puts its own town's name in row 3.
+The coins carry **the Photovoltaic Art logo with row 3 replaced by the town's name** (BOSA) and nine squares, not a node logo: a coin is the whole network's money, not one node's. Rows 1, 2, 4 and 5 are the PVA logo's, except that **the centre of row 2 is left empty**, so the coin carries **nine squares, like the nine panels**; the name fills the width of row 3. On a 23 mm coin the mark is 17 mm square (3.4 mm cells), as large as fits inside the rim: its outer corners sit just inside it. A fork puts its own town's name in row 3.
 
 ![Coin face mock-up](coin-face-sheet.png)
 
