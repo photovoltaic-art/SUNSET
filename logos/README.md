@@ -46,4 +46,8 @@ Each row as five bits, left to right (1 = filled), for the firmware and the pass
 
 `node-1.svg` … `node-9.svg`: each logo at the PVA avatar's size and grid (420 × 420, 70 px cells). `node-logos-sheet.svg` and `.png`: the set beside the PVA logo.
 
+## On the wall plates
+
+The logo is **a sign to be recognised, not a code:** a phone camera cannot read a 5 × 5 pattern, and it holds only the node number. On each wall plate the node's logo sits **in the centre of the plate's QR code**, which uses the highest error correction (level H, about 30% of the code can be covered) so it still scans. Panel N carries node N's logo from SUNDIAL onwards, so one plate serves both works.
+
 A fork keeps the same nine logos: they belong to the node numbers, not to a town.

@@ -143,7 +143,7 @@ Specified in **[stamp-format.md](stamp-format.md)**, shared by every node. In sh
 | **Phone storage** | Couriers carry blocks in the browser. The captive-portal pop-up browser on some phones keeps no storage between networks; visitors may need to open the page in their normal browser. **The carry test is ready to run:** [gtb/carry_test/TEST.md](gtb/carry_test/TEST.md) |
 | Message length | 140 characters in v0; confirm in the pilot |
 | Shout price | How many stamps a shout costs, and whether the price rises when many shouts are waiting |
-| Wall plate | Number, logo, network name, and a QR to join |
+| Wall plate | Number, logo, network name, and a QR code. **The node's logo sits in the centre of the QR code** (error correction level H), so the plate shows one mark that people recognise and any phone can scan; the same plate as SUNDIAL's, which opens `/?p=N` ([logos/](logos/README.md)) |
 
 ## 7. Pilot tasks
 
